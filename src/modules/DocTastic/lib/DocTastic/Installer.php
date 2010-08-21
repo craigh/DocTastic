@@ -25,6 +25,8 @@ class DocTastic_Installer extends Zikula_Installer
     public function install()
     {
         ModUtil::setVar('DocTastic', 'navType', 0);
+        ModUtil::setVar('DocTastic', 'addCore', 1);
+        ModUtil::setVar('DocTastic', 'enableLanguages', 1);
         return true;
     }
     

@@ -54,13 +54,17 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             return LogUtil::registerPermissionError();
         }
 
-        $navType = FormUtil::getPassedValue('navType');
+        $modVars = array(
+            'navType' => FormUtil::getPassedValue('navType', 0, 'POST'),
+            'addCore' => FormUtil::getPassedValue('addCore', 0, 'POST'),
+            'enableLanguages' => FormUtil::getPassedValue('enableLanguages', 0, 'POST'),
+        );
 
         // delete all the old vars
         ModUtil::delVar('DocTastic');
     
         // set the new variables
-        ModUtil::setVar('DocTastic', 'navType', $navType);
+        ModUtil::setVars('DocTastic', $modVars);
     
         // Let any other modules know that the modules configuration has been updated
         $this->callHooks('module', 'updateconfig', 'DocTastic', array(
@@ -85,17 +89,23 @@ class DocTastic_Controller_Admin extends Zikula_Controller
     public function view()
     {
         $docmodule = FormUtil::getPassedValue('docmodule', 'DocTastic', 'GETPOST');
-        $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
-        $relativePath = str_replace(System::getBaseUri() . "/", '', ModUtil::getBaseDir($docmoduleInfo['name']));
-        $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
+        if ($docmodule == 'Core') {
+            $docsDirectory = 'docs';
+        } else {
+            $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
+            $relativePath = str_replace(System::getBaseUri() . "/", '', ModUtil::getBaseDir($docmoduleInfo['name']));
+            $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
+        }
+
         $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
         $classname = 'DocTastic_NavType_' . DocTastic_NavType_Base::getTypeFromKey($navTypeKey);
+        $languageEnabled = ModUtil::getVar('DocTastic', 'enableLanguages');
 
         // setting languageEnabled to false here forces the scan above the language directory (e.g. '/en')
         $control = new $classname(array(
             'docmodule' => $docmodule,
             'docsDirectory' => $docsDirectory,
-            'languageEnabled' => true)); // this value will be configurable in admin settings
+            'languageEnabled' => $languageEnabled)); // this value will be configurable in admin settings
 
         $file = FormUtil::getPassedValue('file', $control->getWorkingDefault(), 'GETPOST');
 

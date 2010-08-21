@@ -179,6 +179,10 @@ abstract class DocTastic_NavType_Base {
         }
         // customize data here
         // add core/docs
+        if (ModUtil::getVar('DocTastic', 'addCore')) {
+            $data['Core'] = 'Core Documentation';
+        }
+        asort(&$data);
         // change to include other STATE of modules (uninstaled, etc)
         $formaction = ModUtil::url('DocTastic', 'admin', 'view');
         $html  = "<form action='$formaction' method='POST' enctype='application/x-www-form-urlencoded'>";
