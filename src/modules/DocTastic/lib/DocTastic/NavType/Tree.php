@@ -1,18 +1,13 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
- * Description of DocTastic_NavType_Tree
- *
- * @author craig
+ * Extends NavType_Base to create a tree-style navigation of Documents
+ * using the Zikula_Tree class
  */
 class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
+
     /**
      * stores the ongoing treeid for Zikula_Tree
-     *
      * @var integer
      */
     private static $_treeid = 1;
@@ -31,8 +26,9 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
         // create Document tree
         $this->formatArray($files, 1, $this->getDirectory());
         $this->postProcessArray();
-        $this->docModule = FormUtil::getPassedValue('docmodule', '');
+        //$this->docModule = FormUtil::getPassedValue('docmodule', '');
     }
+
     /**
      * format files array for use in JS Zikula_Tree
      *
@@ -56,10 +52,16 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
         }
     }
 
+    /**
+     * get the control's html
+     * @return string html for display
+     */
     public function getHTML() {
         $tree = new Zikula_Tree();
         $tree->loadArrayData(self::$files);
-        return $tree->getHTML();
+        $html  = $this->getModuleSelectorHtml();
+        $html .= $tree->getHTML();
+        return $html;
     }
 
     /**
@@ -73,7 +75,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
      */
     private function _makeArray($id, $pid, $name, $path, $overwrite = array()) {
         $args = array(
-            'file' => DataUtil::formatForDisplayHTML($path . DIRECTORY_SEPARATOR .$name),
+            'file' => DataUtil::formatForDisplayHTML($path . DIRECTORY_SEPARATOR . $name),
             'docmodule' => $this->docModule,
         );
         $href = ModUtil::url('DocTastic', $this->userType, 'view', $args);
@@ -105,15 +107,16 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
         foreach (self::$files as $key => $item) {
             // remove link from tree nodes
             if (in_array($item['id'], self::$_treenodes)) {
-                self::$files[$key]['href'] = ModUtil::url('DocTastic', $this->userType, 'view');
+                $args = array('docmodule' => $this->docModule);
+                self::$files[$key]['href'] = ModUtil::url('DocTastic', $this->userType, 'view', $args);
             }
-            if ($item['parent_id'] == 0) continue;
+            if ($item['parent_id'] == 0)
+                continue;
             // remove entries with disallowed extensions
-            if (in_array(FileUtil::getExtension($item['name']), $this->_disallowedExtensions)) {
+            if (in_array(FileUtil::getExtension($item['name']), $this->disallowedExtensions)) {
                 unset(self::$files[$key]);
             }
         }
     }
-
 
 }

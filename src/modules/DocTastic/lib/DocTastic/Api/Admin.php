@@ -41,4 +41,5 @@ class DocTastic_Api_Admin extends Zikula_Api
         // Return the links array back to the calling function
         return $links;
     }
+
 } // end class def

@@ -1,14 +1,8 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of NavTypeSelect
- *
- * @author craig
+ * Extends NavType_Base to create a select box-style navigation of Documents
+ * using HtmlUtil::getSelector_Generic
  */
 class DocTastic_NavType_Select extends DocTastic_NavType_Base {
 
@@ -21,7 +15,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
         $files = FileUtil::getFiles($this->getDirectory(), true, true, $this->allowedExtensions, null, false);
         $this->formatArray($files);
         $this->postProcessArray();
-        $this->docModule = FormUtil::getPassedValue('docmodule', '');
+        //$this->docModule = FormUtil::getPassedValue('docmodule', '');
     }
 
     /**
@@ -38,27 +32,35 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
             $name = substr($string, 0, $depth) . $name;
             $path = implode(DIRECTORY_SEPARATOR, $fileparts);
             // do not include entries with disallowed extensions
-            if (!in_array(FileUtil::getExtension($name), $this->_disallowedExtensions)) {
+            if (!in_array(FileUtil::getExtension($name), $this->disallowedExtensions)) {
                 self::$files[$this->getDirectory() . DIRECTORY_SEPARATOR . $file] = $name;
             }
         }
     }
 
+    /**
+     * Get the control's html
+     * @return string html for display
+     */
     public function getHTML() {
-        $selectedValue = FormUtil::getPassedValue('file', '', 'POST');
+        $selectedValue = FormUtil::getPassedValue('file', $this->getWorkingDefault(), 'GETPOST');
         $defaultText = $this->rootName;
         $select = HtmlUtil::getSelector_Generic('file', self::$files, $selectedValue, 0, $defaultText, null, null, true);
         $url = ModUtil::url('DocTastic', 'admin', 'view');
-        $authkey = SecurityUtil::generateAuthKey('DocTastic');
-        $html = "<form action='$url' method='POST' enctype='application/x-www-form-urlencoded'>";
+        //$authkey = SecurityUtil::generateAuthKey('DocTastic');
+        $html  = $this->getModuleSelectorHtml();
+        $html .= "<form action='$url' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= $select;
-        $html .= "<input type='hidden' name='authid' value='$authkey' />";
+        //$html .= "<input type='hidden' name='authid' value='$authkey' />";
         $html .= "<input type='hidden' name='docmodule' value='$this->docModule' />";
         $html .= "</form>";
 
         return $html;
     }
 
+    /**
+     * do post processing on the tree array
+     */
     protected function postProcessArray() {
         // nothing to do atm
     }

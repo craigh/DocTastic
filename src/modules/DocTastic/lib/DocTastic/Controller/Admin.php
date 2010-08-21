@@ -13,17 +13,6 @@
  */
 class DocTastic_Controller_Admin extends Zikula_Controller
 {
-    /**
-     * Directory to gather docs from for display
-     * @var string
-     */
-    public $docsDirectory = 'modules/DocTastic/docs'; // no trailing slash please
-    /**
-     * If needed to set NavType from within controller
-     * Default value sets to ModVar value
-     * @var string
-     */
-    public $navtype = '';
 
     /**
      * the main administration function
@@ -95,9 +84,21 @@ class DocTastic_Controller_Admin extends Zikula_Controller
      */
     public function view()
     {
-        $docmodule = FormUtil::getPassedValue('docmodule', '', 'GETPOST');
-        $file = FormUtil::getPassedValue('file', '', 'GETPOST');
-        
+        $docmodule = FormUtil::getPassedValue('docmodule', 'DocTastic', 'GETPOST');
+        $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
+        $relativePath = str_replace(System::getBaseUri() . "/", '', ModUtil::getBaseDir($docmoduleInfo['name']));
+        $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
+        $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
+        $classname = 'DocTastic_NavType_' . DocTastic_NavType_Base::getTypeFromKey($navTypeKey);
+
+        // setting languageEnabled to false here forces the scan above the language directory (e.g. '/en')
+        $control = new $classname(array(
+            'docmodule' => $docmodule,
+            'docsDirectory' => $docsDirectory,
+            'languageEnabled' => true)); // this value will be configurable in admin settings
+
+        $file = FormUtil::getPassedValue('file', $control->getWorkingDefault(), 'GETPOST');
+
         if (isset($file) && !empty($file)) {
             $fileContents = FileUtil::readFile($file);
             $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
@@ -109,21 +110,6 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             $this->view->assign('document', '');
             $this->view->assign('documentname', '');
         }
-
-        if (!empty($docmodule)) {
-            $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
-            $relativePath = str_replace(System::getBaseUri() . "/", '', ModUtil::getBaseDir($docmoduleInfo['name']));
-            $this->docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs'; // overrides local property
-        }
-
-        $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
-        $classname = 'DocTastic_NavType_' . DocTastic_NavType_Base::getTypeFromKey($navTypeKey);
-
-        // setting docsDirectory here overrides defaults and takes directory from GETPOST
-        // setting languageEnabled to false here forces the scan above the language directory (e.g. '/en')
-        $control = new $classname(array(
-            'docsDirectory' => $this->docsDirectory,
-            'languageEnabled' => false));
 
         $this->view->assign('navigation', $control->getHTML());
         $this->view->assign('directory', $control->getDirectory());
