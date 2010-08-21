@@ -26,7 +26,6 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
         // create Document tree
         $this->formatArray($files, 1, $this->getDirectory());
         $this->postProcessArray();
-        //$this->docModule = FormUtil::getPassedValue('docmodule', '');
     }
 
     /**
@@ -35,7 +34,6 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
      * @param array $files nested array of files under $root
      * @param integer $parent_id id used in recursion
      * @param string $root pathname files are structured under
-     * @return array array structured as needed for JS Zikula_Tree
      */
     protected function formatArray(array $files, $parent_id = 0, $root = '') {
         foreach ($files as $key => $file) {
@@ -79,7 +77,6 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
             'docmodule' => $this->docModule,
         );
         $href = ModUtil::url('DocTastic', $this->userType, 'view', $args);
-        // $href = $path . DIRECTORY_SEPARATOR . $name
         $treeitem = array(
             'id' => $id,
             'parent_id' => $pid,

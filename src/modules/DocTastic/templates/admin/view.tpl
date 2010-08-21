@@ -8,7 +8,7 @@
         <div class="z-adminpageicon">{img modname='core' set='icons/large' src='filenew.gif'}</div>
         <h2>{gt text="Document Name:"} {$documentname}</h2>
         <div id='DocTastic_document'>
-            {$document}
+            {$document|safehtml}
         </div>
     </div>
     {/if}

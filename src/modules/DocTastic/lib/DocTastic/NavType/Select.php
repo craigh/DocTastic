@@ -21,7 +21,6 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
     /**
      * format files array for use in HtmlUtil::getSelector_Generic
      * @param array $files flat array of files under $root
-     * @return array array structured for Html::Util::getSelector_Generic
      */
     protected function formatArray(array $files) {
         $string = "-----------------------------------------------------------";

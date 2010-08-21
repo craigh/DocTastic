@@ -13,11 +13,6 @@
 abstract class DocTastic_NavType_Base {
 
     /**
-     * Navigation Type (class name)
-     * @var string
-     */
-    protected $type = 'Tree';
-    /**
      * Array of files from directory
      * @var array
      */
@@ -34,9 +29,21 @@ abstract class DocTastic_NavType_Base {
     protected $userType = 'admin';
     /**
      * Array of filenames to load if available
+     * Loads them in order available
      * @var array
      */
     protected $defaultDoc = array('index.txt', 'readme.txt', 'README');
+    /**
+     * navigation types
+     * @var array
+     */
+    protected static $types = array(
+        array('name' => 'Tree',
+            'classbase' => 'DocTastic_NavType_'),
+        array('name' => 'Select',
+            'classbase' => 'DocTastic_NavType_'),
+        array('name' => 'None',
+            'classbase' => 'DocTastic_NavType_'));
     /**
      * append language on docsDirectory?
      * @see getDirectory
@@ -49,10 +56,10 @@ abstract class DocTastic_NavType_Base {
      */
     private $_docsDirectory = 'docs';
     /**
-     * navigation types
-     * @var array
+     * Include core /docs directory in module selector
+     * @var boolean
      */
-    public static $types = array('Tree', 'Select', 'None');
+    private $_addCore = false;
     /**
      * filetype extensions allowed to search for with the docs directory (specific)
      * @var array
@@ -70,23 +77,37 @@ abstract class DocTastic_NavType_Base {
     public $docModule = 'DocTastic';
 
     /**
-     * set the Navigation Type
-     * @param string $_navType
+     * get types array
+     * @return array
      */
-    public function setType($type) {
-        if ((in_array($type, self::$types)) && (!empty($type))) {
-            $this->type = $type;
-        }
+    private static function getTypes() {
+        $types = self::$types;
+        // notify EVENT here to modify types module.DocTastic.getTypes(&$types)
+        return $types;
     }
 
     /**
-     * get the NavType from the array index
+     * get the navTypes names for use in selector, etc.
+     * @return array array of navType names
+     */
+    public static function getTypesNames() {
+        $types = self::getTypes();
+        $names = array();
+        foreach ($types as $key => $type) {
+            $names[$key] = $type['name'];
+        }
+        return $names;
+    }
+
+    /**
+     * Get the classname (full path) from the array index
      * the array index is stored as a DocTastic ModVar (navType)
      * @param integer $key
-     * @return string Type
+     * @return string classname e.g. Full_Path_Name
      */
-    public static function getTypeFromKey($key) {
-        return self::$types[$key];
+    public static function getClassNameFromKey($key) {
+        $types = self::getTypes();
+        return $types[$key]['classbase'] . $types[$key]['name'];
     }
 
     /**
@@ -150,11 +171,16 @@ abstract class DocTastic_NavType_Base {
         if (isset($params['docmodule'])) {
             $this->docModule = $params['docmodule'];
         }
+        if (isset($params['addCore'])) {
+            $this->_addCore = $params['addCore'];
+        }
     }
 
     /**
-     * This function duplicates some of the functionality of HtmlUtil::getSelector_Module
-     * It customizes the input of that function for ease of use and further customizes the data.
+     * This function duplicates much of the functionality of HtmlUtil::getSelector_Module
+     * It customizes the input of that function for ease of use
+     * It also further customizes the data before generating the html
+     * It also customizes the html to produce the full form
      *
      * @param string $name
      * @param string $selectedValue
@@ -173,19 +199,20 @@ abstract class DocTastic_NavType_Base {
         $data = array();
         $modules = ModUtil::getModulesByState(3, 'displayname');
         foreach ($modules as $module) {
-            $value        = $module[$field];
-            $displayname  = $module['displayname'];
+            $value = $module[$field];
+            $displayname = $module['displayname'];
             $data[$value] = $displayname;
         }
         // customize data here
-        // add core/docs
-        if (ModUtil::getVar('DocTastic', 'addCore')) {
+        if ($this->_addCore) {
+            // add core/docs
             $data['Core'] = 'Core Documentation';
         }
+        // notify EVENT here to modify modules listed module.DocTastic.getModules(&data)
         asort(&$data);
         // change to include other STATE of modules (uninstaled, etc)
         $formaction = ModUtil::url('DocTastic', 'admin', 'view');
-        $html  = "<form action='$formaction' method='POST' enctype='application/x-www-form-urlencoded'>";
+        $html = "<form action='$formaction' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= HtmlUtil::getSelector_Generic($name, $data, $selectedValue, $defaultValue, $defaultText, $allValue, $allText, $submit, $disabled, $multipleSize);
         $html .= "</form>";
         return $html;

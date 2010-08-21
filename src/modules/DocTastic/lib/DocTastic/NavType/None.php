@@ -15,11 +15,8 @@ class DocTastic_NavType_None extends DocTastic_NavType_Base {
      * format files array for use
      *
      * @param array $files nested array of files under $root
-     * @param integer $parent_id id used in recursion
-     * @param string $root pathname files are structured under
-     * @return array array structured as needed
      */
-    protected function formatArray(array $files, $parent_id = 0, $root = '') {
+    protected function formatArray(array $files) {
 
     }
 
