@@ -6,7 +6,7 @@
  */
 class DocTastic_NavType_None extends DocTastic_NavType_Base {
 
-    public function build() {
+    protected function build() {
         $this->postProcessArray();
     }
 
@@ -22,7 +22,7 @@ class DocTastic_NavType_None extends DocTastic_NavType_Base {
     /**
      * set the control's html
      */
-    public function setHTML() {
+    protected function setHtml() {
         $html = $this->getModuleSelectorHtml();
         $this->html = $html;
     }

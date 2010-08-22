@@ -129,7 +129,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             $this->view->assign('documentname', '');
         }
 
-        $this->view->assign('navigation', $control->getHTML());
+        $this->view->assign('navigation', $control->getHtml());
         $this->view->assign('directory', $control->getDirectory());
 
         $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));

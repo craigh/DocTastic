@@ -9,7 +9,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
     /**
      * create files array
      */
-    public function build() {
+    protected function build() {
         $files = FileUtil::getFiles($this->getDirectory(), true, true, $this->allowedExtensions, null, false);
         $this->format($files);
     }
@@ -36,7 +36,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
     /**
      * set the control's html
      */
-    public function setHTML() {
+    protected function setHtml() {
         $selectedValue = FormUtil::getPassedValue('file', $this->getWorkingDefault(), 'GETPOST');
         $defaultText = $this->rootName;
         $select = HtmlUtil::getSelector_Generic('file', self::$files, $selectedValue, 0, $defaultText, null, null, true);

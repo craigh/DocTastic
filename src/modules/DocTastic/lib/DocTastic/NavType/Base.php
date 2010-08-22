@@ -13,10 +13,21 @@
 abstract class DocTastic_NavType_Base {
 
     /**
-     * Array of files from directory
-     * @var array
+     * append language on docsDirectory?
+     * @see getDirectory
+     * @var boolean
      */
-    protected static $files = array();
+    private $_languageEnabled = true;
+    /**
+     * The docs directory to display
+     * @var string
+     */
+    private $_docsDirectory = 'docs';
+    /**
+     * Include core /docs directory in module selector
+     * @var boolean
+     */
+    private $_addCore = false;
     /**
      * filetype extensions that should not be displayed in navigation
      * @var array
@@ -34,6 +45,32 @@ abstract class DocTastic_NavType_Base {
      */
     protected $defaultDoc = array('index.txt', 'readme.txt', 'README');
     /**
+     * stores the created html
+     * @var string
+     */
+    protected $html;
+    /**
+     * filetype extensions allowed to search for with the docs directory (specific)
+     * would occur before the files are post processed so would override disallowedExtensions
+     * @var array
+     */
+    protected $allowedExtensions = array(); // 'txt', 'text', 'markdown' ??
+    /**
+     * Name to display at the root of the tree
+     * @var string
+     */
+    protected $rootName = "Document Root";
+    /**
+     * The module being rendered
+     * @var string
+     */
+    protected $docModule = 'DocTastic';
+    /**
+     * Array of files from directory
+     * @var array
+     */
+    protected static $files = array();
+    /**
      * navigation types
      * @var array
      */
@@ -44,43 +81,6 @@ abstract class DocTastic_NavType_Base {
             'classbase' => 'DocTastic_NavType_'),
         array('name' => 'None',
             'classbase' => 'DocTastic_NavType_'));
-    /**
-     * stores the created html
-     * @var string
-     */
-    protected $html;
-    /**
-     * append language on docsDirectory?
-     * @see getDirectory
-     * @var boolean
-     */
-    private $_languageEnabled = true;
-    /**
-     * The docs directory to display
-     * @var string
-     */
-    private $_docsDirectory = 'docs';
-    /**
-     * Include core /docs directory in module selector
-     * @var boolean
-     */
-    private $_addCore = false;
-    /**
-     * filetype extensions allowed to search for with the docs directory (specific)
-     * would occur before the files are post processed so would override disallowedExtensions
-     * @var array
-     */
-    public $allowedExtensions = array(); // 'txt', 'text', 'markdown' ??
-    /**
-     * Name to display at the root of the tree
-     * @var string
-     */
-    public $rootName = "Document Root";
-    /**
-     * The module being rendered
-     * @var string
-     */
-    public $docModule = 'DocTastic';
 
     /**
      * get types array
@@ -137,7 +137,7 @@ abstract class DocTastic_NavType_Base {
      * set whether to append language to docsDirectory
      * @param boolean $_languageEnabled
      */
-    public function set_languageEnabled($_languageEnabled) {
+    protected function set_languageEnabled($_languageEnabled) {
         if (isset($_languageEnabled)) {
             $this->_languageEnabled = $_languageEnabled;
         }
@@ -147,7 +147,7 @@ abstract class DocTastic_NavType_Base {
      * Set the docsDirectory
      * @param string $docsDirectory
      */
-    public function setDocsDirectory($docsDirectory) {
+    protected function setDocsDirectory($docsDirectory) {
         if (isset($docsDirectory) && !empty($docsDirectory)) {
             $this->_docsDirectory = $docsDirectory;
         }
@@ -187,8 +187,8 @@ abstract class DocTastic_NavType_Base {
         }
         $this->build();
         $this->postProcessBuild();
-        $this->setHTML();
-        $this->postProcessHTML();
+        $this->setHtml();
+        $this->postProcessHtml();
     }
 
     /**
@@ -253,12 +253,12 @@ abstract class DocTastic_NavType_Base {
     /**
      * set the html for the control
      */
-    abstract public function setHTML();
+    abstract protected function setHtml();
 
     /**
      * Post process the HTML before presentation
      */
-    protected function postProcessHTML() {
+    protected function postProcessHtml() {
         // things could be done here
         // like converting urls or something
         // maybe the safehtml should happen here?
@@ -268,7 +268,7 @@ abstract class DocTastic_NavType_Base {
      * Get the HTML for the control for display
      * @return string
      */
-    public function getHTML() {
+    public function getHtml() {
         return $this->html;
     }
 

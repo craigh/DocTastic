@@ -20,7 +20,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
     /**
      * create the files array
      */
-    public function build() {
+    protected function build() {
         $files = FileUtil::getFiles($this->getDirectory(), true, true, $this->allowedExtensions, null, true);
         // create root entry
         self::$files[] = $this->_makeArray(self::$_treeid, 0, $this->rootName, '');
@@ -54,7 +54,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
     /**
      * set the control's html
      */
-    public function setHTML() {
+    protected function setHtml() {
         $tree = new Zikula_Tree();
         $tree->loadArrayData(self::$files);
         $html = $this->getModuleSelectorHtml();
