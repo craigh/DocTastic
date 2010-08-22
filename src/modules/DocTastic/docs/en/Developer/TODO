@@ -1,0 +1,4 @@
+1. Add ability for admin to set NavType per mod basis
+2. Add NavType: Sensei for in-document navigation
+3. Add User view
+4. Add full-text search API

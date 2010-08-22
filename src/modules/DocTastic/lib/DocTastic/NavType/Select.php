@@ -37,7 +37,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
      * set the control's html
      */
     protected function setHtml() {
-        $selectedValue = FormUtil::getPassedValue('file', $this->getWorkingDefault(), 'GETPOST');
+        $selectedValue = FormUtil::getPassedValue('file', $this->getDefaultFile(), 'GETPOST');
         $defaultText = $this->rootName;
         $select = HtmlUtil::getSelector_Generic('file', self::$files, $selectedValue, 0, $defaultText, null, null, true);
         $url = ModUtil::url('DocTastic', 'admin', 'view');

@@ -34,12 +34,12 @@ abstract class DocTastic_NavType_Base {
      * @var array
      */
     private static $_types = array(
-        array('name' => 'Tree',
-            'classbase' => 'DocTastic_NavType_'),
-        array('name' => 'Select',
-            'classbase' => 'DocTastic_NavType_'),
-        array('name' => 'None',
-            'classbase' => 'DocTastic_NavType_'));
+        0 => array('name' => 'Tree',
+            'class' => 'DocTastic_NavType_Tree'),
+        1 => array('name' => 'Select Box',
+            'class' => 'DocTastic_NavType_Select'),
+        2 => array('name' => 'None',
+            'class' => 'DocTastic_NavType_None'));
     /**
      * filetype extensions that should not be displayed in navigation
      * @var array
@@ -118,7 +118,14 @@ abstract class DocTastic_NavType_Base {
      */
     public static function getClassNameFromKey($key) {
         $types = self::getTypes();
-        return $types[$key]['classbase'] . $types[$key]['name'];
+        if (array_key_exists($key, $types)) {
+            return $types[$key]['class'];
+        } else {
+            $dom = ZLanguage::getModuleDomain('DocTastic');
+            LogUtil::addErrorPopup(__('Selected navigation type not found. Using default instead.', $dom));
+            // return a default
+            return $types[0]['class'];
+        }
     }
 
     /**
