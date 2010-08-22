@@ -115,10 +115,11 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             'addCore' => ModUtil::getVar('DocTastic', 'addCore'),
             'languageEnabled' => ModUtil::getVar('DocTastic', 'enableLanguages')));
 
-        $file = FormUtil::getPassedValue('file', $control->getWorkingDefault(), 'GETPOST');
+        $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
 
         if (isset($file) && !empty($file)) {
             $fileContents = FileUtil::readFile($file);
+            $control->interpretFile($fileContents);
             $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
             $this->view->assign('document', $renderedFile);
             $nameparts = explode(DIRECTORY_SEPARATOR, $file);

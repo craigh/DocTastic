@@ -29,6 +29,18 @@ abstract class DocTastic_NavType_Base {
      */
     private $_addCore = false;
     /**
+     * navigation types
+     * static because is called from a static function
+     * @var array
+     */
+    private static $_types = array(
+        array('name' => 'Tree',
+            'classbase' => 'DocTastic_NavType_'),
+        array('name' => 'Select',
+            'classbase' => 'DocTastic_NavType_'),
+        array('name' => 'None',
+            'classbase' => 'DocTastic_NavType_'));
+    /**
      * filetype extensions that should not be displayed in navigation
      * @var array
      */
@@ -70,24 +82,15 @@ abstract class DocTastic_NavType_Base {
      * @var array
      */
     protected static $files = array();
-    /**
-     * navigation types
-     * @var array
-     */
-    protected static $types = array(
-        array('name' => 'Tree',
-            'classbase' => 'DocTastic_NavType_'),
-        array('name' => 'Select',
-            'classbase' => 'DocTastic_NavType_'),
-        array('name' => 'None',
-            'classbase' => 'DocTastic_NavType_'));
 
     /**
      * get types array
+     * static because is called by another static function
+     * 
      * @return array
      */
     private static function getTypes() {
-        $types = self::$types;
+        $types = self::$_types;
         // notify EVENT here to modify types
         $event = new Zikula_Event('module.DocTastic.getTypes', $types);
         EventUtil::notify($event);
@@ -123,7 +126,7 @@ abstract class DocTastic_NavType_Base {
      * if one exists. else return false
      * @return string relative/path/to/filename or ''
      */
-    public function getWorkingDefault() {
+    public function getDefaultFile() {
 
         foreach ($this->defaultDoc as $file) {
             if (file_exists($this->getDirectory() . DIRECTORY_SEPARATOR . $file)) {
@@ -137,7 +140,7 @@ abstract class DocTastic_NavType_Base {
      * set whether to append language to docsDirectory
      * @param boolean $_languageEnabled
      */
-    protected function set_languageEnabled($_languageEnabled) {
+    protected function setLanguageEnabled($_languageEnabled) {
         if (isset($_languageEnabled)) {
             $this->_languageEnabled = $_languageEnabled;
         }
@@ -177,7 +180,7 @@ abstract class DocTastic_NavType_Base {
             $this->setDocsDirectory($params['docsDirectory']);
         }
         if (isset($params['languageEnabled'])) {
-            $this->set_languageEnabled($params['languageEnabled']);
+            $this->setLanguageEnabled($params['languageEnabled']);
         }
         if (isset($params['docmodule'])) {
             $this->docModule = $params['docmodule'];
@@ -256,12 +259,27 @@ abstract class DocTastic_NavType_Base {
     abstract protected function setHtml();
 
     /**
+     * allow the file contents to modify navType control
+     *
+     * This function should be overridden by a child class to allow for changes
+     * in the navType and control from within the file being read.
+     * $the file is not stored internally to the object because it is of no
+     * consequence to the object itself. It is only useful inasmuch as it
+     * affect how the navigation should be  presented. It is not
+     * labeled as 'abstract' because it is not required to be overridden.
+     */
+    public function interpretFile() {
+
+    }
+
+    /**
      * Post process the HTML before presentation
+     *
+     * Things could be done here like converting urls or something
+     * maybe the safehtml should happen here?
      */
     protected function postProcessHtml() {
-        // things could be done here
-        // like converting urls or something
-        // maybe the safehtml should happen here?
+
     }
 
     /**
