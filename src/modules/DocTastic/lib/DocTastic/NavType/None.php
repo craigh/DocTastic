@@ -7,7 +7,6 @@
 class DocTastic_NavType_None extends DocTastic_NavType_Base {
 
     protected function build() {
-        $this->postProcessArray();
     }
 
     /**
