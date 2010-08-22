@@ -7,77 +7,83 @@
 }
 
 #DocTastic_document span.date {
-  background: #484;
-  display: block;
-  padding: 0.4em 0.6em 0.3em;
-  font-weight: bold;
-  color: white;
-  border-bottom: 3px solid #262;
-  float: left;
+    background: #484;
+    display: block;
+    padding: 0.4em 0.6em 0.3em;
+    font-weight: bold;
+    color: white;
+    border-bottom: 3px solid #262;
+    float: left;
 }
 
 #DocTastic_document div {
-  margin-bottom: 2em;
+    margin-bottom: 2em;
 }
 
 #DocTastic_document h1 {
-  margin-top: 0.2em;
+    margin-top: 0.2em;
 }
 
 #DocTastic_document { color: #333; }
 
 #DocTastic_document h1 a {
-  text-decoration: none;
-  clear: left;
-  display: block;
-  color: black;
-  padding: 0.3em 0;
-  margin: 0 0 0.2em 0;
-  border-bottom: 1px dashed #555;
-  font-weight: bold;
+    text-decoration: none;
+    clear: left;
+    display: block;
+    color: black;
+    padding: 0.3em 0;
+    margin: 0 0 0.2em 0;
+    border-bottom: 1px dashed #555;
+    font-weight: bold;
 }
 
 #DocTastic_document br { margin-bottom: 10px;}
 
 #DocTastic_document pre {
-  background: #f8f8f8;
-  border: 1px solid #E7E5DC;
-  border-width: 1px 0 4px 6px;
-  padding: 1em;
-  overflow: auto;
-  color: black;
-  line-height: 120%;
-  font-family: "Consolas","Courier New",Courier,mono;
-  font-size: 12px;
-  letter-spacing: 0;
+    background: #f8f8f8;
+    border: 1px solid #E7E5DC;
+    border-width: 1px 0 4px 6px;
+    padding: 1em;
+    overflow: auto;
+    color: black;
+    line-height: 120%;
+    font-family: "Consolas","Courier New",Courier,mono;
+    font-size: 12px;
+    letter-spacing: 0;
+}
+
+#DocTastic_document blockquote {
+    margin-left: 2em;
+    background-color: #ffffcc;
+    padding: 1em;
 }
 
 #DocTastic_document table {
-  width: 100%;
-  border: 2px solid #cccccc;
-  border-collapse: collapse;
+    width: 100%;
+    border: 2px solid #cccccc;
+    border-collapse: collapse;
 }
 
 #DocTastic_document table a {
-  color: #262;
-  font-weight: bold;
+    color: #262;
+    font-weight: bold;
 }
 
 #DocTastic_document table th {
-  text-align: left;
+    text-align: left;
 }
 
 #DocTastic_document table td,
 #DocTastic_document table th {
-  padding: 0.5em 0.3em;
-  border: 1px solid #cccccc;
+    padding: 0.5em 0.3em;
+    border: 1px solid #cccccc;
 }
 
 #DocTastic_document table tr:last-child td,
 #DocTastic_document table tr:last-child th {
-  /* border-bottom: 0; */
+    /* border-bottom: 0; */
 }
 
 #DocTastic_document div.related {
-  margin-bottom: 2em;
+    margin-bottom: 2em;
 }

@@ -1,0 +1,13 @@
+## Events notified in DocTastic
+
+### `module.DocTastic.getTypes`
+
+This event occurs when the property DoctTastic_NavTypes_Base `types` is requested.
+The *subject* is an array of types. See the property listing in the class for proper
+array structure.
+
+### `module.DocTastic.getModules`
+
+This event occurs when the DoctTastic_NavTypes_Base method `getModuleSelectorHtml`is called.
+The *subject* is an array of modules. This event is called after the array is
+built from the core and before the array is sorted and the html is generated forming the list.

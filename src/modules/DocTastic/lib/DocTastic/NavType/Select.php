@@ -7,22 +7,18 @@
 class DocTastic_NavType_Select extends DocTastic_NavType_Base {
 
     /**
-     * Constructor
-     * create files array and set the docModule
+     * create files array
      */
-    public function __construct($params) {
-        parent::__construct($params);
+    public function build() {
         $files = FileUtil::getFiles($this->getDirectory(), true, true, $this->allowedExtensions, null, false);
-        $this->formatArray($files);
-        $this->postProcessArray();
-        //$this->docModule = FormUtil::getPassedValue('docmodule', '');
+        $this->format($files);
     }
 
     /**
      * format files array for use in HtmlUtil::getSelector_Generic
      * @param array $files flat array of files under $root
      */
-    protected function formatArray(array $files) {
+    protected function format(array $files) {
         $string = "-----------------------------------------------------------";
         foreach ($files as $key => $file) {
             $fileparts = explode(DIRECTORY_SEPARATOR, $file);
@@ -38,10 +34,9 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
     }
 
     /**
-     * Get the control's html
-     * @return string html for display
+     * set the control's html
      */
-    public function getHTML() {
+    public function setHTML() {
         $selectedValue = FormUtil::getPassedValue('file', $this->getWorkingDefault(), 'GETPOST');
         $defaultText = $this->rootName;
         $select = HtmlUtil::getSelector_Generic('file', self::$files, $selectedValue, 0, $defaultText, null, null, true);
@@ -54,13 +49,13 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
         $html .= "<input type='hidden' name='docmodule' value='$this->docModule' />";
         $html .= "</form>";
 
-        return $html;
+        $this->html = $html;
     }
 
     /**
      * do post processing on the tree array
      */
-    protected function postProcessArray() {
+    protected function postProcessBuild() {
         // nothing to do atm
     }
 

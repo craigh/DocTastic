@@ -45,6 +45,11 @@ abstract class DocTastic_NavType_Base {
         array('name' => 'None',
             'classbase' => 'DocTastic_NavType_'));
     /**
+     * stores the created html
+     * @var string
+     */
+    protected $html;
+    /**
      * append language on docsDirectory?
      * @see getDirectory
      * @var boolean
@@ -62,6 +67,7 @@ abstract class DocTastic_NavType_Base {
     private $_addCore = false;
     /**
      * filetype extensions allowed to search for with the docs directory (specific)
+     * would occur before the files are post processed so would override disallowedExtensions
      * @var array
      */
     public $allowedExtensions = array(); // 'txt', 'text', 'markdown' ??
@@ -82,7 +88,9 @@ abstract class DocTastic_NavType_Base {
      */
     private static function getTypes() {
         $types = self::$types;
-        // notify EVENT here to modify types module.DocTastic.getTypes(&$types)
+        // notify EVENT here to modify types
+        $event = new Zikula_Event('module.DocTastic.getTypes', $types);
+        EventUtil::notify($event);
         return $types;
     }
 
@@ -152,11 +160,14 @@ abstract class DocTastic_NavType_Base {
     public function getDirectory() {
         if ($this->_languageEnabled) {
             // append language code
-            $lang = ZLanguage::getLanguageCode();
+            // TODO should check to see if a langcode directory exists and if not, default to en or default to lang = ''?
+            $lang = DIRECTORY_SEPARATOR . ZLanguage::getLanguageCode();
             // append User dir for users (not admins)
+            // TODO should check to see if the User directory exists. If not, default to ''?
             $access = (SecurityUtil::checkPermission($this->docModule, '::', ACCESS_ADMIN)) ? '' : DIRECTORY_SEPARATOR . 'User';
-            return $this->_docsDirectory . DIRECTORY_SEPARATOR . $lang . $access; // no trailing slash please
+            return $this->_docsDirectory . $lang . $access; // no trailing slash please
         } else {
+            // TODO even if lang is not enabled shouldn't we check for access level?
             return $this->_docsDirectory;
         }
     }
@@ -174,6 +185,10 @@ abstract class DocTastic_NavType_Base {
         if (isset($params['addCore'])) {
             $this->_addCore = $params['addCore'];
         }
+        $this->build();
+        $this->postProcessBuild();
+        $this->setHTML();
+        $this->postProcessHTML();
     }
 
     /**
@@ -208,9 +223,11 @@ abstract class DocTastic_NavType_Base {
             // add core/docs
             $data['Core'] = 'Core Documentation';
         }
-        // notify EVENT here to modify modules listed module.DocTastic.getModules(&data)
+        // notify EVENT here to modify modules listed
+        $event = new Zikula_Event('module.DocTastic.getModules', $data);
+        EventUtil::notify($event);
         asort(&$data);
-        // change to include other STATE of modules (uninstaled, etc)
+        // could change to include other STATE of modules (uninstaled, etc)
         $formaction = ModUtil::url('DocTastic', 'admin', 'view');
         $html = "<form action='$formaction' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= HtmlUtil::getSelector_Generic($name, $data, $selectedValue, $defaultValue, $defaultText, $allValue, $allText, $submit, $disabled, $multipleSize);
@@ -218,9 +235,41 @@ abstract class DocTastic_NavType_Base {
         return $html;
     }
 
-    abstract protected function formatArray(array $files);
+    /**
+     * Format an array of files as needed for display in navigation
+     */
+    abstract protected function format(array $files);
 
-    abstract protected function postProcessArray();
+    /**
+     * Build the control
+     */
+    abstract protected function build();
 
-    abstract public function getHTML();
+    /**
+     * Post process the array of files
+     */
+    abstract protected function postProcessBuild();
+
+    /**
+     * set the html for the control
+     */
+    abstract public function setHTML();
+
+    /**
+     * Post process the HTML before presentation
+     */
+    protected function postProcessHTML() {
+        // things could be done here
+        // like converting urls or something
+        // maybe the safehtml should happen here?
+    }
+
+    /**
+     * Get the HTML for the control for display
+     * @return string
+     */
+    public function getHTML() {
+        return $this->html;
+    }
+
 }

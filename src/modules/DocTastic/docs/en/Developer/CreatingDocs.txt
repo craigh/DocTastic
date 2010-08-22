@@ -1,0 +1,51 @@
+## Creating Documentation to work with DocTastic
+
+DocTastic is a documentation reader module for the Zikula Application Framework.
+It provides access to and interpretation of Markdown files within a Zikula Installation.
+
+## Quick Start
+ 1. Create a /docs folder in your module root e.g. `MyModule/docs`
+   * Place your license.txt (or whatever you named it) in the `/docs` directory
+ 2. Create language-specific sub-directories within the /docs dir e.g. `MyModule/docs/en`
+and `MyModule/docs/de` and `MyModule/docs/nl`
+ 3. Create `/User` and `/Admin` sub-directories (optional `/Developer`)
+ 4. Place files in the appropriate directory as required to document your module.
+   * You may add unlimited files and add additional directory structure as you please.
+   * DocTastic will attempt to render nearly any type of text-based file. For a list
+of prohibited filetypes, please see `modules/DocTastic/lib/DocTastic/NavType/Base.php`
+and locate the `$disallowedExtensions` property.
+
+## Markdown
+
+DocTastic uses [PHP Markdown Extra][] to render nearly any text file into html.
+*PHP Markdown Extra* is an extension of [PHP Markdown][] which, itself, is a PHP
+implementation of John Gruber's [Markdown][]:
+> Markdown is a text-to-HTML conversion tool for web writers.
+Markdown allows you to write using an easy-to-read, easy-to-write plain text format,
+then convert it to structurally valid XHTML (or HTML).
+
+## How and Why
+
+Markdown was created so that your documentation would be easy to create and easy
+to read both on the web and as a standalone text file. DocTastic adds an ease of
+navigation within your documentation directory structure and give you the tools
+to focus that documentation at the appropriate audience (User/Admin/Developer).
+
+In addition DocTastic takes advantage of Zikula's inherent language handling to
+further focus to your documents for your intended audience.
+
+Because your documentation will now be within you module's directory structure it
+is inherently version-controllable (like your code). This is of course very useful
+because as your code evolves so will your documentation. This approach allows you
+to keep you documentation up-to-date and current with your code without making you
+rewrite it each time. Simply write it as you go or update as needed.
+
+
+[PHP Markdown Extra]: <http://michelf.com/projects/php-markdown/extra/>
+    "PHP Markdown Extra Homepage"
+
+[PHP Markdown]: <[PHP Markdown]>
+    "PHP Markdown Homepage"
+
+[Markdown]: <http://daringfireball.net/projects/markdown/>
+    "John Gruber's Markdown"

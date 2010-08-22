@@ -6,8 +6,7 @@
  */
 class DocTastic_NavType_None extends DocTastic_NavType_Base {
 
-    public function __construct($params) {
-        parent::__construct($params);
+    public function build() {
         $this->postProcessArray();
     }
 
@@ -16,22 +15,22 @@ class DocTastic_NavType_None extends DocTastic_NavType_Base {
      *
      * @param array $files nested array of files under $root
      */
-    protected function formatArray(array $files) {
+    protected function format(array $files) {
 
     }
 
     /**
-     * get the control's html
+     * set the control's html
      */
-    public function getHTML() {
+    public function setHTML() {
         $html = $this->getModuleSelectorHtml();
-        return $html;
+        $this->html = $html;
     }
 
     /**
      * do post processing on the tree array
      */
-    protected function postProcessArray() {
+    protected function postProcessBuild() {
         
     }
 

@@ -17,15 +17,16 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
      */
     private static $_treenodes = array();
 
-    public function __construct($params) {
-        parent::__construct($params);
+    /**
+     * create the files array
+     */
+    public function build() {
         $files = FileUtil::getFiles($this->getDirectory(), true, true, $this->allowedExtensions, null, true);
         // create root entry
         self::$files[] = $this->_makeArray(self::$_treeid, 0, $this->rootName, '');
         self::$_treenodes[] = self::$_treeid;
         // create Document tree
-        $this->formatArray($files, 1, $this->getDirectory());
-        $this->postProcessArray();
+        $this->format($files, 1, $this->getDirectory());
     }
 
     /**
@@ -35,7 +36,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
      * @param integer $parent_id id used in recursion
      * @param string $root pathname files are structured under
      */
-    protected function formatArray(array $files, $parent_id = 0, $root = '') {
+    protected function format(array $files, $parent_id = 0, $root = '') {
         foreach ($files as $key => $file) {
             self::$_treeid++;
             if (is_array($file)) {
@@ -43,7 +44,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
                 if (!in_array(self::$_treeid, self::$_treenodes)) {
                     self::$_treenodes[] = self::$_treeid;
                 }
-                $this->formatArray($file, self::$_treeid, $root . DIRECTORY_SEPARATOR . $key);
+                $this->format($file, self::$_treeid, $root . DIRECTORY_SEPARATOR . $key);
             } else {
                 self::$files[] = $this->_makeArray(self::$_treeid, $parent_id, $file, $root);
             }
@@ -51,15 +52,14 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
     }
 
     /**
-     * get the control's html
-     * @return string html for display
+     * set the control's html
      */
-    public function getHTML() {
+    public function setHTML() {
         $tree = new Zikula_Tree();
         $tree->loadArrayData(self::$files);
-        $html  = $this->getModuleSelectorHtml();
+        $html = $this->getModuleSelectorHtml();
         $html .= $tree->getHTML();
-        return $html;
+        $this->html = $html;
     }
 
     /**
@@ -100,7 +100,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
     /**
      * do post processing on the tree array
      */
-    protected function postProcessArray() {
+    protected function postProcessBuild() {
         foreach (self::$files as $key => $item) {
             // remove link from tree nodes
             if (in_array($item['id'], self::$_treenodes)) {

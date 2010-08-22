@@ -101,7 +101,12 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
         }
 
-        $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
+        if (false) {
+            // set the configs to module specifics
+        } else {
+            $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
+            $languageEnabled = ModUtil::getVar('DocTastic', 'enableLanguages');
+        }
         $classname = DocTastic_NavType_Base::getClassNameFromKey($navTypeKey);
 
         $control = new $classname(array(
