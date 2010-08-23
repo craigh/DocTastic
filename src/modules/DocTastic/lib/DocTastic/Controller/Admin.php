@@ -162,7 +162,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             'docmodule' => $docmodule,
             'docsDirectory' => $docsDirectory,
             'addCore' => ModUtil::getVar('DocTastic', 'addCore'),
-            'languageEnabled' => ModUtil::getVar('DocTastic', 'enableLanguages')));
+            'languageEnabled' => $languageEnabled));
 
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
 
