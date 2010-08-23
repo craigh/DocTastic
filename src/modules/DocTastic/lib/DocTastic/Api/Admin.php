@@ -34,7 +34,13 @@ class DocTastic_Api_Admin extends Zikula_Api
         if (SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
             $links[] = array(
                 'url' => ModUtil::url('DocTastic', 'admin', 'modifyconfig'),
-                'text' => $this->__('Settings'),
+                'text' => $this->__('Default Settings'),
+                'class' => 'z-icon-es-config');
+        }
+        if (SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
+            $links[] = array(
+                'url' => ModUtil::url('DocTastic', 'admin', 'modifyoverrides'),
+                'text' => $this->__('Module Overrides'),
                 'class' => 'z-icon-es-config');
         }
     

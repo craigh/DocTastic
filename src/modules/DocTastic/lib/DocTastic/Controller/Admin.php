@@ -79,6 +79,49 @@ class DocTastic_Controller_Admin extends Zikula_Controller
         return $this->modifyconfig();
     }
 
+    public function modifyoverrides() {
+        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
+            return LogUtil::registerPermissionError();
+        }
+
+        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
+        $this->view->assign('version', $modinfo['version']);
+
+        $modules = DBUtil::selectObjectArray('doctastic');
+        $navTypes = DocTastic_NavType_Base::getTypesNames();
+
+        foreach($modules as $key => $module) {
+            $modules[$key]['navtype_disp'] = $navTypes[$module['navtype']];
+        }
+        $this->view->assign('modules', $modules);
+        $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
+        $this->view->assign('navTypeSelector', $sel);
+        $this->view->assign('yesno', array(0 => __("No"), 1 => __("Yes")));
+
+        $control = new DocTastic_NavType_None(array(
+            'build' => false,
+            'addCore' => ModUtil::getVar('DocTastic', 'addCore')));
+        $this->view->assign('moduleSelector', $control->getModuleSelectorHtml('modname_1'));
+
+        return $this->view->fetch('admin/modules.tpl');
+    }
+
+    /*
+    public function updateoverride() {
+        
+        return $this->modifyoverrides();
+    }
+
+    public function deleteoverride() {
+        
+        return $this->modifyoverrides();
+    }
+
+    public function createoverride() {
+
+        return $this->modifyoverrides();
+    }
+    
     /**
      * @desc set caching to false for all admin functions
      */
@@ -97,12 +140,14 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             $docsDirectory = 'docs';
         } else {
             $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
-            $relativePath = str_replace(System::getBaseUri() . "/", '', ModUtil::getBaseDir($docmoduleInfo['name']));
+            $relativePath = str_replace(System::getBaseUri() . DIRECTORY_SEPARATOR, '', ModUtil::getBaseDir($docmoduleInfo['name']));
             $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
         }
 
-        if (false) {
-            // set the configs to module specifics
+        $moduleConfig = DBUtil::selectObjectByID('doctastic', $docmodule, 'modname');
+        if (isset($moduleConfig) && !empty($moduleConfig)) {
+            $navTypeKey = $moduleConfig['navtype'];
+            $languageEnabled = $moduleConfig['enable_lang'];
         } else {
             $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
             $languageEnabled = ModUtil::getVar('DocTastic', 'enableLanguages');
@@ -117,7 +162,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
 
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
 
-        if (isset($file) && !empty($file)) {
+        if (isset($file) && !empty($file) && file_exists($file)) {
             $fileContents = FileUtil::readFile($file);
             $control->interpretFile($fileContents);
             $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
