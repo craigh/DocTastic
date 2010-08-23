@@ -7,7 +7,7 @@
     <a id="appendajax" onclick="moduleappend();" style="margin-bottom: 1em;" class="z-floatleft z-icon-es-new z-hide" title="{gt text="Create new override"}" href="javascript:void(0);">{gt text="Create new override"}</a>
 
     {* general use authid *}
-    <input type="hidden" id="moduleauthid" name="authid" value="{insert name="generateauthkey" module="DocTastic"}" />
+    <input type="hidden" id="modulesauthid" name="authid" value="{insert name="generateauthkey" module="DocTastic"}" />
     <div class="modulebox z-clearer">
         <ol id="modulelist" class="z-itemlist">
             <li class="z-itemheader z-clearfix">
@@ -19,11 +19,11 @@
         {foreach item="module" from=$modules}
             <li id="module_{$module.id}" class="{cycle values='z-odd,z-even'} z-clearfix">
                 <div id="modulecontent_{$module.id}">
-                    <input type="hidden" id="mtypeid_{$module.id}" value="{$module.mtype}" />
                     <input type="hidden" id="modifystatus_{$module.id}" value="0" />
                     {* this doesn't change *}
                     <span id="modulename_{$module.id}" class="z-itemcell z-w30">
                         {$module.modname|safetext}
+                        <input type="hidden" id="modname_{$module.id}" value="{$module.modname}" />
                     </span>
                     {* *}
                     <span id="modulenavtype_{$module.id}" class="z-itemcell z-w25">
@@ -32,7 +32,7 @@
                     {* Hidden until called *}
                     <span id="editmodulenavtype_{$module.id}" class="z-itemcell z-w25 z-hide">
                         <select id="navtype_{$module.id}" name="navtype_{$module.id}">
-                            {html_options options=$navTypeSelector selected=$module.navtype}
+                            {html_options options=$navTypeOptions selected=$module.navtype}
                         </select>
                     </span>
                     {* *}
@@ -64,11 +64,13 @@
                         <button class="z-imagebutton" id="moduleeditcancel_{$module.id}" title="{gt text="Cancel"}">{img src=button_cancel.gif modname=core set=icons/extrasmall __alt="Cancel" __title="Cancel"}</button>
                     </span>
                 </div>
+                <div id="moduleinfo_{$module.id}" class="z-hide z-groupinfo">
+                    &nbsp;
+                </div>
             </li>
         {foreachelse}
             <li id="module_1" class="z-hide z-clearfix">
                 <div id="modulecontent_1" class="modulecontent">
-                    <input type="hidden" id="mtypeid_1" value="" />
                     <input type="hidden" id="moduleid_1" value="{$module.id}" />
                     <input type="hidden" id="modifystatus_{$module.id}" value="0" />
                     <span id="modulename_1" class="z-itemcell z-w30 z-hide">
@@ -85,7 +87,7 @@
                     {* Hidden until called *}
                     <span id="editmodulenavtype_1" class="z-itemcell z-w25">
                         <select id="navtype_1" name="navtype_1">
-                            {html_options options=$navTypeSelector selected=$module.navtype}
+                            {html_options options=$navTypeOptions selected=$module.navtype}
                         </select>
                     </span>
                     {* *}

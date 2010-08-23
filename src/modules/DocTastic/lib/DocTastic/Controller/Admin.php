@@ -92,10 +92,14 @@ class DocTastic_Controller_Admin extends Zikula_Controller
 
         foreach($modules as $key => $module) {
             $modules[$key]['navtype_disp'] = $navTypes[$module['navtype']];
+            $modules[$key]['editurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
+            $modules[$key]['deleteurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
         }
         $this->view->assign('modules', $modules);
-        $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
-        $this->view->assign('navTypeSelector', $sel);
+        //$sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
+        //$this->view->assign('navTypeSelector', $sel);
+        $navTypeOptions = DocTastic_NavType_Base::getTypesNames();
+        $this->view->assign('navTypeOptions', $navTypeOptions);
         $this->view->assign('yesno', array(0 => __("No"), 1 => __("Yes")));
 
         $control = new DocTastic_NavType_None(array(

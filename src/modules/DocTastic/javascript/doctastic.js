@@ -40,7 +40,7 @@ function moduleinit(frstmodule)
 }
 
 /**
- * Append a new permission at the end of the list
+ * Append a new module override at the end of the list
  *
  *@params none;
  *@return none;
@@ -73,15 +73,15 @@ function moduleappend_response(req)
 {
     appending = false;
     if(req.status != 200 ) {
-        pnshowajaxerror(req.responseText);
+        Zikula.showajaxerror(req.responseText);
         return;
     }
-    var json = pndejsonize(req.responseText);
+    var json = Zikula.dejsonize(req.responseText);
 
-    pnupdateauthids(json.authid);
+    Zikula.updateauthids(json.authid);
     $('modulesauthid').value = json.authid;
 
-    // copy new module li from permission_1.
+    // copy new module li from module_1.
     var newmodule = $('module_'+firstmodule).cloneNode(true);
 
     // update the ids. We use the getElementsByTagName function from
@@ -100,11 +100,12 @@ function moduleappend_response(req)
     $('modulelist').appendChild(newmodule);
 
     // set initial values in input, hidden and select
-    $('name_'            + json.id).value = json.name;
-    $('description_'     + json.id).value = json.description;
-    $('members_'         + json.id).href  = json.membersurl;
+    //$('modname_'         + json.id).value = json.modname;
+    //$('description_'     + json.id).value = json.description;
+    //$('members_'         + json.id).href  = json.membersurl;
 
-    pnsetselectoption('modulegtype_' + json.id, json.gtypelbl);
+    Zikula.setselectoption('modulenavtype_' + json.id, json.navtype_disp);
+    Zikula.setselectoption('moduleenable_lang_' + json.id, json.enable_lang);
 
     // hide cancel icon for new modules
 //    Element.addClassName('moduleeditcancel_' + json.id, 'z-hide');
@@ -112,11 +113,10 @@ function moduleappend_response(req)
 //    Element.update('moduleeditdelete_' + json.id, canceliconhtml);
 
     // update some innerHTML
-    Element.update('modulenbuser_'      + json.id, json.nbuser);
     Element.update('moduleid_'         + json.id, json.id);
-    Element.update('modulename_'        + json.id, json.name);
-    Element.update('modulegtype_'       + json.id, json.gtypelbl);
-    Element.update('moduledescription_' + json.id, json.description) + '&nbsp;';
+    Element.update('modulemodname_'        + json.id, json.modname);
+    Element.update('modulenavtype_'       + json.id, json.navtype_disp);
+    Element.update('moduleenable_lang_' + json.id, json.enable_lang);
     //Element.update('members_'          + json.id, json.membersurl);
 
     // add events
@@ -142,47 +142,44 @@ function moduleappend_response(req)
 }
 
 /**
- * Start edit of permissions: hide/show the neceaasty fields
+ * Start edit of modules: hide/show the neccessary fields
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return none;
  *@author Frank Schummertz
  */
 function modulemodifyinit(moduleid)
 {
     if(getmodifystatus(moduleid) == 0) {
-        pnsetselectoption('navtype_' + moduleid, $F('navtypeid_' + moduleid));
+        // these look wrong craigh
+        Zikula.setselectoption('navtype_' + moduleid, $F('navtype_' + moduleid));
+        Zikula.setselectoption('enable_lang_' + moduleid, $F('enable_lang_' + moduleid));
 
-        if ((moduleid == defaultmodule) || (moduleid == adminmodule)) {
-            Element.addClassName('moduleeditdelete_' + moduleid, 'z-hide');
-        } else {
-            Element.removeClassName('moduleeditdelete_' + moduleid, 'z-hide');
-        }
         enableeditfields(moduleid);
     }
 }
 
 /**
- * Show/hide all fields needed for modifying a permission
+ * Show/hide all fields needed for modifying a module
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return none;
  *@author Frank Schummertz
  */
 function enableeditfields(moduleid)
 {
-    Element.addClassName('modulenavtype_'              + moduleid, 'z-hide');
+    Element.addClassName('modulenavtype_'            + moduleid, 'z-hide');
     Element.addClassName('moduleenable_lang_'        + moduleid, 'z-hide');
     Element.addClassName('moduleaction_'             + moduleid, 'z-hide');
-    Element.removeClassName('editmodulenavtype_'       + moduleid, 'z-hide');
+    Element.removeClassName('editmodulenavtype_'     + moduleid, 'z-hide');
     Element.removeClassName('editmoduleenable_lang_' + moduleid, 'z-hide');
     Element.removeClassName('editmoduleaction_'      + moduleid, 'z-hide');
 }
 
 /**
- * Show/hide all fields needed for not modifying a permission
+ * Show/hide all fields needed for not modifying a module
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return none;
  *@author Frank Schummertz
  */
@@ -197,7 +194,7 @@ function disableeditfields(moduleid)
 }
 
 /**
- * Cancel permission modification
+ * Cancel module modification
  *
  *@params none;
  *@return none;
@@ -217,7 +214,7 @@ function modulemodifycancel(moduleid)
 /**
  * Reads a hidden field that holds the modification status
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return 1 if modification is in progress, otherwise 0;
  *@author Frank Schummertz
  */
@@ -229,7 +226,7 @@ function getmodifystatus(moduleid)
 /**
  * Set the hidden field the holds the modification status
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return none;
  *@author Frank Schummertz
  */
@@ -239,9 +236,9 @@ function setmodifystatus(moduleid, newvalue)
 }
 
 /**
- * Store updated permission in the database
+ * Store updated module in the database
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return none;
  *@author Frank Schummertz
  */
@@ -255,9 +252,8 @@ function modulemodify(moduleid)
         var pars = "module=doctastic&func=updateoverride&authid="
                    + $F('modulesauthid')
                    + "&id="          + moduleid
-                   + "&modname="     + encodeURIComponent($F('modname_' + moduleid))
-                   + "&navtype="     + encodeURIComponent($F('navtype_' + moduleid))
-                   + "&enable_lang=" + encodeURIComponent($F('enable_lang_' + moduleid))
+                   + "&navtype="     + $F('navtype_' + moduleid)
+                   + "&enable_lang=" + $F('enable_lang_' + moduleid);
         var myAjax = new Ajax.Request("ajax.php", { method: 'post',
                                                     parameters: pars,
                                                     onComplete: modulemodify_response,
@@ -270,7 +266,7 @@ function modulemodify(moduleid)
 
 
 /**
- * Ajax response function for updating the permission: update fields, cleanup
+ * Ajax response function for updating the module: update fields, cleanup
  *
  *@params none;
  *@return none;
@@ -280,12 +276,12 @@ function modulemodify_response(req)
 {
     if(req.status != 200 ) {
         showinfo();
-        pnshowajaxerror(req.responseText);
+        Zikula.showajaxerror(req.responseText);
         return;
     }
 
-    var json = pndejsonize(req.responseText);
-    pnupdateauthids(json.authid);
+    var json = Zikula.dejsonize(req.responseText);
+    Zikula.updateauthids(json.authid);
     $('modulesauthid').value = json.authid;
 
     // check for modules internal error
@@ -302,23 +298,21 @@ function modulemodify_response(req)
         Event.observe('moduleeditcancel_' + json.id, 'click', function(){modulemodifycancel(json.id)}, false);
         enableeditfields(json.id);
         */
-        pnshowajaxerror(json.message);
+        Zikula.showajaxerror(json.message);
         setmodifystatus(json.id, 0);
         modulemodifyinit(json.id);
         return;
     }
 
-    $('navtype_' + json.id).value = json.navtype;
+    $('enable_lang_' + json.id).value = json.enable_lang;
 
     Element.update('modulenavtype_' + json.id, json.navtype_disp);
-    Element.update('modulename_' + json.id, json.modname);
 
-    Element.update('moduleenable_lang_' + json.id, json.enable_lang);
-    Element.update('modulenbuser_'      + json.id, json.nbuser);
+    Element.update('moduleenable_lang_' + json.id, json.enable_lang_disp);
 
     adding = adding.without(json.id);
 
-    // show trascan icon for new permissions if necessary
+    // show trascan icon for new moduless if necessary
     Element.removeClassName('moduleeditcancel_' + json.id, 'z-hide');
     // update delete icon to show trashcan icon
     Element.update('moduleeditdelete_' + json.id, deleteiconhtml);
@@ -328,19 +322,19 @@ function modulemodify_response(req)
 }
 
 /**
- * Delete a permission
+ * Delete a module
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@return none;
  *@author Frank Schummertz
  */
 function moduledelete(moduleid)
 {
-    if(confirm(confirmDeletemodule) && getmodifystatus(moduleid) == 0) {
+    if(confirm(confirmDeleteModule) && getmodifystatus(moduleid) == 0) {
         showinfo(moduleid, deletingmodule);
         setmodifystatus(moduleid, 1);
         // delete via ajax
-        var pars = "module=modules&func=deleteoverride&authid="
+        var pars = "module=doctastic&func=deleteoverride&authid="
                    + $F('modulesauthid')
                    + '&id=' + moduleid;
         var myAjax = new Ajax.Request(
@@ -355,7 +349,7 @@ function moduledelete(moduleid)
 }
 
 /**
- * Ajax response function for deleting a permission: simply remove the li
+ * Ajax response function for deleting a module: simply remove the li
  *
  *@params none;
  *@return none;
@@ -364,12 +358,12 @@ function moduledelete(moduleid)
 function moduledelete_response(req)
 {
     if(req.status != 200 ) {
-        pnshowajaxerror(req.responseText);
+        Zikula.showajaxerror(req.responseText);
         return;
     }
-    var json = pndejsonize(req.responseText);
+    var json = Zikula.dejsonize(req.responseText);
 
-    pnupdateauthids(json.authid);
+    Zikula.updateauthids(json.authid);
     $('modulesauthid').value = json.authid;
 
     setmodifystatus(json.id, 0);
@@ -392,14 +386,14 @@ function modulefailure_response(moduleid)
 
 
 /**
- * Use to temporarily show an infotext instead of the permission. Must be
+ * Use to temporarily show an infotext instead of the module. Must be
  * called twice:
  * #1: Show the infotext
  * #2: restore normal display
  * If both parameters are missing all infotext fields will be restored to
  * normal display
  *
- *@params permid the permission id;
+ *@params moduleid the module id;
  *@params infotext the text to show;
  *@return none;
  *@author Frank Schummertz
