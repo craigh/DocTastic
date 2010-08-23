@@ -13,6 +13,11 @@
 abstract class DocTastic_NavType_Base {
 
     /**
+     * whether or not to build the object
+     * @var boolean
+     */
+    private $_build = true;
+    /**
      * append language on docsDirectory?
      * @see getDirectory
      * @var boolean
@@ -34,12 +39,15 @@ abstract class DocTastic_NavType_Base {
      * @var array
      */
     private static $_types = array(
-        0 => array('name' => 'Tree',
+        0 => array('name' => 'Directory Tree',
             'class' => 'DocTastic_NavType_Tree'),
-        1 => array('name' => 'Select Box',
+        1 => array('name' => 'Directory Select Box',
             'class' => 'DocTastic_NavType_Select'),
         2 => array('name' => 'None',
-            'class' => 'DocTastic_NavType_None'));
+            'class' => 'DocTastic_NavType_None'),
+        3 => array('name' => 'Internal (Auto-Generated)',
+            'class' => 'DocTastic_NavType_Sensei')
+    );
     /**
      * filetype extensions that should not be displayed in navigation
      * @var array
@@ -134,7 +142,6 @@ abstract class DocTastic_NavType_Base {
      * @return string relative/path/to/filename or ''
      */
     public function getDefaultFile() {
-
         foreach ($this->defaultDoc as $file) {
             if (file_exists($this->getDirectory() . DIRECTORY_SEPARATOR . $file)) {
                 return $this->getDirectory() . DIRECTORY_SEPARATOR . $file;
@@ -195,10 +202,15 @@ abstract class DocTastic_NavType_Base {
         if (isset($params['addCore'])) {
             $this->_addCore = $params['addCore'];
         }
-        $this->build();
-        $this->postProcessBuild();
-        $this->setHtml();
-        $this->postProcessHtml();
+        if (isset($params['build']) && $params['build'] <> false) {
+            $this->_build = $params['build'];
+        }
+        if ($this->_build) {
+            $this->build();
+            $this->postProcessBuild();
+            $this->setHtml();
+            $this->postProcessHtml();
+        }
     }
 
     /**
@@ -286,7 +298,10 @@ abstract class DocTastic_NavType_Base {
      * maybe the safehtml should happen here?
      */
     protected function postProcessHtml() {
-
+        $html  = $this->getModuleSelectorHtml();
+        $html .= $this->html;
+        
+        $this->html = $html;
     }
 
     /**

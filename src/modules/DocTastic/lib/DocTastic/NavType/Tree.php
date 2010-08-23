@@ -57,8 +57,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
     protected function setHtml() {
         $tree = new Zikula_Tree();
         $tree->loadArrayData(self::$files);
-        $html = $this->getModuleSelectorHtml();
-        $html .= $tree->getHTML();
+        $html = $tree->getHTML();
         $this->html = $html;
     }
 

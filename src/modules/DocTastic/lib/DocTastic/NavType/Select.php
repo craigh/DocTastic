@@ -42,8 +42,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
         $select = HtmlUtil::getSelector_Generic('file', self::$files, $selectedValue, 0, $defaultText, null, null, true);
         $url = ModUtil::url('DocTastic', 'admin', 'view');
         //$authkey = SecurityUtil::generateAuthKey('DocTastic');
-        $html  = $this->getModuleSelectorHtml();
-        $html .= "<form action='$url' method='POST' enctype='application/x-www-form-urlencoded'>";
+        $html  = "<form action='$url' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= $select;
         //$html .= "<input type='hidden' name='authid' value='$authkey' />";
         $html .= "<input type='hidden' name='docmodule' value='$this->docModule' />";
