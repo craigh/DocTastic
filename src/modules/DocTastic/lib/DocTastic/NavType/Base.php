@@ -229,9 +229,10 @@ abstract class DocTastic_NavType_Base {
      * @param boolean $disabled
      * @param integer $multipleSize
      * @param string $field
+     * @param boolean $optionsOnly only return the selector options (not the whole form)
      * @return string html for inclusion into template
      */
-    protected function getModuleSelectorHtml($name='docmodule', $selectedValue=0, $defaultValue=0, $defaultText='', $allValue=0, $allText='', $submit=true, $disabled=false, $multipleSize=1, $field='directory') {
+    protected function getModuleSelectorHtml($name='docmodule', $selectedValue=0, $defaultValue=0, $defaultText='', $allValue=0, $allText='', $submit=true, $disabled=false, $multipleSize=1, $field='directory', $optionsOnly=false) {
         $selectedValue = (isset($selectedValue) && !empty($selectedValue)) ? $selectedValue : $this->docModule;
         $data = array();
         $modules = ModUtil::getModulesByState(3, 'displayname');
@@ -250,6 +251,10 @@ abstract class DocTastic_NavType_Base {
         EventUtil::notify($event);
         asort(&$data);
         // could change to include other STATE of modules (uninstaled, etc)
+
+        if ($optionsOnly) {
+            return $data;
+        }
         $formaction = ModUtil::url('DocTastic', 'admin', 'view');
         $html = "<form action='$formaction' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= HtmlUtil::getSelector_Generic($name, $data, $selectedValue, $defaultValue, $defaultText, $allValue, $allText, $submit, $disabled, $multipleSize);

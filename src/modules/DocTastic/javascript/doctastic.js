@@ -104,8 +104,8 @@ function moduleappend_response(req)
     //$('description_'     + json.id).value = json.description;
     //$('members_'         + json.id).href  = json.membersurl;
 
-    Zikula.setselectoption('modulenavtype_' + json.id, json.navtype_disp);
-    Zikula.setselectoption('moduleenable_lang_' + json.id, json.enable_lang);
+//    Zikula.setselectoption('modulenavtype_' + json.id, json.navtype_disp);
+//    Zikula.setselectoption('moduleenablelang_' + json.id, json.enablelang);
 
     // hide cancel icon for new modules
 //    Element.addClassName('moduleeditcancel_' + json.id, 'z-hide');
@@ -113,10 +113,10 @@ function moduleappend_response(req)
 //    Element.update('moduleeditdelete_' + json.id, canceliconhtml);
 
     // update some innerHTML
-    Element.update('moduleid_'         + json.id, json.id);
-    Element.update('modulemodname_'        + json.id, json.modname);
-    Element.update('modulenavtype_'       + json.id, json.navtype_disp);
-    Element.update('moduleenable_lang_' + json.id, json.enable_lang);
+//    Element.update('moduleid_'         + json.id, json.id);
+//    Element.update('modulemodname_'        + json.id, json.modname);
+//    Element.update('modulenavtype_'       + json.id, json.navtype_disp);
+//    Element.update('moduleenablelang_' + json.id, json.enablelang);
     //Element.update('members_'          + json.id, json.membersurl);
 
     // add events
@@ -134,7 +134,7 @@ function moduleappend_response(req)
 
     // we are ready now, make it visible
     Element.removeClassName('module_' + json.id, 'z-hide');
-    new Effect.Highlight('module_' + json.id, { startcolor: '#ffff99', endcolor: '#ffffff' });
+    new Effect.Highlight('module_' + json.id, { startcolor: '#009900', endcolor: '#ffffff' });
 
 
     // set flag: we are adding a new module
@@ -151,9 +151,9 @@ function moduleappend_response(req)
 function modulemodifyinit(moduleid)
 {
     if(getmodifystatus(moduleid) == 0) {
-        // these look wrong craigh
+//        Zikula.setselectoption('modname_' + moduleid, $F('modname_' + moduleid));
         Zikula.setselectoption('navtype_' + moduleid, $F('navtype_' + moduleid));
-        Zikula.setselectoption('enable_lang_' + moduleid, $F('enable_lang_' + moduleid));
+        Zikula.setselectoption('enablelang_' + moduleid, $F('enablelang_' + moduleid));
 
         enableeditfields(moduleid);
     }
@@ -168,12 +168,14 @@ function modulemodifyinit(moduleid)
  */
 function enableeditfields(moduleid)
 {
-    Element.addClassName('modulenavtype_'            + moduleid, 'z-hide');
-    Element.addClassName('moduleenable_lang_'        + moduleid, 'z-hide');
-    Element.addClassName('moduleaction_'             + moduleid, 'z-hide');
-    Element.removeClassName('editmodulenavtype_'     + moduleid, 'z-hide');
-    Element.removeClassName('editmoduleenable_lang_' + moduleid, 'z-hide');
-    Element.removeClassName('editmoduleaction_'      + moduleid, 'z-hide');
+    Element.addClassName('modulename_'              + moduleid, 'z-hide');
+    Element.addClassName('modulenavtype_'           + moduleid, 'z-hide');
+    Element.addClassName('moduleenablelang_'        + moduleid, 'z-hide');
+    Element.addClassName('moduleaction_'            + moduleid, 'z-hide');
+    Element.removeClassName('editmodulename_'       + moduleid, 'z-hide');
+    Element.removeClassName('editmodulenavtype_'    + moduleid, 'z-hide');
+    Element.removeClassName('editmoduleenablelang_' + moduleid, 'z-hide');
+    Element.removeClassName('editmoduleaction_'     + moduleid, 'z-hide');
 }
 
 /**
@@ -185,12 +187,14 @@ function enableeditfields(moduleid)
  */
 function disableeditfields(moduleid)
 {
-    Element.addClassName('editmodulenavtype_'       + moduleid, 'z-hide');
-    Element.addClassName('editmoduleenable_lang_' + moduleid, 'z-hide');
-    Element.addClassName('editmoduleaction_'      + moduleid, 'z-hide');
-    Element.removeClassName('modulenavtype_'        + moduleid, 'z-hide');
-    Element.removeClassName('moduleenable_lang_'  + moduleid, 'z-hide');
-    Element.removeClassName('moduleaction_'       + moduleid, 'z-hide');
+    Element.addClassName('editmodulename_'       + moduleid, 'z-hide');
+    Element.addClassName('editmodulenavtype_'    + moduleid, 'z-hide');
+    Element.addClassName('editmoduleenablelang_' + moduleid, 'z-hide');
+    Element.addClassName('editmoduleaction_'     + moduleid, 'z-hide');
+    Element.removeClassName('modulename_'        + moduleid, 'z-hide');
+    Element.removeClassName('modulenavtype_'     + moduleid, 'z-hide');
+    Element.removeClassName('moduleenablelang_'  + moduleid, 'z-hide');
+    Element.removeClassName('moduleaction_'      + moduleid, 'z-hide');
 }
 
 /**
@@ -244,6 +248,7 @@ function setmodifystatus(moduleid, newvalue)
  */
 function modulemodify(moduleid)
 {
+    new Effect.Highlight('module_' + moduleid, { startcolor: '#009900', endcolor: '#ffffff' });
     disableeditfields(moduleid);
     if(getmodifystatus(moduleid) == 0) {
         setmodifystatus(moduleid, 1);
@@ -251,9 +256,10 @@ function modulemodify(moduleid)
         // store via ajax
         var pars = "module=doctastic&func=updateoverride&authid="
                    + $F('modulesauthid')
-                   + "&id="          + moduleid
-                   + "&navtype="     + $F('navtype_' + moduleid)
-                   + "&enable_lang=" + $F('enable_lang_' + moduleid);
+                   + "&id="         + moduleid
+                   + "&modname="    + encodeURIComponent($F('modname_' + moduleid))
+                   + "&navtype="    + $F('navtype_' + moduleid)
+                   + "&enablelang=" + $F('enablelang_' + moduleid);
         var myAjax = new Ajax.Request("ajax.php", { method: 'post',
                                                     parameters: pars,
                                                     onComplete: modulemodify_response,
@@ -301,14 +307,16 @@ function modulemodify_response(req)
         Zikula.showajaxerror(json.message);
         setmodifystatus(json.id, 0);
         modulemodifyinit(json.id);
+
+        // refresh view/reload ???
         return;
     }
 
-    $('enable_lang_' + json.id).value = json.enable_lang;
+    $('enablelang_' + json.id).value = json.enablelang;
 
+    Element.update('modulename_' + json.id, json.modname);
     Element.update('modulenavtype_' + json.id, json.navtype_disp);
-
-    Element.update('moduleenable_lang_' + json.id, json.enable_lang_disp);
+    Element.update('moduleenablelang_' + json.id, json.enablelang_disp);
 
     adding = adding.without(json.id);
 
@@ -331,6 +339,7 @@ function modulemodify_response(req)
 function moduledelete(moduleid)
 {
     if(confirm(confirmDeleteModule) && getmodifystatus(moduleid) == 0) {
+        new Effect.Highlight('module_' + moduleid, { startcolor: '#ff0000', endcolor: '#ffffff' });
         showinfo(moduleid, deletingmodule);
         setmodifystatus(moduleid, 1);
         // delete via ajax

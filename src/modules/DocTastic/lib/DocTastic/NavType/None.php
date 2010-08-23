@@ -36,8 +36,8 @@ class DocTastic_NavType_None extends DocTastic_NavType_Base {
         
     }
 
-    public function getModuleSelectorHtml($name = 'docmodule', $selectedValue = 0, $defaultValue = 0, $defaultText = '', $allValue = 0, $allText = '', $submit = true, $disabled = false, $multipleSize = 1, $field = 'directory') {
-        return parent::getModuleSelectorHtml($name, $selectedValue, $defaultValue, $defaultText, $allValue, $allText, $submit, $disabled, $multipleSize, $field);
+    public function getModuleSelectorHtml($name = 'docmodule', $selectedValue = 0, $defaultValue = 0, $defaultText = '', $allValue = 0, $allText = '', $submit = true, $disabled = false, $multipleSize = 1, $field = 'directory', $optionsOnly=false) {
+        return parent::getModuleSelectorHtml($name, $selectedValue, $defaultValue, $defaultText, $allValue, $allText, $submit, $disabled, $multipleSize, $field, $optionsOnly);
     }
 
 }

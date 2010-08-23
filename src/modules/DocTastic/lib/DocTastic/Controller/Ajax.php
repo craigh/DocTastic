@@ -22,11 +22,12 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         if (!SecurityUtil::confirmAuthKey()) {
             return AjaxUtil::error(LogUtil::registerAuthidError());
         }
+
         // Add item
         $obj = array(
                 'modname' => '',
                 'navtype' => 0,
-                'enable_lang' => 1
+                'enablelang' => 1
             );
         $result = DBUtil::insertObject($obj, 'doctastic');
 
@@ -45,18 +46,28 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
             return AjaxUtil::error(LogUtil::registerAuthidError());
         }
         $id = FormUtil::getPassedValue('id', null, 'post');
+        $modname = FormUtil::getPassedValue('modname', '', 'post');
         $navtype = FormUtil::getPassedValue('navtype', 0, 'post');
-        $enable_lang = FormUtil::getPassedValue('enable_lang', 1, 'post');
+        $enablelang = FormUtil::getPassedValue('enablelang', 1, 'post');
         
         if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_EDIT)) {
             return AjaxUtil::error(LogUtil::registerPermissionError(null,true));
         }
 
+        // does item already exist with that modname?
+        $exists = DBUtil::selectObjectByID('doctastic', $modname, 'modname');
+        if ($exists) {
+            // delete temp DB entry if we can confirm it IS a new/temp...
+            // DBUtil::deleteObjectByID('doctastic', $id);
+            return AjaxUtil::error(LogUtil::registerError(__('Module already has override')));
+        }
+
         // Update the item
         $obj = array(
                 'id' => $id,
+                'modname' => $modname,
                 'navtype' => (int) $navtype,
-                'enable_lang' => (int) $enable_lang);
+                'enablelang' => (int) $enablelang);
 
         $result = DBUtil::updateObject($obj, 'doctastic');
 
@@ -77,7 +88,7 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         $override = DBUtil::selectObjectByID('doctastic', $id, 'id', null, null, null, false);
 
         $override['navtype_disp'] = $navTypes[$override['navtype']];
-        $override['enable_lang_disp'] = $yesno[$override['enable_lang']];
+        $override['enablelang_disp'] = $yesno[$override['enablelang']];
 
         return $override;
 

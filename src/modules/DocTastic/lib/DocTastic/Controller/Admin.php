@@ -96,16 +96,16 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             $modules[$key]['deleteurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
         }
         $this->view->assign('modules', $modules);
-        //$sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
-        //$this->view->assign('navTypeSelector', $sel);
+
         $navTypeOptions = DocTastic_NavType_Base::getTypesNames();
         $this->view->assign('navTypeOptions', $navTypeOptions);
+        
         $this->view->assign('yesno', array(0 => __("No"), 1 => __("Yes")));
 
         $control = new DocTastic_NavType_None(array(
             'build' => false,
             'addCore' => ModUtil::getVar('DocTastic', 'addCore')));
-        $this->view->assign('moduleSelector', $control->getModuleSelectorHtml('modname_1'));
+        $this->view->assign('moduleOptions', $control->getModuleSelectorHtml('modname_1', 0, 0, '', 0, '', false, false, 1, 'directory', true));
 
         return $this->view->fetch('admin/modules.tpl');
     }
@@ -151,7 +151,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
         $moduleConfig = DBUtil::selectObjectByID('doctastic', $docmodule, 'modname');
         if (isset($moduleConfig) && !empty($moduleConfig)) {
             $navTypeKey = $moduleConfig['navtype'];
-            $languageEnabled = $moduleConfig['enable_lang'];
+            $languageEnabled = $moduleConfig['enablelang'];
         } else {
             $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
             $languageEnabled = ModUtil::getVar('DocTastic', 'enableLanguages');

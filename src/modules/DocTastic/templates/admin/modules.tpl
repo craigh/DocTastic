@@ -20,10 +20,15 @@
             <li id="module_{$module.id}" class="{cycle values='z-odd,z-even'} z-clearfix">
                 <div id="modulecontent_{$module.id}">
                     <input type="hidden" id="modifystatus_{$module.id}" value="0" />
-                    {* this doesn't change *}
+                    {* *}
                     <span id="modulename_{$module.id}" class="z-itemcell z-w30">
                         {$module.modname|safetext}
-                        <input type="hidden" id="modname_{$module.id}" value="{$module.modname}" />
+                    </span>
+                    {* Hidden until called *}
+                    <span id="editmodulename_{$module.id}" class="z-itemcell z-w30 z-hide">
+                        <select id="modname_{$module.id}" name="modname_{$module.id}">
+                            {html_options options=$moduleOptions selected=$module.modname}
+                        </select>
                     </span>
                     {* *}
                     <span id="modulenavtype_{$module.id}" class="z-itemcell z-w25">
@@ -36,13 +41,13 @@
                         </select>
                     </span>
                     {* *}
-                    <span id="moduleenable_lang_{$module.id}" class="z-itemcell z-w25">
-                        {$module.enable_lang|yesno|safetext}
+                    <span id="moduleenablelang_{$module.id}" class="z-itemcell z-w25">
+                        {$module.enablelang|yesno|safetext}
                     </span>
                     {* Hidden until called *}
-                    <span id="editmoduleenable_lang_{$module.id}" class="z-itemcell z-w25 z-hide">
-                        <select id="enable_lang_{$module.id}" name="enable_lang_{$module.id}">
-                            {html_options options=$yesno selected=$module.enable_lang}
+                    <span id="editmoduleenablelang_{$module.id}" class="z-itemcell z-w25 z-hide">
+                        <select id="enablelang_{$module.id}" name="enablelang_{$module.id}">
+                            {html_options options=$yesno selected=$module.enablelang}
                         </select>
                     </span>
                     {* *}
@@ -78,29 +83,30 @@
                     </span>
                     {* Hidden until called *}
                     <span id="editmodulename_1" class="z-itemcell z-w30">
-                        {$moduleSelector}
+                        <select id="modname_1" name="modname_1">
+                            {html_options options=$moduleOptions}
+                        </select>
                     </span>
                     {* *}
                     <span id="modulenavtype_1" class="z-itemcell z-w25 z-hide">
-                        {gt text="$module.navtype_disp|safetext}
+                        {$module.navtype_disp|safetext}
                     </span>
                     {* Hidden until called *}
                     <span id="editmodulenavtype_1" class="z-itemcell z-w25">
                         <select id="navtype_1" name="navtype_1">
-                            {html_options options=$navTypeOptions selected=$module.navtype}
+                            {html_options options=$navTypeOptions}
                         </select>
                     </span>
                     {* *}
-                    <span id="moduleenable_lang_1" class="z-itemcell z-w25 z-hide">
-                        {$module.enable_lang|yesno|safetext}&nbsp;
+                    <span id="moduleenablelang_1" class="z-itemcell z-w25 z-hide">
+                        {$module.enablelang_disp|safetext}
                     </span>
                     {* Hidden until called *}
-                    <span id="editmoduleenable_lang_1" class="z-itemcell z-w25">
-                        <select id="enable_lang_1" name="enable_lang_1">
-                            {html_options options=$yesno selected=$module.enable_lang}
+                    <span id="editmoduleenablelang_1" class="z-itemcell z-w25">
+                        <select id="enablelang_1" name="enablelang_1">
+                            {html_options options=$yesno}
                         </select>
                     </span>
-
                     {* *}
                     <span id="moduleaction_1" class="z-itemcell z-w20 z-hide">
                         <button class="z-imagebutton" id="modifyajax_1"   title="{gt text="Edit"}">{img src=xedit.gif modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</button>
