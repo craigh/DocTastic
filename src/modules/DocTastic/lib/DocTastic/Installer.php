@@ -24,6 +24,10 @@ class DocTastic_Installer extends Zikula_Installer
      */
     public function install()
     {
+        // create table
+        if (!DBUtil::createTable('doctastic')) {
+            return LogUtil::registerError($this->__('Error! Could not create the table.'));
+        }
         ModUtil::setVar('DocTastic', 'navType', 0);
         ModUtil::setVar('DocTastic', 'addCore', 1);
         ModUtil::setVar('DocTastic', 'enableLanguages', 1);
@@ -65,7 +69,8 @@ class DocTastic_Installer extends Zikula_Installer
      */
     public function uninstall()
     {
-        $result = $this->delVars();
+        $result = DBUtil::dropTable('doctastic');
+        $result = $result && $this->delVars();
 
         return $result;
     }
