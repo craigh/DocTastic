@@ -16,6 +16,63 @@
                 <span class="z-itemcell z-w25">{gt text="Language Filter Enabled"}</span>
                 <span class="z-itemcell z-w20">{gt text="Actions"}</span>
             </li>
+            {* This li is only here to copy for appending a new item *}
+            <li id="module_0" class="z-clearfix z-hide">
+                <div id="modulecontent_0">
+                    <input type="hidden" id="modifystatus_0" value="0" />
+                    {* *}
+                    <span id="modulename_0" class="z-itemcell z-w30">
+                        This is a Fake Entry
+                    </span>
+                    {* Hidden until called *}
+                    <span id="editmodulename_0" class="z-itemcell z-w30 z-hide">
+                        <select id="modname_0" name="modname_0">
+                            {html_options options=$moduleOptions selected=0}
+                        </select>
+                    </span>
+                    {* *}
+                    <span id="modulenavtype_0" class="z-itemcell z-w25">
+                        Tree
+                    </span>
+                    {* Hidden until called *}
+                    <span id="editmodulenavtype_0" class="z-itemcell z-w25 z-hide">
+                        <select id="navtype_0" name="navtype_0">
+                            {html_options options=$navTypeOptions selected=0}
+                        </select>
+                    </span>
+                    {* *}
+                    <span id="moduleenablelang_0" class="z-itemcell z-w25">
+                        {1|yesno}
+                    </span>
+                    {* Hidden until called *}
+                    <span id="editmoduleenablelang_0" class="z-itemcell z-w25 z-hide">
+                        <select id="enablelang_0" name="enablelang_0">
+                            {html_options options=$yesno selected=1}
+                        </select>
+                    </span>
+                    {* *}
+                    <span id="moduleaction_0" class="z-itemcell z-w20">
+                        <button class="z-imagebutton z-hide" id="modifyajax_0"   title="{gt text="Edit"}">{img src=xedit.gif modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</button>
+                        <a id="modify_0"  href="{modurl modname='DocTastic' type='admin' func='modifyoverrides'}" title="{gt text="Edit"}">{img src=xedit.gif modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</a>
+                        <a id="delete_0"     href="{modurl modname='DocTastic' type='admin' func='modifyoverrides'}" title="{gt text="Delete"}">{img src=14_layer_deletelayer.gif modname=core set=icons/extrasmall __title="Delete" __alt="Delete"}</a>
+                        <script type="text/javascript">
+                            Element.addClassName('insert_0', 'z-hide');
+                            Element.addClassName('modify_0', 'z-hide');
+                            Element.addClassName('delete_0', 'z-hide');
+                            Element.removeClassName('modifyajax_0', 'z-hide');
+                            Event.observe('modifyajax_0', 'click', function(){modulemodifyinit(0)}, false);
+                        </script>
+                    </span>
+                    <span id="editmoduleaction_0" class="z-itemcell z-w20 z-hide">
+                        <button class="z-imagebutton" id="moduleeditsave_0"   title="{gt text="Save"}">{img src=button_ok.gif modname=core set=icons/extrasmall __alt="Save" __title="Save"}</button>
+                        <button class="z-imagebutton" id="moduleeditdelete_0" title="{gt text="Delete"}">{img src=14_layer_deletelayer.gif modname=core set=icons/extrasmall __alt="Delete" __title="Delete"}</button>
+                        <button class="z-imagebutton" id="moduleeditcancel_0" title="{gt text="Cancel"}">{img src=button_cancel.gif modname=core set=icons/extrasmall __alt="Cancel" __title="Cancel"}</button>
+                    </span>
+                </div>
+                <div id="moduleinfo_0" class="z-hide z-moduleinfo">
+                    &nbsp;
+                </div>
+            </li>
         {foreach item="module" from=$modules}
             <li id="module_{$module.id}" class="{cycle values='z-odd,z-even'} z-clearfix">
                 <div id="modulecontent_{$module.id}">
@@ -69,7 +126,7 @@
                         <button class="z-imagebutton" id="moduleeditcancel_{$module.id}" title="{gt text="Cancel"}">{img src=button_cancel.gif modname=core set=icons/extrasmall __alt="Cancel" __title="Cancel"}</button>
                     </span>
                 </div>
-                <div id="moduleinfo_{$module.id}" class="z-hide z-groupinfo">
+                <div id="moduleinfo_{$module.id}" class="z-hide z-moduleinfo">
                     &nbsp;
                 </div>
             </li>
@@ -125,7 +182,7 @@
 </div><!-- /z-admincontainer -->
 
 <script type="text/javascript">
-    Event.observe(window, 'load', function(){moduleinit({{$modules[0].id}});}, false);
+    Event.observe(window, 'load', function(){moduleinit(0);}, false);
 
     // some defines
     var updatingmodule = '...{{gt text="Updating module override"}}...';

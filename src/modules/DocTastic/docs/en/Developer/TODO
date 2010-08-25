@@ -1,11 +1,8 @@
 # TODO
 
 1. Add ability for admin to set NavType per mod basis (mostly working)
-  - disable the module selector in edit mode and delete new entry and refresh the view on edit fail
-  - create hidden '0' value when table is blank (@see extmenu?)
   - not sure the {foreachelse} is really doing anything - maybe it can be removed.
 2. Add NavType: Sensei for in-document navigation (mostly working)
   - path is hardcoded at the moment
 3. Add User view
 4. Add full-text search API
-5. get a project at the cozi because this doesn't work well for issue tracking.

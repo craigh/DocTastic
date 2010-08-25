@@ -55,12 +55,12 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         }
 
         // does item already exist with that modname?
-        $exists = DBUtil::selectObjectByID('doctastic', $modname, 'modname');
-        if ($exists) {
-            // delete temp DB entry if we can confirm it IS a new/temp...
-            // DBUtil::deleteObjectByID('doctastic', $id);
-            return AjaxUtil::error(LogUtil::registerError(__('Module already has override')));
-        }
+//        $exists = DBUtil::selectObjectByID('doctastic', $modname, 'modname');
+//        if ($exists) {
+//            // delete temp DB entry if we can confirm it IS a new/temp...
+//            // DBUtil::deleteObjectByID('doctastic', $id);
+//            return AjaxUtil::error(LogUtil::registerError(__('Module already has override')));
+//        }
 
         // Update the item
         $obj = array(
