@@ -1,7 +1,5 @@
 # TODO
 
-1. Add ability for admin to set NavType per mod basis (mostly working)
-  - not sure the {foreachelse} is really doing anything - maybe it can be removed.
 2. Add NavType: Sensei for in-document navigation (mostly working)
   - path is hardcoded at the moment
 3. Add User view

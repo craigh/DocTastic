@@ -130,52 +130,6 @@
                     &nbsp;
                 </div>
             </li>
-        {foreachelse}
-            <li id="module_1" class="z-hide z-clearfix">
-                <div id="modulecontent_1" class="modulecontent">
-                    <input type="hidden" id="moduleid_1" value="{$module.id}" />
-                    <input type="hidden" id="modifystatus_{$module.id}" value="0" />
-                    <span id="modulename_1" class="z-itemcell z-w30 z-hide">
-                        {$module.modname|safetext}
-                    </span>
-                    {* Hidden until called *}
-                    <span id="editmodulename_1" class="z-itemcell z-w30">
-                        <select id="modname_1" name="modname_1">
-                            {html_options options=$moduleOptions}
-                        </select>
-                    </span>
-                    {* *}
-                    <span id="modulenavtype_1" class="z-itemcell z-w25 z-hide">
-                        {$module.navtype_disp|safetext}
-                    </span>
-                    {* Hidden until called *}
-                    <span id="editmodulenavtype_1" class="z-itemcell z-w25">
-                        <select id="navtype_1" name="navtype_1">
-                            {html_options options=$navTypeOptions}
-                        </select>
-                    </span>
-                    {* *}
-                    <span id="moduleenablelang_1" class="z-itemcell z-w25 z-hide">
-                        {$module.enablelang_disp|safetext}
-                    </span>
-                    {* Hidden until called *}
-                    <span id="editmoduleenablelang_1" class="z-itemcell z-w25">
-                        <select id="enablelang_1" name="enablelang_1">
-                            {html_options options=$yesno}
-                        </select>
-                    </span>
-                    {* *}
-                    <span id="moduleaction_1" class="z-itemcell z-w20 z-hide">
-                        <button class="z-imagebutton" id="modifyajax_1"   title="{gt text="Edit"}">{img src=xedit.gif modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</button>
-                    </span>
-                    <span id="editmoduleaction_1" class="z-itemcell z-w20">
-                        <button class="z-imagebutton" id="moduleeditsave_1"   title="{gt text="Save"}">{img src=button_ok.gif modname=core set=icons/extrasmall __alt="Save" __title="Save"}</button>
-                        <button class="z-imagebutton" id="moduleeditdelete_1" title="{gt text="Delete"}">{img src=14_layer_deletelayer.gif modname=core set=icons/extrasmall __alt="Delete" __title="Delete"}</button>
-                        <button class="z-imagebutton" id="moduleeditcancel_1" title="{gt text="Cancel"}">{img src=button_cancel.gif modname=core set=icons/extrasmall __alt="Cancel" __title="Cancel"}</button>
-                    </span>
-                </div>
-                <div id="moduleinfo_1" class="z-hide z-moduleinfo">&nbsp;</div>
-            </li>
         {/foreach}
         </ol>
     </div>
