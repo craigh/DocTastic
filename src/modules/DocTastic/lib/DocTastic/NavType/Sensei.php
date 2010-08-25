@@ -1,14 +1,9 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Sensei
- *
- * @author craig
+ * Extends NavType_Base to create ab inline style of navigation
+ * using Sensei and Text_Wiki
+ * @see lib/vendors
  */
 class DocTastic_NavType_Sensei extends DocTastic_NavType_Base {
 
