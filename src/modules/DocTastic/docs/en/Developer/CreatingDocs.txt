@@ -15,6 +15,29 @@ and `MyModule/docs/de` and `MyModule/docs/nl`
 of prohibited filetypes, please see `modules/DocTastic/lib/DocTastic/NavType/Base.php`
 and locate the `$disallowedExtensions` property.
 
+~~~
+Directory Structure
+<MyModule>/docs/
+    license.txt
+    en/
+        User/
+            readme.txt
+            page1.txt
+            page2.txt
+            special.txt
+        Admin/
+            readme.txt
+            config.txt
+            settings.txt
+        Developer/
+            readme.txt
+            api.txt
+    de/
+        User/
+        Admin/
+        Developer/
+~~~
+
 ## Markdown
 
 DocTastic uses [PHP Markdown Extra][] to render nearly any text file into html.

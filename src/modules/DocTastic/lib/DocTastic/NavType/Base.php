@@ -51,7 +51,7 @@ abstract class DocTastic_NavType_Base {
      * User or Admin type
      * @var string
      */
-    protected $userType = 'admin';
+    protected $userType = 'user';
     /**
      * Array of filenames to load if available
      * Loads them in order available
@@ -175,7 +175,7 @@ abstract class DocTastic_NavType_Base {
             $lang = DIRECTORY_SEPARATOR . ZLanguage::getLanguageCode();
             // append User dir for users (not admins)
             // TODO should check to see if the User directory exists. If not, default to ''?
-            $access = (SecurityUtil::checkPermission($this->docModule, '::', ACCESS_ADMIN)) ? '' : DIRECTORY_SEPARATOR . 'User';
+            $access = ($this->userType == 'user') ? DIRECTORY_SEPARATOR . ucwords($this->userType) : '';
             return $this->_docsDirectory . $lang . $access; // no trailing slash please
         } else {
             // TODO even if lang is not enabled shouldn't we check for access level?
@@ -196,6 +196,7 @@ abstract class DocTastic_NavType_Base {
         if (isset($params['addCore'])) {
             $this->_addCore = $params['addCore'];
         }
+        $this->userType = (SecurityUtil::checkPermission($this->docModule, '::', ACCESS_ADMIN)) ? 'admin' : 'user';
         if (isset($params['build']) && $params['build'] <> false) {
             $this->_build = $params['build'];
         }
@@ -249,7 +250,7 @@ abstract class DocTastic_NavType_Base {
         if ($optionsOnly) {
             return $data;
         }
-        $formaction = ModUtil::url('DocTastic', 'admin', 'view');
+        $formaction = ModUtil::url('DocTastic', 'user', 'view');
         $html = "<form action='$formaction' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= HtmlUtil::getSelector_Generic($name, $data, $selectedValue, $defaultValue, $defaultText, $allValue, $allText, $submit, $disabled, $multipleSize);
         $html .= "</form>";

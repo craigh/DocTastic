@@ -1,8 +1,8 @@
 // Copyright Zikula Foundation 2009 - license GNU/LGPLv2.1 (or at your option, any later version).
 
 var adding = Array();
-var allownamedit = Array();
-allownamedit[0] = true;
+var allownameedit = Array();
+allownameedit[0] = true;
  /**
  * Inits the ajax stuff: show ajax buttons, remove non ajax buttons etc.
  *
@@ -132,12 +132,12 @@ function moduleappend_response(req)
     Event.observe('modifyajax_' + json.id, 'click', function(){modulemodifyinit(json.id)}, false);
 
     // turn on edit mode
-    allownamedit[json.id] = true;
+    allownameedit[json.id] = true;
     enableeditfields(json.id);
 
     // we are ready now, make it visible
     Element.removeClassName('module_' + json.id, 'z-hide');
-    new Effect.Highlight('module_' + json.id, { startcolor: '#009900', endcolor: '#ffffff' });
+    new Effect.Highlight('module_' + json.id, { startcolor: '#99ff66', endcolor: '#ffffff' });
 
 
     // set flag: we are adding a new module
@@ -153,7 +153,7 @@ function moduleappend_response(req)
  */
 function modulemodifyinit(moduleid)
 {
-    allownamedit[moduleid] = false;
+    allownameedit[moduleid] = false;
     if(getmodifystatus(moduleid) == 0) {
 //        Zikula.setselectoption('modname_' + moduleid, $F('modname_' + moduleid));
         Zikula.setselectoption('navtype_' + moduleid, $F('navtype_' + moduleid));
@@ -178,7 +178,7 @@ function enableeditfields(moduleid)
     Element.removeClassName('editmodulenavtype_'    + moduleid, 'z-hide');
     Element.removeClassName('editmoduleenablelang_' + moduleid, 'z-hide');
     Element.removeClassName('editmoduleaction_'     + moduleid, 'z-hide');
-    if(allownamedit[moduleid] == true) {
+    if(allownameedit[moduleid] == true) {
         Element.addClassName('modulename_'          + moduleid, 'z-hide');
         Element.removeClassName('editmodulename_'   + moduleid, 'z-hide');
     }
@@ -199,7 +199,7 @@ function disableeditfields(moduleid)
     Element.removeClassName('modulenavtype_'     + moduleid, 'z-hide');
     Element.removeClassName('moduleenablelang_'  + moduleid, 'z-hide');
     Element.removeClassName('moduleaction_'      + moduleid, 'z-hide');
-    if(allownamedit[moduleid] == true) {
+    if(allownameedit[moduleid] == true) {
         Element.addClassName('editmodulename_'   + moduleid, 'z-hide');
         Element.removeClassName('modulename_'    + moduleid, 'z-hide');
     }
@@ -256,7 +256,7 @@ function setmodifystatus(moduleid, newvalue)
  */
 function modulemodify(moduleid)
 {
-    new Effect.Highlight('module_' + moduleid, { startcolor: '#009900', endcolor: '#ffffff' });
+    new Effect.Highlight('module_' + moduleid, { startcolor: '#99ff66', endcolor: '#ffffff' });
     disableeditfields(moduleid);
     if(getmodifystatus(moduleid) == 0) {
         setmodifystatus(moduleid, 1);
@@ -347,7 +347,7 @@ function modulemodify_response(req)
 function moduledelete(moduleid)
 {
     if(confirm(confirmDeleteModule) && getmodifystatus(moduleid) == 0) {
-        new Effect.Highlight('module_' + moduleid, { startcolor: '#ff0000', endcolor: '#ffffff' });
+        new Effect.Highlight('module_' + moduleid, { startcolor: '#ff9999', endcolor: '#ffffff' });
         showinfo(moduleid, deletingmodule);
         setmodifystatus(moduleid, 1);
         // delete via ajax

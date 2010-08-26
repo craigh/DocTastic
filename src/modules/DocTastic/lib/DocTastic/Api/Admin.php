@@ -25,9 +25,9 @@ class DocTastic_Api_Admin extends Zikula_Api
     
         // Check the users permissions to each avaiable action within the admin panel
         // and populate the links array if the user has permission
-        if (SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
+        if (SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_OVERVIEW)) {
             $links[] = array(
-                'url' => ModUtil::url('DocTastic', 'admin', 'view'),
+                'url' => ModUtil::url('DocTastic', 'user', 'view'),
                 'text' => $this->__('View Documentation'),
                 'class' => 'z-icon-es-list');
         }

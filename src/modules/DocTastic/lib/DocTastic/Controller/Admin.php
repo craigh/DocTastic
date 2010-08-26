@@ -24,7 +24,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
         if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
         }
-        return $this->view();
+        return $this->modifyconfig();
     }
 
     /**
@@ -110,22 +110,6 @@ class DocTastic_Controller_Admin extends Zikula_Controller
         return $this->view->fetch('admin/modules.tpl');
     }
 
-    /*
-    public function updateoverride() {
-        
-        return $this->modifyoverrides();
-    }
-
-    public function deleteoverride() {
-        
-        return $this->modifyoverrides();
-    }
-
-    public function createoverride() {
-
-        return $this->modifyoverrides();
-    }
-    
     /**
      * @desc set caching to false for all admin functions
      */
@@ -134,58 +118,4 @@ class DocTastic_Controller_Admin extends Zikula_Controller
         $this->view->setCaching(false);
     }
     
-    /**
-     * @desc View a rendered document with navigation
-     */
-    public function view()
-    {
-        $docmodule = FormUtil::getPassedValue('docmodule', 'DocTastic', 'GETPOST');
-        if ($docmodule == 'Core') {
-            $docsDirectory = 'docs';
-        } else {
-            $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
-            $relativePath = str_replace(System::getBaseUri() . DIRECTORY_SEPARATOR, '', ModUtil::getBaseDir($docmoduleInfo['name']));
-            $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
-        }
-
-        $moduleConfig = DBUtil::selectObjectByID('doctastic', $docmodule, 'modname');
-        if (isset($moduleConfig) && !empty($moduleConfig)) {
-            $navTypeKey = $moduleConfig['navtype'];
-            $languageEnabled = $moduleConfig['enablelang'];
-        } else {
-            $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
-            $languageEnabled = ModUtil::getVar('DocTastic', 'enableLanguages');
-        }
-        $classname = DocTastic_NavType_Base::getClassNameFromKey($navTypeKey);
-
-        $control = new $classname(array(
-            'docmodule' => $docmodule,
-            'docsDirectory' => $docsDirectory,
-            'addCore' => ModUtil::getVar('DocTastic', 'addCore'),
-            'languageEnabled' => $languageEnabled));
-
-        $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
-
-        if (isset($file) && !empty($file) && file_exists($file)) {
-            $fileContents = FileUtil::readFile($file);
-            $control->interpretFile($fileContents);
-            $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
-            $this->view->assign('document', $renderedFile);
-            $nameparts = explode(DIRECTORY_SEPARATOR, $file);
-            $name = array_pop($nameparts);
-            $this->view->assign('documentname', $name);
-        } else {
-            $this->view->assign('document', '');
-            $this->view->assign('documentname', '');
-        }
-
-        $this->view->assign('navigation', $control->getHtml());
-        $this->view->assign('directory', $control->getDirectory());
-
-        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
-        $this->view->assign('version', $modinfo['version']);
-
-        return $this->view->fetch('admin/view.tpl');
-    }
-
 } // end class def

@@ -6,6 +6,7 @@
 
     <a id="appendajax" onclick="moduleappend();" style="margin-bottom: 1em;" class="z-floatleft z-icon-es-new z-hide" title="{gt text="Create new override"}" href="javascript:void(0);">{gt text="Create new override"}</a>
 
+    <p class='z-icon-es-info z-clearer'>{gt text="Override the default settings for Navigation Type and Language Filter for a specific module."}</p>
     {* general use authid *}
     <input type="hidden" id="modulesauthid" name="authid" value="{insert name="generateauthkey" module="DocTastic"}" />
     <div class="modulebox z-clearer">

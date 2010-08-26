@@ -1,3 +1,35 @@
+/* style for Immediate template under the admin menu */
+div.doctastic_container {
+    width: auto;
+    color: inherit;
+    margin-bottom: 1.25em;
+    border-top: 0px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 0px 1% 5px 1%;
+}
+div.doctastic_container h2 {
+    text-align: left;
+    border-bottom: 1px solid #cccccc;
+    margin-top: 0px;
+    padding-top: 0.5em;
+}
+/* styling for a page icon */
+div.doctasticpageicon {
+    padding: 0;
+}
+
+div.doctasticpageicon img {
+    float: right;
+    padding-top: 5px;
+}
+
+div.doctasticpageicon+h2 {
+    margin-bottom: 20px !important;
+    padding-top: 20px !important;
+}
+
 /* DocTastic stylesheet */
 #DocTastic_document {
     background-color: #ffffff;

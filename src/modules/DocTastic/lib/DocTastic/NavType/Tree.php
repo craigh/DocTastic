@@ -75,7 +75,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
             'file' => DataUtil::formatForDisplayHTML($path . DIRECTORY_SEPARATOR . $name),
             'docmodule' => $this->docModule,
         );
-        $href = ModUtil::url('DocTastic', $this->userType, 'view', $args);
+        $href = ModUtil::url('DocTastic', 'user', 'view', $args); // $this->userType instead of 'user' ?
         $treeitem = array(
             'id' => $id,
             'parent_id' => $pid,
@@ -104,7 +104,7 @@ class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
             // remove link from tree nodes
             if (in_array($item['id'], self::$_treenodes)) {
                 $args = array('docmodule' => $this->docModule);
-                self::$files[$key]['href'] = ModUtil::url('DocTastic', $this->userType, 'view', $args);
+                self::$files[$key]['href'] = ModUtil::url('DocTastic', 'user', 'view', $args); // $this->userType instead of 'user' ?
             }
             if ($item['parent_id'] == 0)
                 continue;
