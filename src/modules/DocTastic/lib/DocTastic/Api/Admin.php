@@ -43,6 +43,12 @@ class DocTastic_Api_Admin extends Zikula_Api
                 'text' => $this->__('Module Overrides'),
                 'class' => 'z-icon-es-config');
         }
+        if (SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
+            $links[] = array(
+                'url' => ModUtil::url('DocTastic', 'admin', 'generator'),
+                'text' => $this->__('Document Generator'),
+                'class' => 'z-icon-es-new');
+        }
     
         // Return the links array back to the calling function
         return $links;

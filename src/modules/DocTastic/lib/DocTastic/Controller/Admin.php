@@ -111,6 +111,28 @@ class DocTastic_Controller_Admin extends Zikula_Controller
     }
 
     /**
+     * Create a markitup generator page
+     * @return string
+     */
+    public function generator() {
+        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
+        $this->view->assign('version', $modinfo['version']);
+        return $this->view->fetch('admin/generator.tpl');
+    }
+
+    /**
+     * This function is used by the markitup javascript library
+     * to produce a preview of the rendered text
+     * @return string
+     */
+    public function parser() {
+        $data = FormUtil::getPassedValue('data', '', 'GETPOST');
+        $parsed = StringUtil::getMarkdownExtraParser()->transform($data);
+        $this->view->assign('data', DataUtil::formatForDisplayHTML($parsed));
+        $this->view->display('admin/parser.tpl');
+        return true; // forces the Zikula display engine to not display the theme
+    }
+    /**
      * @desc set caching to false for all admin functions
      */
     public function postInitialize()
