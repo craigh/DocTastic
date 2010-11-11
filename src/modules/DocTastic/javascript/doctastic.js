@@ -56,7 +56,7 @@ function moduleappend()
             "ajax.php?module=doctastic&func=createoverride",
             {
                 method: 'post',
-                authid: modulesauthid,
+                authid: 'modulesauthid',
                 onComplete: moduleappend_response
             });
     }
