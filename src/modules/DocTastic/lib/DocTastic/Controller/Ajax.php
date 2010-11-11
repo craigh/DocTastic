@@ -16,11 +16,13 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
      */
     function createoverride() {
         if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADD)) {
-            return AjaxUtil::error(LogUtil::registerPermissionError(null,true));
+            LogUtil::registerPermissionError(null,true);
+            throw new Zikula_Exception_Forbidden();
         }
 
         if (!SecurityUtil::confirmAuthKey()) {
-            return AjaxUtil::error(LogUtil::registerAuthidError());
+            LogUtil::registerPermissionError(null,true);
+            throw new Zikula_Exception_Forbidden();
         }
 
         // Add item
@@ -35,7 +37,7 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
             return AjaxUtil::error(LogUtil::registerError($this->__('Error! Could not create the override.')));
         }
 
-        return $obj;
+        return new Zikula_Response_Ajax($obj);;
     }
 
     /**
@@ -43,7 +45,8 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
      */
     function updateoverride() {
         if (!SecurityUtil::confirmAuthKey()) {
-            return AjaxUtil::error(LogUtil::registerAuthidError());
+            LogUtil::registerPermissionError(null,true);
+            throw new Zikula_Exception_Forbidden();
         }
         $id = FormUtil::getPassedValue('id', null, 'post');
         $modname = FormUtil::getPassedValue('modname', '', 'post');
@@ -51,7 +54,8 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         $enablelang = FormUtil::getPassedValue('enablelang', 1, 'post');
         
         if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_EDIT)) {
-            return AjaxUtil::error(LogUtil::registerPermissionError(null,true));
+            LogUtil::registerPermissionError(null,true);
+            throw new Zikula_Exception_Forbidden();
         }
 
         // does item already exist with that modname?
@@ -90,7 +94,7 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         $override['navtype_disp'] = $navTypes[$override['navtype']];
         $override['enablelang_disp'] = $yesno[$override['enablelang']];
 
-        return $override;
+        return new Zikula_Response_Ajax($override);
 
     }
 
@@ -99,7 +103,8 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
      */
     function deleteoverride() {
         if (!SecurityUtil::confirmAuthKey()) {
-            return AjaxUtil::error(LogUtil::registerAuthidError());
+            LogUtil::registerPermissionError(null,true);
+            throw new Zikula_Exception_Forbidden();
         }
 
         $id = FormUtil::getPassedValue('id', null, 'get');
@@ -107,14 +112,15 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         //LogUtil::log(var_export($override, true));
 
         if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_DELETE)) {
-            return AjaxUtil::error(LogUtil::registerPermissionError(null,true));
+            LogUtil::registerPermissionError(null,true);
+            throw new Zikula_Exception_Forbidden();
         }
 
         // Delete the item
         if (DBUtil::deleteObjectByID('doctastic', $id)) {
-            return array('id' => $id);
+            return new Zikula_Response_Ajax(array('id' => $id));
         }
 
-        return AjaxUtil::error(LogUtil::registerError($this->__('Error! Could not delete the requested override.')));
+        throw new Zikula_Exception_Fatal(LogUtil::registerError($this->__('Error! Could not delete the requested override.')));
     }
 }

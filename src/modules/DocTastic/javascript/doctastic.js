@@ -52,12 +52,11 @@ function moduleappend()
 {
     if(appending == false) {
         appending = true;
-        var pars = "module=doctastic&func=createoverride&authid=" + $F('modulesauthid');
-        var myAjax = new Ajax.Request(
-            "ajax.php",
+        new Zikula.Ajax.Request(
+            "ajax.php?module=doctastic&func=createoverride",
             {
                 method: 'post',
-                parameters: pars,
+                authid: modulesauthid,
                 onComplete: moduleappend_response
             });
     }
@@ -74,14 +73,11 @@ function moduleappend()
 function moduleappend_response(req)
 {
     appending = false;
-    if(req.status != 200 ) {
-        Zikula.showajaxerror(req.responseText);
+    if (!req.isSuccess()) {
+        Zikula.showajaxerror(req.getMessage());
         return;
     }
-    var json = Zikula.dejsonize(req.responseText);
-
-    Zikula.updateauthids(json.authid);
-    $('modulesauthid').value = json.authid;
+    var data = req.getData();
 
     // copy new module li from module_1.
     var newmodule = $('module_'+firstmodule).cloneNode(true);
@@ -89,59 +85,59 @@ function moduleappend_response(req)
     // update the ids. We use the getElementsByTagName function from
     // protoype for this. The 6 tags here cover everything in a single li
     // that has a unique id
-    newmodule.id   = 'module_' + json.id;
-    $A(newmodule.getElementsByTagName('a')).each(function(node)       { node.id = node.id.split('_')[0] + '_' + json.id; });
-    $A(newmodule.getElementsByTagName('div')).each(function(node)     { node.id = node.id.split('_')[0] + '_' + json.id; });
-    $A(newmodule.getElementsByTagName('span')).each(function(node)    { node.id = node.id.split('_')[0] + '_' + json.id; });
-    $A(newmodule.getElementsByTagName('input')).each(function(node)   { node.id = node.id.split('_')[0] + '_' + json.id; node.value = ''; });
-    $A(newmodule.getElementsByTagName('select')).each(function(node)  { node.id = node.id.split('_')[0] + '_' + json.id; });
-    $A(newmodule.getElementsByTagName('button')).each(function(node)  { node.id = node.id.split('_')[0] + '_' + json.id; });
-    $A(newmodule.getElementsByTagName('textarea')).each(function(node){ node.id = node.id.split('_')[0] + '_' + json.id; });
+    newmodule.id   = 'module_' + data.id;
+    $A(newmodule.getElementsByTagName('a')).each(function(node)       { node.id = node.id.split('_')[0] + '_' + data.id; });
+    $A(newmodule.getElementsByTagName('div')).each(function(node)     { node.id = node.id.split('_')[0] + '_' + data.id; });
+    $A(newmodule.getElementsByTagName('span')).each(function(node)    { node.id = node.id.split('_')[0] + '_' + data.id; });
+    $A(newmodule.getElementsByTagName('input')).each(function(node)   { node.id = node.id.split('_')[0] + '_' + data.id; node.value = ''; });
+    $A(newmodule.getElementsByTagName('select')).each(function(node)  { node.id = node.id.split('_')[0] + '_' + data.id; });
+    $A(newmodule.getElementsByTagName('button')).each(function(node)  { node.id = node.id.split('_')[0] + '_' + data.id; });
+    $A(newmodule.getElementsByTagName('textarea')).each(function(node){ node.id = node.id.split('_')[0] + '_' + data.id; });
 
     // append new module to the module list
     $('modulelist').appendChild(newmodule);
 
     // set initial values in input, hidden and select
-    //$('modname_'         + json.id).value = json.modname;
-    //$('description_'     + json.id).value = json.description;
-    //$('members_'         + json.id).href  = json.membersurl;
+    //$('modname_'         + data.id).value = data.modname;
+    //$('description_'     + data.id).value = data.description;
+    //$('members_'         + data.id).href  = data.membersurl;
 
-//    Zikula.setselectoption('modulenavtype_' + json.id, json.navtype_disp);
-//    Zikula.setselectoption('moduleenablelang_' + json.id, json.enablelang);
+//    Zikula.setselectoption('modulenavtype_' + data.id, data.navtype_disp);
+//    Zikula.setselectoption('moduleenablelang_' + data.id, data.enablelang);
 
     // hide cancel icon for new modules
-//    Element.addClassName('moduleeditcancel_' + json.id, 'z-hide');
+//    Element.addClassName('moduleeditcancel_' + data.id, 'z-hide');
     // update delete icon to show cancel icon
-//    Element.update('moduleeditdelete_' + json.id, canceliconhtml);
+//    Element.update('moduleeditdelete_' + data.id, canceliconhtml);
 
     // update some innerHTML
-//    Element.update('moduleid_'         + json.id, json.id);
-//    Element.update('modulemodname_'        + json.id, json.modname);
-//    Element.update('modulenavtype_'       + json.id, json.navtype_disp);
-//    Element.update('moduleenablelang_' + json.id, json.enablelang);
-    //Element.update('members_'          + json.id, json.membersurl);
+//    Element.update('moduleid_'         + data.id, data.id);
+//    Element.update('modulemodname_'        + data.id, data.modname);
+//    Element.update('modulenavtype_'       + data.id, data.navtype_disp);
+//    Element.update('moduleenablelang_' + data.id, data.enablelang);
+    //Element.update('members_'          + data.id, data.membersurl);
 
     // add events
-    Event.observe('modifyajax_'      + json.id, 'click', function(){modulemodifyinit(json.id)}, false);
-    Event.observe('moduleeditsave_'   + json.id, 'click', function(){modulemodify(json.id)}, false);
-    Event.observe('moduleeditdelete_' + json.id, 'click', function(){moduledelete(json.id)}, false);
-    Event.observe('moduleeditcancel_' + json.id, 'click', function(){modulemodifycancel(json.id)}, false);
+    Event.observe('modifyajax_'       + data.id, 'click', function(){modulemodifyinit(data.id)}, false);
+    Event.observe('moduleeditsave_'   + data.id, 'click', function(){modulemodify(data.id)}, false);
+    Event.observe('moduleeditdelete_' + data.id, 'click', function(){moduledelete(data.id)}, false);
+    Event.observe('moduleeditcancel_' + data.id, 'click', function(){modulemodifycancel(data.id)}, false);
 
     // remove class to make edit button visible
-    Element.removeClassName('modifyajax_' + json.id, 'z-hide');
-    Event.observe('modifyajax_' + json.id, 'click', function(){modulemodifyinit(json.id)}, false);
+    Element.removeClassName('modifyajax_' + data.id, 'z-hide');
+    Event.observe('modifyajax_' + data.id, 'click', function(){modulemodifyinit(data.id)}, false);
 
     // turn on edit mode
-    allownameedit[json.id] = true;
-    enableeditfields(json.id);
+    allownameedit[data.id] = true;
+    enableeditfields(data.id);
 
     // we are ready now, make it visible
-    Element.removeClassName('module_' + json.id, 'z-hide');
-    new Effect.Highlight('module_' + json.id, { startcolor: '#99ff66', endcolor: '#ffffff' });
+    Element.removeClassName('module_' + data.id, 'z-hide');
+    new Effect.Highlight('module_' + data.id, { startcolor: '#99ff66', endcolor: '#ffffff' });
 
 
     // set flag: we are adding a new module
-    adding[json.id] = 1;
+    adding[data.id] = 1;
 }
 
 /**
@@ -262,17 +258,20 @@ function modulemodify(moduleid)
         setmodifystatus(moduleid, 1);
         showinfo(moduleid, updatingmodule);
         // store via ajax
-        var pars = "module=doctastic&func=updateoverride&authid="
-                   + $F('modulesauthid')
-                   + "&id="         + moduleid
-                   + "&modname="    + encodeURIComponent($F('modname_' + moduleid))
-                   + "&navtype="    + $F('navtype_' + moduleid)
-                   + "&enablelang=" + $F('enablelang_' + moduleid);
-        var myAjax = new Ajax.Request("ajax.php", { method: 'post',
-                                                    parameters: pars,
-                                                    onComplete: modulemodify_response,
-                                                    onFailure: function(){modulefailure_response(moduleid);}
-                                                  });
+        var pars = {
+            id: moduleid,
+            modname: $F('modname_' + moduleid),
+            navtype: $F('navtype_' + moduleid),
+            enablelang: $F('enablelang_' + moduleid)
+        };
+        new Zikula.Ajax.Request(
+            "ajax.php?module=doctastic&func=updateoverride",
+            {
+                method: 'post',
+                authid: 'modulesauthid',
+                parameters: pars,
+                onComplete: modulemodify_response
+            });
 
 
     }
@@ -288,53 +287,51 @@ function modulemodify(moduleid)
  */
 function modulemodify_response(req)
 {
-    if(req.status != 200 ) {
+    if (!req.isSuccess()) {
+        Zikula.showajaxerror(req.getMessage());
         showinfo();
-        Zikula.showajaxerror(req.responseText);
         return;
     }
 
-    var json = Zikula.dejsonize(req.responseText);
-    Zikula.updateauthids(json.authid);
-    $('modulesauthid').value = json.authid;
+    var data = req.getData();
 
     // check for modules internal error
-    if(json.error == 1) {
+    if(data.error == 1) {
         showinfo();
-        Element.addClassName($('moduleinfo_' + json.id), 'z-hide');
-        Element.removeClassName($('modulecontent_' + json.id), 'z-hide');
+        Element.addClassName($('moduleinfo_' + data.id), 'z-hide');
+        Element.removeClassName($('modulecontent_' + data.id), 'z-hide');
 
         /*
         // add events
-        Event.observe('modifyajax_'      + json.id, 'click', function(){modulemodifyinit(json.id)}, false);
-        Event.observe('moduleeditsave_'   + json.id, 'click', function(){modulemodify(json.id)}, false);
-        Event.observe('moduleeditdelete_' + json.id, 'click', function(){moduledelete(json.id)}, false);
-        Event.observe('moduleeditcancel_' + json.id, 'click', function(){modulemodifycancel(json.id)}, false);
-        enableeditfields(json.id);
+        Event.observe('modifyajax_'      + data.id, 'click', function(){modulemodifyinit(data.id)}, false);
+        Event.observe('moduleeditsave_'   + data.id, 'click', function(){modulemodify(data.id)}, false);
+        Event.observe('moduleeditdelete_' + data.id, 'click', function(){moduledelete(data.id)}, false);
+        Event.observe('moduleeditcancel_' + data.id, 'click', function(){modulemodifycancel(data.id)}, false);
+        enableeditfields(data.id);
         */
-        Zikula.showajaxerror(json.message);
-        setmodifystatus(json.id, 0);
-        modulemodifyinit(json.id);
+        Zikula.showajaxerror(data.message);
+        setmodifystatus(data.id, 0);
+        modulemodifyinit(data.id);
 
         // refresh view/reload ???
         return;
     }
 
-    $('enablelang_' + json.id).value = json.enablelang;
+    $('enablelang_' + data.id).value = data.enablelang;
 
-    Element.update('modulename_' + json.id, json.modname);
-    Element.update('modulenavtype_' + json.id, json.navtype_disp);
-    Element.update('moduleenablelang_' + json.id, json.enablelang_disp);
+    Element.update('modulename_' + data.id, data.modname);
+    Element.update('modulenavtype_' + data.id, data.navtype_disp);
+    Element.update('moduleenablelang_' + data.id, data.enablelang_disp);
 
-    adding = adding.without(json.id);
+    adding = adding.without(data.id);
 
     // show trascan icon for new moduless if necessary
-    Element.removeClassName('moduleeditcancel_' + json.id, 'z-hide');
+    Element.removeClassName('moduleeditcancel_' + data.id, 'z-hide');
     // update delete icon to show trashcan icon
-    Element.update('moduleeditdelete_' + json.id, deleteiconhtml);
+    Element.update('moduleeditdelete_' + data.id, deleteiconhtml);
 
-    setmodifystatus(json.id, 0);
-    showinfo(json.id);
+    setmodifystatus(data.id, 0);
+    showinfo(data.id);
 }
 
 /**
@@ -351,16 +348,14 @@ function moduledelete(moduleid)
         showinfo(moduleid, deletingmodule);
         setmodifystatus(moduleid, 1);
         // delete via ajax
-        var pars = "module=doctastic&func=deleteoverride&authid="
-                   + $F('modulesauthid')
-                   + '&id=' + moduleid;
-        var myAjax = new Ajax.Request(
-            "ajax.php",
+        var pars = {id: moduleid};
+        new Zikula.Ajax.Request(
+            "ajax.php?module=doctastic&func=deleteoverride",
             {
                 method: 'get',
                 parameters: pars,
-                onComplete: moduledelete_response,
-                onFailure: function(){modulefailure_response(moduleid);}
+                authid: 'modulesauthid',
+                onComplete: moduledelete_response
             });
     }
 }
@@ -374,17 +369,14 @@ function moduledelete(moduleid)
  */
 function moduledelete_response(req)
 {
-    if(req.status != 200 ) {
-        Zikula.showajaxerror(req.responseText);
+    if (!req.isSuccess()) {
+        Zikula.showajaxerror(req.getMessage());
         return;
     }
-    var json = Zikula.dejsonize(req.responseText);
+    var data = req.getData();
 
-    Zikula.updateauthids(json.authid);
-    $('modulesauthid').value = json.authid;
-
-    setmodifystatus(json.id, 0);
-    Element.remove('module_' + json.id);
+    setmodifystatus(data.id, 0);
+    Element.remove('module_' + data.id);
 }
 
 /**
@@ -417,7 +409,6 @@ function modulefailure_response(moduleid)
  */
 function showinfo(moduleid, infotext)
 {
-
     if(moduleid) {
         var moduleinfo = 'moduleinfo_' + moduleid;
         var module = 'modulecontent_' + moduleid;
