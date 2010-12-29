@@ -46,7 +46,7 @@ class DocTastic_Controller_User extends Zikula_Controller
         $control = new $classname(array(
             'docmodule' => $docmodule,
             'docsDirectory' => $docsDirectory,
-            'addCore' => ModUtil::getVar('DocTastic', 'addCore'),
+            'addCore' => $this->getVar('addCore'),
             'languageEnabled' => $languageEnabled));
 
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
@@ -66,9 +66,6 @@ class DocTastic_Controller_User extends Zikula_Controller
 
         $this->view->assign('navigation', $control->getHtml());
         $this->view->assign('directory', $control->getDirectory());
-
-        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
-        $this->view->assign('version', $modinfo['version']);
 
         return $this->view->fetch('user/view.tpl');
     }

@@ -2,7 +2,7 @@
 {include file="admin/menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' set='icons/large' src='info.gif'}</div>
-    <h2>{gt text="DocTastic Module Overrides"}&nbsp;({gt text="version"}&nbsp;{$version})</h2>
+    <h2>{gt text="DocTastic Module Overrides"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
 
     <a id="appendajax" onclick="moduleappend();" style="margin-bottom: 1em;" class="z-floatleft z-icon-es-new z-hide" title="{gt text="Create new override"}" href="javascript:void(0);">{gt text="Create new override"}</a>
 

@@ -1,7 +1,7 @@
 {include file="admin/menu.tpl"}
 <div class="z-admincontainer">
 <div class="z-adminpageicon">{img modname='core' set='icons/large' src='info.gif'}</div>
-<h2>{gt text="DocTastic settings"}&nbsp;({gt text="version"}&nbsp;{$version})</h2>
+<h2>{gt text="DocTastic settings"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
 <form class="z-form" action="{modurl modname="DocTastic" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
     <div>
 	<input type="hidden" name="authid" value="{insert name="generateauthkey" module="DocTastic"}" />
@@ -13,13 +13,11 @@
         </div>
 		<div class="z-formrow">
 			<label for="addCore">{gt text="Add the Core's /docs directory to the Navigation Tree"}</label>
-			{modgetvar module="DocTastic" name="addCore" assign="addCore"}
-			<input type="checkbox" value="1" id="addCore" name="addCore"{if $addCore eq true} checked="checked"{/if}/>
+			<input type="checkbox" value="1" id="addCore" name="addCore"{if $modvars.DocTastic.addCore eq true} checked="checked"{/if}/>
 		</div>
 		<div class="z-formrow">
 			<label for="enableLanguages">{gt text='Enable language filter'}</label>
-			{modgetvar module="DocTastic" name="enableLanguages" assign="enableLanguages"}
-			<input type="checkbox" value="1" id="enableLanguages" name="enableLanguages"{if $enableLanguages eq true} checked="checked"{/if}/>
+			<input type="checkbox" value="1" id="enableLanguages" name="enableLanguages"{if $modvars.DocTastic.enableLanguages eq true} checked="checked"{/if}/>
 		</div>
     </fieldset>
     <div class="z-buttons z-formbuttons">

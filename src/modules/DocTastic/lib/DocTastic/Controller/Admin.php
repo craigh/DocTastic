@@ -37,9 +37,6 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             return LogUtil::registerPermissionError();
         }
     
-        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
-        $this->view->assign('version', $modinfo['version']);
-
         $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
         $this->view->assign('navTypeSelector', $sel);
     
@@ -84,9 +81,6 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             return LogUtil::registerPermissionError();
         }
 
-        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
-        $this->view->assign('version', $modinfo['version']);
-
         $modules = DBUtil::selectObjectArray('doctastic');
         $navTypes = DocTastic_NavType_Base::getTypesNames();
 
@@ -115,8 +109,6 @@ class DocTastic_Controller_Admin extends Zikula_Controller
      * @return string
      */
     public function generator() {
-        $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('DocTastic'));
-        $this->view->assign('version', $modinfo['version']);
         return $this->view->fetch('admin/generator.tpl');
     }
 
