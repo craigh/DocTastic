@@ -23,13 +23,15 @@ function doctastic_tables()
         'id' => 'id',
         'modname' => 'modname',
         'navtype' => 'navtype',
-        'enablelang' => 'enablelang');
+        'enablelang' => 'enablelang',
+        'exempt' => 'exempt');
 
     $table['doctastic_column_def'] = array(
         'id' => 'I UNSIGNED AUTO PRIMARY',
         'modname' => 'C(64) NOTNULL DEFAULT \'\'',
         'navtype' => 'I NOTNULL DEFAULT 0',
         'enablelang' => 'I NOTNULL DEFAULT 1',
+        'exempt' => 'I NOTNULL DEFAULT 0',
     );
     $table['doctastic_primary_key_column'] = 'id';
 

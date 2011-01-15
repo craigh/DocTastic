@@ -52,6 +52,7 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         $modname = FormUtil::getPassedValue('modname', '', 'post');
         $navtype = FormUtil::getPassedValue('navtype', 0, 'post');
         $enablelang = FormUtil::getPassedValue('enablelang', 1, 'post');
+        $exempt = FormUtil::getPassedValue('exempt', 0, 'post');
         
         if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_EDIT)) {
             LogUtil::registerPermissionError(null,true);
@@ -71,7 +72,8 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
                 'id' => $id,
                 'modname' => $modname,
                 'navtype' => (int) $navtype,
-                'enablelang' => (int) $enablelang);
+                'enablelang' => (int) $enablelang,
+                'exempt' => (int) $exempt);
 
         $result = DBUtil::updateObject($obj, 'doctastic');
 
@@ -93,6 +95,7 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
 
         $override['navtype_disp'] = $navTypes[$override['navtype']];
         $override['enablelang_disp'] = $yesno[$override['enablelang']];
+        $override['exempt_disp'] = $yesno[$override['exempt']];
 
         return new Zikula_Response_Ajax($override);
 

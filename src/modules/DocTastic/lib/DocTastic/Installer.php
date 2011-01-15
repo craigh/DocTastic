@@ -31,6 +31,9 @@ class DocTastic_Installer extends Zikula_Installer
         ModUtil::setVar('DocTastic', 'navType', 0);
         ModUtil::setVar('DocTastic', 'addCore', 1);
         ModUtil::setVar('DocTastic', 'enableLanguages', 1);
+
+        EventUtil::registerPersistentModuleHandler('DocTastic', 'module_dispatch.service_links', array('DocTastic_Handlers', 'servicelinks'));
+
         return true;
     }
     
@@ -71,6 +74,9 @@ class DocTastic_Installer extends Zikula_Installer
     {
         $result = DBUtil::dropTable('doctastic');
         $result = $result && $this->delVars();
+
+        // unregister handlers
+        EventUtil::unregisterPersistentModuleHandlers('DocTastic');
 
         return $result;
     }

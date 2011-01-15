@@ -247,6 +247,14 @@ abstract class DocTastic_NavType_Base {
         asort(&$data);
         // could change to include other STATE of modules (uninstaled, etc)
 
+        // remove exempted modules
+        $exempts = DBUtil::selectObjectArray('doctastic', 'WHERE exempt=1');
+        foreach ($exempts as $exempt) {
+            if (array_key_exists($exempt['modname'], $data)) {
+                unset($data[$exempt['modname']]);
+            }
+        }
+
         if ($optionsOnly) {
             return $data;
         }

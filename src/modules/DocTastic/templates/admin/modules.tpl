@@ -12,9 +12,10 @@
     <div class="modulebox z-clearer">
         <ol id="modulelist" class="z-itemlist">
             <li class="z-itemheader z-clearfix">
-                <span class="z-itemcell z-w30">{gt text="Module Name"}</span>
-                <span class="z-itemcell z-w25">{gt text="Navigation Type"}</span>
-                <span class="z-itemcell z-w25">{gt text="Language Filter Enabled"}</span>
+                <span class="z-itemcell z-w25">{gt text="Module Name"}</span>
+                <span class="z-itemcell z-w20">{gt text="Navigation Type"}</span>
+                <span class="z-itemcell z-w20">{gt text="Language Filter Enabled"}</span>
+                <span class="z-itemcell z-w15">{gt text="Exempt From List"}</span>
                 <span class="z-itemcell z-w20">{gt text="Actions"}</span>
             </li>
             {* This li is only here to copy for appending a new item *}
@@ -22,33 +23,43 @@
                 <div id="modulecontent_0">
                     <input type="hidden" id="modifystatus_0" value="0" />
                     {* *}
-                    <span id="modulename_0" class="z-itemcell z-w30">
+                    <span id="modulename_0" class="z-itemcell z-w25">
                         This is a Fake Entry
                     </span>
                     {* Hidden until called *}
-                    <span id="editmodulename_0" class="z-itemcell z-w30 z-hide">
+                    <span id="editmodulename_0" class="z-itemcell z-w25 z-hide">
                         <select id="modname_0" name="modname_0">
                             {html_options options=$moduleOptions selected=0}
                         </select>
                     </span>
                     {* *}
-                    <span id="modulenavtype_0" class="z-itemcell z-w25">
+                    <span id="modulenavtype_0" class="z-itemcell z-w20">
                         Tree
                     </span>
                     {* Hidden until called *}
-                    <span id="editmodulenavtype_0" class="z-itemcell z-w25 z-hide">
+                    <span id="editmodulenavtype_0" class="z-itemcell z-w20 z-hide">
                         <select id="navtype_0" name="navtype_0">
                             {html_options options=$navTypeOptions selected=0}
                         </select>
                     </span>
                     {* *}
-                    <span id="moduleenablelang_0" class="z-itemcell z-w25">
+                    <span id="moduleenablelang_0" class="z-itemcell z-w20">
                         {1|yesno}
                     </span>
                     {* Hidden until called *}
-                    <span id="editmoduleenablelang_0" class="z-itemcell z-w25 z-hide">
+                    <span id="editmoduleenablelang_0" class="z-itemcell z-w20 z-hide">
                         <select id="enablelang_0" name="enablelang_0">
                             {html_options options=$yesno selected=1}
+                        </select>
+                    </span>
+                    {* *}
+                    <span id="moduleexempt_0" class="z-itemcell z-w15">
+                        {$module.exempt|yesno|safetext}
+                    </span>
+                    {* Hidden until called *}
+                    <span id="editmoduleexempt_0" class="z-itemcell z-w15 z-hide">
+                        <select id="exempt_0" name="exempt_0">
+                            {html_options options=$yesno selected=0}
                         </select>
                     </span>
                     {* *}
@@ -79,33 +90,43 @@
                 <div id="modulecontent_{$module.id}">
                     <input type="hidden" id="modifystatus_{$module.id}" value="0" />
                     {* *}
-                    <span id="modulename_{$module.id}" class="z-itemcell z-w30">
+                    <span id="modulename_{$module.id}" class="z-itemcell z-w25">
                         {$module.modname|safetext}
                     </span>
                     {* Hidden until called *}
-                    <span id="editmodulename_{$module.id}" class="z-itemcell z-w30 z-hide">
+                    <span id="editmodulename_{$module.id}" class="z-itemcell z-w25 z-hide">
                         <select id="modname_{$module.id}" name="modname_{$module.id}">
                             {html_options options=$moduleOptions selected=$module.modname}
                         </select>
                     </span>
                     {* *}
-                    <span id="modulenavtype_{$module.id}" class="z-itemcell z-w25">
+                    <span id="modulenavtype_{$module.id}" class="z-itemcell z-w20">
                         {$module.navtype_disp|safetext}
                     </span>
                     {* Hidden until called *}
-                    <span id="editmodulenavtype_{$module.id}" class="z-itemcell z-w25 z-hide">
+                    <span id="editmodulenavtype_{$module.id}" class="z-itemcell z-w20 z-hide">
                         <select id="navtype_{$module.id}" name="navtype_{$module.id}">
                             {html_options options=$navTypeOptions selected=$module.navtype}
                         </select>
                     </span>
                     {* *}
-                    <span id="moduleenablelang_{$module.id}" class="z-itemcell z-w25">
+                    <span id="moduleenablelang_{$module.id}" class="z-itemcell z-w20">
                         {$module.enablelang|yesno|safetext}
                     </span>
                     {* Hidden until called *}
-                    <span id="editmoduleenablelang_{$module.id}" class="z-itemcell z-w25 z-hide">
+                    <span id="editmoduleenablelang_{$module.id}" class="z-itemcell z-w20 z-hide">
                         <select id="enablelang_{$module.id}" name="enablelang_{$module.id}">
                             {html_options options=$yesno selected=$module.enablelang}
+                        </select>
+                    </span>
+                    {* *}
+                    <span id="moduleexempt_{$module.id}" class="z-itemcell z-w15">
+                        {$module.exempt|yesno|safetext}
+                    </span>
+                    {* Hidden until called *}
+                    <span id="editmoduleexempt_{$module.id}" class="z-itemcell z-w15 z-hide">
+                        <select id="exempt_{$module.id}" name="exempt_{$module.id}">
+                            {html_options options=$yesno selected=$module.exempt}
                         </select>
                     </span>
                     {* *}

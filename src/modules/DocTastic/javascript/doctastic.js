@@ -171,9 +171,11 @@ function enableeditfields(moduleid)
     Element.addClassName('modulenavtype_'           + moduleid, 'z-hide');
     Element.addClassName('moduleenablelang_'        + moduleid, 'z-hide');
     Element.addClassName('moduleaction_'            + moduleid, 'z-hide');
+    Element.addClassName('moduleexempt_'            + moduleid, 'z-hide');
     Element.removeClassName('editmodulenavtype_'    + moduleid, 'z-hide');
     Element.removeClassName('editmoduleenablelang_' + moduleid, 'z-hide');
     Element.removeClassName('editmoduleaction_'     + moduleid, 'z-hide');
+    Element.removeClassName('editmoduleexempt_'     + moduleid, 'z-hide');
     if(allownameedit[moduleid] == true) {
         Element.addClassName('modulename_'          + moduleid, 'z-hide');
         Element.removeClassName('editmodulename_'   + moduleid, 'z-hide');
@@ -192,9 +194,11 @@ function disableeditfields(moduleid)
     Element.addClassName('editmodulenavtype_'    + moduleid, 'z-hide');
     Element.addClassName('editmoduleenablelang_' + moduleid, 'z-hide');
     Element.addClassName('editmoduleaction_'     + moduleid, 'z-hide');
+    Element.addClassName('editmoduleexempt_'     + moduleid, 'z-hide');
     Element.removeClassName('modulenavtype_'     + moduleid, 'z-hide');
     Element.removeClassName('moduleenablelang_'  + moduleid, 'z-hide');
     Element.removeClassName('moduleaction_'      + moduleid, 'z-hide');
+    Element.removeClassName('moduleexempt_'      + moduleid, 'z-hide');
     if(allownameedit[moduleid] == true) {
         Element.addClassName('editmodulename_'   + moduleid, 'z-hide');
         Element.removeClassName('modulename_'    + moduleid, 'z-hide');
@@ -262,7 +266,8 @@ function modulemodify(moduleid)
             id: moduleid,
             modname: $F('modname_' + moduleid),
             navtype: $F('navtype_' + moduleid),
-            enablelang: $F('enablelang_' + moduleid)
+            enablelang: $F('enablelang_' + moduleid),
+            exempt: $F('exempt_' + moduleid)
         };
         new Zikula.Ajax.Request(
             "ajax.php?module=doctastic&func=updateoverride",
@@ -322,6 +327,7 @@ function modulemodify_response(req)
     Element.update('modulename_' + data.id, data.modname);
     Element.update('modulenavtype_' + data.id, data.navtype_disp);
     Element.update('moduleenablelang_' + data.id, data.enablelang_disp);
+    Element.update('moduleexempt_' + data.id, data.exempt_disp);
 
     adding = adding.without(data.id);
 
