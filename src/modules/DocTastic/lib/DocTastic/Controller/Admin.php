@@ -81,14 +81,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
             return LogUtil::registerPermissionError();
         }
 
-        $modules = DBUtil::selectObjectArray('doctastic');
-        $navTypes = DocTastic_NavType_Base::getTypesNames();
-
-        foreach($modules as $key => $module) {
-            $modules[$key]['navtype_disp'] = $navTypes[$module['navtype']];
-            $modules[$key]['editurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
-            $modules[$key]['deleteurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
-        }
+        $modules = DocTastic_NavType_Base::getListed();
         $this->view->assign('modules', $modules);
 
         $navTypeOptions = DocTastic_NavType_Base::getTypesNames();
@@ -99,7 +92,7 @@ class DocTastic_Controller_Admin extends Zikula_Controller
         $control = new DocTastic_NavType_None(array(
             'build' => false,
             'addCore' => ModUtil::getVar('DocTastic', 'addCore')));
-        $this->view->assign('moduleOptions', $control->getModuleSelectorHtml('modname_1', 0, 0, '', 0, '', false, false, 1, 'directory', true));
+        $this->view->assign('moduleOptions', $control->getModuleSelectorHtml('modname_1', 0, 0, '', 0, '', false, false, 1, 'directory', true, true));
 
         return $this->view->fetch('admin/modules.tpl');
     }

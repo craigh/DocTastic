@@ -80,6 +80,11 @@ abstract class DocTastic_NavType_Base {
      */
     protected $docModule = 'DocTastic';
     /**
+     * Array of modules that are exempted from being listed in DocTastic
+     * @var array
+     */
+    protected static $exempt = array();
+    /**
      * Array of files from directory
      * @var array
      */
@@ -183,6 +188,50 @@ abstract class DocTastic_NavType_Base {
         }
     }
 
+    /**
+     * Get the modules that are exempted
+     * @return array
+     */
+    public static function getExempt() {
+        if (empty(self::$exempt)) {
+            ModUtil::dbInfoLoad('DocTastic');
+            self::$exempt = DBUtil::selectObject('doctastic', 'WHERE exempt=1', array('modname'));
+        }
+        return self::$exempt;
+    }
+
+    /**
+     * Is a module exempted?
+     * @param string $module
+     * @return boolean
+     */
+    public static function isExempt($module) {
+        $exemptModules = self::getExempt();
+        if (in_array($module, $exemptModules)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function getListed() {
+        ModUtil::dbInfoLoad('DocTastic');
+        $modules = DBUtil::selectObjectArray('doctastic');
+
+        $navTypes = self::getTypesNames();
+
+        foreach($modules as $key => $module) {
+            $modules[$key]['navtype_disp'] = $navTypes[$module['navtype']];
+            $modules[$key]['editurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
+            $modules[$key]['deleteurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
+        }
+        return $modules;
+    }
+    /**
+     * Constructor
+     * @param array $params
+     * @return void
+     */
     public function __construct($params) {
         if (isset($params['docsDirectory'])) {
             $this->setDocsDirectory($params['docsDirectory']);
@@ -227,7 +276,7 @@ abstract class DocTastic_NavType_Base {
      * @param boolean $optionsOnly only return the selector options (not the whole form)
      * @return string html for inclusion into template
      */
-    protected function getModuleSelectorHtml($name='docmodule', $selectedValue=0, $defaultValue=0, $defaultText='', $allValue=0, $allText='', $submit=true, $disabled=false, $multipleSize=1, $field='directory', $optionsOnly=false) {
+    protected function getModuleSelectorHtml($name='docmodule', $selectedValue=0, $defaultValue=0, $defaultText='', $allValue=0, $allText='', $submit=true, $disabled=false, $multipleSize=1, $field='directory', $optionsOnly=false, $hideListed=false) {
         $selectedValue = (isset($selectedValue) && !empty($selectedValue)) ? $selectedValue : $this->docModule;
         $data = array();
         $modules = ModUtil::getModulesByState(3, 'displayname');
@@ -244,16 +293,27 @@ abstract class DocTastic_NavType_Base {
         // notify EVENT here to modify modules listed
         $event = new Zikula_Event('module.DocTastic.getModules', $data);
         EventUtil::notify($event);
-        asort(&$data);
         // could change to include other STATE of modules (uninstaled, etc)
 
         // remove exempted modules
-        $exempts = DBUtil::selectObjectArray('doctastic', 'WHERE exempt=1');
+        $exempts = self::getExempt();
         foreach ($exempts as $exempt) {
-            if (array_key_exists($exempt['modname'], $data)) {
-                unset($data[$exempt['modname']]);
+            if (array_key_exists($exempt, $data)) {
+                unset($data[$exempt]);
             }
         }
+
+        // remove listed modules (for module overrides list)
+        if ($hideListed) {
+            $listed = self::getListed();
+            foreach ($listed as $listitem) {
+                if (array_key_exists($listitem['modname'], $data)) {
+                    unset($data[$listitem['modname']]);
+                }
+            }
+        }
+
+        asort(&$data);
 
         if ($optionsOnly) {
             return $data;

@@ -29,7 +29,8 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
         $obj = array(
                 'modname' => '',
                 'navtype' => 0,
-                'enablelang' => 1
+                'enablelang' => 1,
+                'exempt' => 0
             );
         $result = DBUtil::insertObject($obj, 'doctastic');
 
@@ -112,7 +113,6 @@ class DocTastic_Controller_Ajax extends Zikula_Controller {
 
         $id = FormUtil::getPassedValue('id', null, 'get');
         $override = DBUtil::selectObjectByID('doctastic', $id);
-        //LogUtil::log(var_export($override, true));
 
         if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_DELETE)) {
             LogUtil::registerPermissionError(null,true);
