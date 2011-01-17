@@ -207,10 +207,12 @@ abstract class DocTastic_NavType_Base {
      */
     public static function isExempt($module) {
         $exemptModules = self::getExempt();
-        if (in_array($module, $exemptModules)) {
-            return true;
-        } else {
-            return false;
+        if (is_array($exemptModules)) {
+            if (in_array($module, $exemptModules)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
