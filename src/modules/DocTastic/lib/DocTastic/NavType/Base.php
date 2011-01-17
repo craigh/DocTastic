@@ -195,7 +195,10 @@ abstract class DocTastic_NavType_Base {
     public static function getExempt() {
         if (empty(self::$exempt)) {
             ModUtil::dbInfoLoad('DocTastic');
-            self::$exempt = DBUtil::selectObject('doctastic', 'WHERE exempt=1', array('modname'));
+            $exempt = DBUtil::selectObject('doctastic', 'WHERE exempt=1', array('modname'));
+            if (!empty($exempt)) {
+                self::$exempt = $exempt;
+            }
         }
         return self::$exempt;
     }
@@ -207,12 +210,10 @@ abstract class DocTastic_NavType_Base {
      */
     public static function isExempt($module) {
         $exemptModules = self::getExempt();
-        if (is_array($exemptModules)) {
-            if (in_array($module, $exemptModules)) {
-                return true;
-            } else {
-                return false;
-            }
+        if (in_array($module, $exemptModules)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
