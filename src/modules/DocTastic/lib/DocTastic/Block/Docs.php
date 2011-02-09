@@ -11,7 +11,7 @@
 /**
  * Class to control Block display and interface
  */
-class DocTastic_Block_Docs extends Zikula_Block
+class DocTastic_Block_Docs extends Zikula_Controller_Block
 {
     /**
      * initialise block
