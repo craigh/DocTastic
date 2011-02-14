@@ -1,6 +1,6 @@
 {include file="admin/menu.tpl"}
 <div class="z-admincontainer">
-<div class="z-adminpageicon">{img modname='core' set='icons/large' src='info.gif'}</div>
+<div class="z-adminpageicon">{img modname='core' set='icons/large' src='info.png'}</div>
 <h2>{gt text="DocTastic settings"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
 <form class="z-form" action="{modurl modname="DocTastic" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
     <div>
@@ -21,8 +21,8 @@
 		</div>
     </fieldset>
     <div class="z-buttons z-formbuttons">
-        {button src="button_ok.gif" set="icons/extrasmall" class='z-btgreen' __alt="Save" __title="Save" __text="Save"}
-        <a class='z-btred' href="{modurl modname="DocTastic" type="admin"}" title="{gt text="Cancel"}">{img modname=core src="button_cancel.gif" set="icons/extrasmall" __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+        {button src="button_ok.png" set="icons/extrasmall" class='z-btgreen' __alt="Save" __title="Save" __text="Save"}
+        <a class='z-btred' href="{modurl modname="DocTastic" type="admin"}" title="{gt text="Cancel"}">{img modname=core src="button_cancel.png" set="icons/extrasmall" __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
     </div>
     </div>
 </form>
