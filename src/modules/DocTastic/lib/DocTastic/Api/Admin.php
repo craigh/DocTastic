@@ -29,7 +29,7 @@ class DocTastic_Api_Admin extends Zikula_Api
             $links[] = array(
                 'url' => ModUtil::url('DocTastic', 'user', 'view'),
                 'text' => $this->__('View Documentation'),
-                'class' => 'z-icon-es-list');
+                'class' => 'z-icon-es-view');
         }
         if (SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
             $links[] = array(
