@@ -4,7 +4,7 @@
  * Description of Ajax
  *
  */
-class DocTastic_Controller_Ajax extends Zikula_Controller {
+class DocTastic_Controller_Ajax extends Zikula_Controller_AbstractAjax {
 
     public function _postSetup()
     {

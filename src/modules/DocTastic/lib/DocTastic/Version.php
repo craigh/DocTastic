@@ -11,7 +11,7 @@
 /**
  * Class to control Version information
  */
-class DocTastic_Version extends Zikula_Version
+class DocTastic_Version extends Zikula_AbstractVersion
 {
     public function getMetaData()
     {

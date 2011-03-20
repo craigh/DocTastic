@@ -11,7 +11,7 @@
 /**
  * Class to control User interface
  */
-class DocTastic_Controller_User extends Zikula_Controller
+class DocTastic_Controller_User extends Zikula_AbstractController
 {
     public function main()
     {

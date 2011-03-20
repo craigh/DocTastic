@@ -11,7 +11,7 @@
 /**
  * Class to control Admin interface
  */
-class DocTastic_Controller_Admin extends Zikula_Controller
+class DocTastic_Controller_Admin extends Zikula_AbstractController
 {
 
     /**

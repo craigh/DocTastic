@@ -11,7 +11,7 @@
 /**
  * Class to control Admin interface
  */
-class DocTastic_Api_Admin extends Zikula_Api
+class DocTastic_Api_Admin extends Zikula_AbstractApi
 {
     /**
      * Get available admin panel links

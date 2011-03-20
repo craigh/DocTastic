@@ -11,7 +11,7 @@
 /**
  * Class to control User interface
  */
-class DocTastic_Api_User extends Zikula_Api
+class DocTastic_Api_User extends Zikula_AbstractApi
 {
 
 } // end class def

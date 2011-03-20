@@ -11,7 +11,7 @@
 /**
  * Class to control Installer interface
  */
-class DocTastic_Installer extends Zikula_Installer
+class DocTastic_Installer extends Zikula_AbstractInstaller
 {
     /**
      * Initializes a new install
