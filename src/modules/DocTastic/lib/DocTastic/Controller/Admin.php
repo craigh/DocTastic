@@ -49,6 +49,8 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
      */
     public function updateconfig()
     {
+        $this->checkCsrfToken();
+        
         if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError();
         }

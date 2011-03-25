@@ -8,7 +8,7 @@
 
     <p class='z-informationmsg z-clearer'>{gt text="Override the default settings for Navigation Type and Language Filter for a specific module. You can also exempt a module from being listed in DocTastic completely."}</p>
     {* general use authid *}
-    <input type="hidden" id="modulesauthid" name="authid" value="{insert name="generateauthkey" module="DocTastic"}" />
+    <input type="hidden" id="modulesauthid" name="csrftoken" value="{insert name="csrftoken"}" />
     <div class="modulebox z-clearer">
         <ol id="modulelist" class="z-itemlist">
             <li class="z-itemheader z-clearfix">

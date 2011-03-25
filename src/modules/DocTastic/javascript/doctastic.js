@@ -55,8 +55,6 @@ function moduleappend()
         new Zikula.Ajax.Request(
             "ajax.php?module=doctastic&func=createoverride",
             {
-                method: 'post',
-                authid: 'modulesauthid',
                 onComplete: moduleappend_response
             });
     }
@@ -272,8 +270,6 @@ function modulemodify(moduleid)
         new Zikula.Ajax.Request(
             "ajax.php?module=doctastic&func=updateoverride",
             {
-                method: 'post',
-                authid: 'modulesauthid',
                 parameters: pars,
                 onComplete: modulemodify_response
             });
@@ -358,9 +354,7 @@ function moduledelete(moduleid)
         new Zikula.Ajax.Request(
             "ajax.php?module=doctastic&func=deleteoverride",
             {
-                method: 'get',
                 parameters: pars,
-                authid: 'modulesauthid',
                 onComplete: moduledelete_response
             });
     }

@@ -15,15 +15,8 @@ class DocTastic_Controller_Ajax extends Zikula_Controller_AbstractAjax {
      * create a module override
      */
     function createoverride() {
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADD)) {
-            LogUtil::registerPermissionError(null,true);
-            throw new Zikula_Exception_Forbidden();
-        }
-
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerPermissionError(null,true);
-            throw new Zikula_Exception_Forbidden();
-        }
+        $this->checkAjaxToken();
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADD));
 
         // Add item
         $obj = array(
@@ -45,20 +38,15 @@ class DocTastic_Controller_Ajax extends Zikula_Controller_AbstractAjax {
      * update (edit) a module override
      */
     function updateoverride() {
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerPermissionError(null,true);
-            throw new Zikula_Exception_Forbidden();
-        }
-        $id = FormUtil::getPassedValue('id', null, 'post');
-        $modname = FormUtil::getPassedValue('modname', '', 'post');
-        $navtype = FormUtil::getPassedValue('navtype', 0, 'post');
-        $enablelang = FormUtil::getPassedValue('enablelang', 1, 'post');
-        $exempt = FormUtil::getPassedValue('exempt', 0, 'post');
-        
-        if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_EDIT)) {
-            LogUtil::registerPermissionError(null,true);
-            throw new Zikula_Exception_Forbidden();
-        }
+        $this->checkAjaxToken();
+
+        $id = $this->request->getPost()->get('id', null);
+        $modname = $this->request->getPost()->get('modname', '');
+        $navtype = $this->request->getPost()->get('navtype', 0);
+        $enablelang = $this->request->getPost()->get('enablelang', 1);
+        $exempt = $this->request->getPost()->get('exempt', 0);
+
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_EDIT));
 
         // does item already exist with that modname?
 //        $exists = DBUtil::selectObjectByID('doctastic', $modname, 'modname');
@@ -106,18 +94,13 @@ class DocTastic_Controller_Ajax extends Zikula_Controller_AbstractAjax {
      * delete a module override
      */
     function deleteoverride() {
-        if (!SecurityUtil::confirmAuthKey()) {
-            LogUtil::registerPermissionError(null,true);
-            throw new Zikula_Exception_Forbidden();
-        }
+        $this->checkAjaxToken();
 
-        $id = FormUtil::getPassedValue('id', null, 'get');
+        $id = $this->request->getPost()->get('id', null);
+
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_DELETE));
+
         $override = DBUtil::selectObjectByID('doctastic', $id);
-
-        if (!SecurityUtil::checkPermission('DocTastic::', $id . '::', ACCESS_DELETE)) {
-            LogUtil::registerPermissionError(null,true);
-            throw new Zikula_Exception_Forbidden();
-        }
 
         // Delete the item
         if (DBUtil::deleteObjectByID('doctastic', $id)) {
