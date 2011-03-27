@@ -21,9 +21,8 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
      */
     public function main()
     {
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
         return $this->modifyconfig();
     }
 
@@ -33,9 +32,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
      */
     public function modifyconfig()
     {
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
     
         $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
         $this->view->assign('navTypeSelector', $sel);
@@ -51,9 +48,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     {
         $this->checkCsrfToken();
         
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $modVars = array(
             'navType' => FormUtil::getPassedValue('navType', 0, 'POST'),
@@ -79,9 +74,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     }
 
     public function modifyoverrides() {
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
         $modules = DocTastic_NavType_Base::getListed();
         $this->view->assign('modules', $modules);

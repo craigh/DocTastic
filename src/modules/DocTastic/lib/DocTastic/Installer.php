@@ -49,10 +49,8 @@ class DocTastic_Installer extends Zikula_AbstractInstaller
      */
     public function upgrade($oldversion)
     {
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN)) {
-            return LogUtil::registerPermissionError();
-        }
-    
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
+
         switch ($oldversion) {
             case '1.0.0':
                 //future development

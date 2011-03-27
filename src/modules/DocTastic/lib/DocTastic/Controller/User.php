@@ -20,9 +20,7 @@ class DocTastic_Controller_User extends Zikula_AbstractController
 
     public function view()
     {
-        if (!SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_OVERVIEW)) {
-            return LogUtil::registerPermissionError();
-        }
+        $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_OVERVIEW), LogUtil::getErrorMsgPermission());
 
         $docmodule = FormUtil::getPassedValue('docmodule', 'DocTastic', 'GETPOST');
         if ($docmodule == 'Core') {
