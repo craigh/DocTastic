@@ -159,9 +159,4 @@
 
 <script type="text/javascript">
     Event.observe(window, 'load', function(){moduleinit(0);}, false);
-
-    // some defines
-    var updatingmodule = '...{{gt text="Updating module override"}}...';
-    var deletingmodule = '...{{gt text="Deleting module override"}}...';
-    var confirmDeleteModule = '{{gt text="Do you really want to delete this module override?"}}';
 </script>

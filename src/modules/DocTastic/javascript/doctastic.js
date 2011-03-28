@@ -258,7 +258,7 @@ function modulemodify(moduleid)
     disableeditfields(moduleid);
     if(getmodifystatus(moduleid) == 0) {
         setmodifystatus(moduleid, 1);
-        showinfo(moduleid, updatingmodule);
+        showinfo(moduleid, Zikula.__('Updating module override...','module_DocTastic'));
         // store via ajax
         var pars = {
             id: moduleid,
@@ -345,9 +345,9 @@ function modulemodify_response(req)
  */
 function moduledelete(moduleid)
 {
-    if(confirm(confirmDeleteModule) && getmodifystatus(moduleid) == 0) {
+    if(confirm(Zikula.__('Do you really want to delete this module override?','module_DocTastic')) && getmodifystatus(moduleid) == 0) {
         new Effect.Highlight('module_' + moduleid, { startcolor: '#ff9999', endcolor: '#ffffff' });
-        showinfo(moduleid, deletingmodule);
+        showinfo(moduleid, Zikula.__('Deleting module override...','module_DocTastic'));
         setmodifystatus(moduleid, 1);
         // delete via ajax
         var pars = {id: moduleid};
