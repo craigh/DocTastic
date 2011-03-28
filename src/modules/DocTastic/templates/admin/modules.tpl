@@ -64,9 +64,9 @@
                     </span>
                     {* *}
                     <span id="moduleaction_0" class="z-itemcell z-w20">
-                        <button class="z-imagebutton z-hide" id="modifyajax_0"   title="{gt text="Edit"}">{img src=xedit.png modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</button>
-                        <a id="modify_0"  href="{modurl modname='DocTastic' type='admin' func='modifyoverrides'}" title="{gt text="Edit"}">{img src=xedit.png modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</a>
-                        <a id="delete_0"     href="{modurl modname='DocTastic' type='admin' func='modifyoverrides'}" title="{gt text="Delete"}">{img src=14_layer_deletelayer.png modname=core set=icons/extrasmall __title="Delete" __alt="Delete"}</a>
+                        <button class="z-imagebutton z-hide" id="modifyajax_0"   title="{gt text="Edit"}">{img src='xedit.png' modname='core' set='icons/extrasmall' __title="Edit" __alt="Edit"}</button>
+                        <a id="modify_0"  href="{modurl modname='DocTastic' type='admin' func='modifyoverrides'}" title="{gt text="Edit"}">{img src='xedit.png' modname='core' set='icons/extrasmall' __title="Edit" __alt="Edit"}</a>
+                        <a id="delete_0"     href="{modurl modname='DocTastic' type='admin' func='modifyoverrides'}" title="{gt text="Delete"}">{img src='14_layer_deletelayer.png' modname='core' set='icons/extrasmall' __title="Delete" __alt="Delete"}</a>
                         <script type="text/javascript">
                             Element.addClassName('insert_0', 'z-hide');
                             Element.addClassName('modify_0', 'z-hide');
@@ -76,9 +76,9 @@
                         </script>
                     </span>
                     <span id="editmoduleaction_0" class="z-itemcell z-w20 z-hide">
-                        <button class="z-imagebutton" id="moduleeditsave_0"   title="{gt text="Save"}">{img src=button_ok.png modname=core set=icons/extrasmall __alt="Save" __title="Save"}</button>
-                        <button class="z-imagebutton" id="moduleeditdelete_0" title="{gt text="Delete"}">{img src=14_layer_deletelayer.png modname=core set=icons/extrasmall __alt="Delete" __title="Delete"}</button>
-                        <button class="z-imagebutton" id="moduleeditcancel_0" title="{gt text="Cancel"}">{img src=button_cancel.png modname=core set=icons/extrasmall __alt="Cancel" __title="Cancel"}</button>
+                        <button class="z-imagebutton" id="moduleeditsave_0"   title="{gt text="Save"}">{img src='button_ok.png' modname='core' set='icons/extrasmall' __alt="Save" __title="Save"}</button>
+                        <button class="z-imagebutton" id="moduleeditdelete_0" title="{gt text="Delete"}">{img src='14_layer_deletelayer.png' modname='core' set='icons/extrasmall' __alt="Delete" __title="Delete"}</button>
+                        <button class="z-imagebutton" id="moduleeditcancel_0" title="{gt text="Cancel"}">{img src='button_cancel.png' modname='core' set='icons/extrasmall' __alt="Cancel" __title="Cancel"}</button>
                     </span>
                 </div>
                 <div id="moduleinfo_0" class="z-hide z-moduleinfo">
@@ -131,9 +131,9 @@
                     </span>
                     {* *}
                     <span id="moduleaction_{$module.id}" class="z-itemcell z-w20">
-                        <button class="z-imagebutton z-hide" id="modifyajax_{$module.id}"   title="{gt text="Edit"}">{img src=xedit.png modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</button>
-                        <a id="modify_{$module.id}"  href="{$module.editurl|safetext}" title="{gt text="Edit"}">{img src=xedit.png modname=core set=icons/extrasmall __title="Edit" __alt="Edit"}</a>
-                        <a id="delete_{$module.id}"     href="{$module.deleteurl|safetext}" title="{gt text="Delete"}">{img src=14_layer_deletelayer.png modname=core set=icons/extrasmall __title="Delete" __alt="Delete"}</a>
+                        <button class="z-imagebutton z-hide" id="modifyajax_{$module.id}"   title="{gt text="Edit"}">{img src='xedit.png' modname='core' set='icons/extrasmall' __title="Edit" __alt="Edit"}</button>
+                        <a id="modify_{$module.id}"  href="{$module.editurl|safetext}" title="{gt text="Edit"}">{img src='xedit.png' modname='core' set='icons/extrasmall' __title="Edit" __alt="Edit"}</a>
+                        <a id="delete_{$module.id}"     href="{$module.deleteurl|safetext}" title="{gt text="Delete"}">{img src='14_layer_deletelayer.png' modname='core' set='icons/extrasmall' __title="Delete" __alt="Delete"}</a>
                         <script type="text/javascript">
                             Element.addClassName('insert_{{$module.id}}', 'z-hide');
                             Element.addClassName('modify_{{$module.id}}', 'z-hide');
@@ -143,9 +143,9 @@
                         </script>
                     </span>
                     <span id="editmoduleaction_{$module.id}" class="z-itemcell z-w20 z-hide">
-                        <button class="z-imagebutton" id="moduleeditsave_{$module.id}"   title="{gt text="Save"}">{img src=button_ok.png modname=core set=icons/extrasmall __alt="Save" __title="Save"}</button>
-                        <button class="z-imagebutton" id="moduleeditdelete_{$module.id}" title="{gt text="Delete"}">{img src=14_layer_deletelayer.png modname=core set=icons/extrasmall __alt="Delete" __title="Delete"}</button>
-                        <button class="z-imagebutton" id="moduleeditcancel_{$module.id}" title="{gt text="Cancel"}">{img src=button_cancel.png modname=core set=icons/extrasmall __alt="Cancel" __title="Cancel"}</button>
+                        <button class="z-imagebutton" id="moduleeditsave_{$module.id}"   title="{gt text="Save"}">{img src='button_ok.png' modname='core' set='icons/extrasmall' __alt="Save" __title="Save"}</button>
+                        <button class="z-imagebutton" id="moduleeditdelete_{$module.id}" title="{gt text="Delete"}">{img src='14_layer_deletelayer.png' modname='core' set='icons/extrasmall' __alt="Delete" __title="Delete"}</button>
+                        <button class="z-imagebutton" id="moduleeditcancel_{$module.id}" title="{gt text="Cancel"}">{img src='button_cancel.png' modname='core' set='icons/extrasmall' __alt="Cancel" __title="Cancel"}</button>
                     </span>
                 </div>
                 <div id="moduleinfo_{$module.id}" class="z-hide z-moduleinfo">
