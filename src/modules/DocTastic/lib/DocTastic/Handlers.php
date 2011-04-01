@@ -36,4 +36,21 @@ class DocTastic_Handlers
             'class' => 'DocTastic_NavType_NoneType'));
     }
 
+    /**
+     * add help docs to page
+     * @param Zikula_Event $event
+     * @return string
+     */
+    public static function renderHelp(Zikula_Event $event)
+    {
+        $type = FormUtil::getPassedValue('type', 'user', 'GETPOST');
+        if ($type == 'admin') {
+            $view = $event->getSubject();
+            $topmodule = $view->getToplevelmodule();
+            $view->assign('topmodule', $topmodule);
+            $template = "file:" . getcwd() . "/modules/DocTastic/templates/admin/help.tpl";
+            return $view->display($template);
+        }
+    }
+
 }
