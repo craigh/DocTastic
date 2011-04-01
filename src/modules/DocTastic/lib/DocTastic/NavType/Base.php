@@ -39,8 +39,6 @@ abstract class DocTastic_NavType_Base {
             'class' => 'DocTastic_NavType_Select'),
         2 => array('name' => 'None',
             'class' => 'DocTastic_NavType_None'),
-        3 => array('name' => 'Internal (Auto-Generated)',
-            'class' => 'DocTastic_NavType_Sensei')
     );
     /**
      * filetype extensions that should not be displayed in navigation
