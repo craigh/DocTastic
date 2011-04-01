@@ -77,7 +77,7 @@ abstract class DocTastic_NavType_AbstractType {
      */
     public function getDefaultFile() {
         foreach ($this->defaultDoc as $file) {
-            if (file_exists($this->getDirectory() . DIRECTORY_SEPARATOR . $file)) {
+            if (file_exists(DataUtil::formatForOS($this->getDirectory() . DIRECTORY_SEPARATOR . $file))) {
                 return $this->getDirectory() . DIRECTORY_SEPARATOR . $file;
             }
         }

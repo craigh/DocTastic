@@ -25,10 +25,10 @@ class DocTastic_NavType_SelectType extends DocTastic_NavType_AbstractType {
             $name = array_pop($fileparts);
             $depth = count($fileparts);
             $name = substr($string, 0, $depth) . $name;
-            $path = implode(DIRECTORY_SEPARATOR, $fileparts);
             // do not include entries with disallowed extensions
             if (!in_array(FileUtil::getExtension($name), $this->disallowedExtensions)) {
-                $this->files[$this->getDirectory() . DIRECTORY_SEPARATOR . $file] = $name;
+                $path = DataUtil::formatForOS($this->getDirectory() . DIRECTORY_SEPARATOR . $file);
+                $this->files[$path] = $name;
             }
         }
     }

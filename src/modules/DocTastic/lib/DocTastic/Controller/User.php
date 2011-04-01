@@ -51,6 +51,7 @@ class DocTastic_Controller_User extends Zikula_AbstractController
         }
 
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
+        $file = DataUtil::formatForOS($file);
 
         if (isset($file) && !empty($file) && file_exists($file)) {
             $fileContents = FileUtil::readFile($file);

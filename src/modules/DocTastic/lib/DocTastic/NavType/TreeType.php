@@ -72,7 +72,7 @@ class DocTastic_NavType_TreeType extends DocTastic_NavType_AbstractType {
      */
     private function _makeArray($id, $pid, $name, $path, $overwrite = array()) {
         $args = array(
-            'file' => DataUtil::formatForDisplayHTML($path . DIRECTORY_SEPARATOR . $name),
+            'file' => DataUtil::formatForOS($path . DIRECTORY_SEPARATOR . $name),
             'docmodule' => $this->docModule,
         );
         $href = ModUtil::url('DocTastic', 'user', 'view', $args); // $this->userType instead of 'user' ?
