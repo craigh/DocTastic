@@ -190,7 +190,6 @@ abstract class DocTastic_NavType_Base {
         $event = new Zikula_Event('module.doctastic.getmodules', $data);
         EventUtil::notify($event);
         // could change to include other STATE of modules (uninstalled, etc)
-
         // remove exempted modules
         $exempts = DocTastic_Util::getExempt();
         foreach ($exempts as $exempt) {
@@ -262,9 +261,9 @@ abstract class DocTastic_NavType_Base {
      * maybe the safehtml should happen here?
      */
     protected function postProcessHtml() {
-        $html  = $this->getModuleSelectorHtml();
+        $html = $this->getModuleSelectorHtml();
         $html .= $this->html;
-        
+
         $this->html = $html;
     }
 
