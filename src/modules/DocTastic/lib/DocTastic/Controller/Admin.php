@@ -62,10 +62,6 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
         // set the new variables
         ModUtil::setVars('DocTastic', $modVars);
     
-        // Let any other modules know that the modules configuration has been updated
-        //$this->callHooks('module', 'updateconfig', 'DocTastic', array(
-        //   'module' => 'DocTastic'));
-    
         // clear the cache
         $this->view->clear_cache();
     
