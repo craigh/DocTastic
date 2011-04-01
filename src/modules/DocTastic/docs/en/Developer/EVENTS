@@ -1,13 +1,26 @@
 ## Events notified in DocTastic
 
-### `module.DocTastic.getTypes`
+### `module.doctastic.gettypes`
 
-This event occurs when the property DoctTastic_NavTypes_Base `types` is requested.
-The *subject* is an array of types. See the property listing in the class for proper
-array structure.
+This event occurs when the DocTastic module is 'searching' for navTypes.
+The subject is an instance of DocTastic_NavType and the calling module
+should use the add() method to add a new navType like so:
 
-### `module.DocTastic.getModules`
+    public static function getTypes(Zikula_Event $event)
+    {
+        $types = $event->getSubject();
+        $types->add(array(
+            'name' => 'Directory Tree',
+            'class' => 'DocTastic_NavType_TreeType'));
+    }
 
-This event occurs when the DoctTastic_NavTypes_Base method `getModuleSelectorHtml`is called.
-The *subject* is an array of modules. This event is called after the array is
-built from the core and before the array is sorted and the html is generated forming the list.
+### `module.doctastic.getmodules`
+
+This event occurs when the DoctTastic_NavTypes_AbstractType::getModuleSelectorHtml
+is called. The *subject* is an array of modules. This event is called after the
+array is built from the core and before the array is sorted and the html is
+generated forming the list. The format of the array is like so:
+
+    array(
+        '<module_directory>' => '<module_displayname>';
+    )
