@@ -3,21 +3,7 @@ This file contains a list of vendor libraries distributed with DocTastic
 
 PHP LIBRARIES
 -------------
-Sensei <0.1 (pre-alpha)
-    Vendor website: http://www.sensei-project.com/
-    Downloaded from: https://svn.sensei-project.com/trunk/
-    License: LGPL 2.1
-    Location in DocTastic: modules/DocTastic/lib/vendor/Sensei
-    Patch details:
-        Removed all subdirectories except /Doc
-        Removed all Files except Exception.php
 
-Text_Wiki 1.2.0
-    Vendor website: http://pear.php.net/package/Text_Wiki/
-    Downloaded from: http://pear.php.net/package/Text_Wiki/download
-    License: LGPL 2.1
-    Location in DocTastic: modules/DocTastic/lib/vendor/Text
-    Patch details: none
 
 
 JAVASCRIPT LIBRARIES
