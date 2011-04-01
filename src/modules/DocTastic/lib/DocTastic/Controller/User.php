@@ -39,7 +39,7 @@ class DocTastic_Controller_User extends Zikula_AbstractController
             $navTypeKey = ModUtil::getVar('DocTastic', 'navType');
             $languageEnabled = ModUtil::getVar('DocTastic', 'enableLanguages');
         }
-        $classname = DocTastic_NavType_Base::getClassNameFromKey($navTypeKey);
+        $classname = DocTastic_Util::getClassNameFromKey($navTypeKey);
 
         $control = new $classname(array(
             'docmodule' => $docmodule,

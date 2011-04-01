@@ -77,7 +77,7 @@ class DocTastic_Controller_Ajax extends Zikula_Controller_AbstractAjax {
             }
         }
 
-        $navTypes = DocTastic_NavType_Base::getTypesNames();
+        $navTypes = DocTastic_Util::getTypesNames();
         $yesno = array(0 => __("No"), 1 => __("Yes"));
 
         $override = DBUtil::selectObjectByID('doctastic', $id, 'id', null, null, null, false);

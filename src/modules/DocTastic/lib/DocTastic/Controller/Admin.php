@@ -34,7 +34,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
     
-        $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_NavType_Base::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
+        $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_Util::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
         $this->view->assign('navTypeSelector', $sel);
     
         return $this->view->fetch('admin/modifyconfig.tpl');
@@ -75,7 +75,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
         $modules = DocTastic_NavType_Base::getListed();
         $this->view->assign('modules', $modules);
 
-        $navTypeOptions = DocTastic_NavType_Base::getTypesNames();
+        $navTypeOptions = DocTastic_Util::getTypesNames();
         $this->view->assign('navTypeOptions', $navTypeOptions);
         
         $this->view->assign('yesno', array(0 => __("No"), 1 => __("Yes")));
