@@ -65,11 +65,6 @@ abstract class DocTastic_NavType_Base {
      */
     protected $docModule = 'DocTastic';
     /**
-     * Array of modules that are exempted from being listed in DocTastic
-     * @var array
-     */
-    protected static $exempt = array();
-    /**
      * Array of files from directory
      * @var array
      */
@@ -125,35 +120,6 @@ abstract class DocTastic_NavType_Base {
         } else {
             // TODO even if lang is not enabled shouldn't we check for access level?
             return $this->_docsDirectory;
-        }
-    }
-
-    /**
-     * Get the modules that are exempted
-     * @return array
-     */
-    public static function getExempt() {
-        if (empty(self::$exempt)) {
-            ModUtil::dbInfoLoad('DocTastic');
-            $exempt = DBUtil::selectObject('doctastic', 'WHERE exempt=1', array('modname'));
-            if (!empty($exempt)) {
-                self::$exempt = $exempt;
-            }
-        }
-        return self::$exempt;
-    }
-
-    /**
-     * Is a module exempted?
-     * @param string $module
-     * @return boolean
-     */
-    public static function isExempt($module) {
-        $exemptModules = self::getExempt();
-        if (in_array($module, $exemptModules)) {
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -239,7 +205,7 @@ abstract class DocTastic_NavType_Base {
         // could change to include other STATE of modules (uninstalled, etc)
 
         // remove exempted modules
-        $exempts = self::getExempt();
+        $exempts = DocTastic_Util::getExempt();
         foreach ($exempts as $exempt) {
             if (array_key_exists($exempt, $data)) {
                 unset($data[$exempt]);

@@ -11,7 +11,7 @@ class DocTastic_Handlers
     public static function servicelinks(Zikula_Event $event)
     {
         $module = $event->getArg('modname');
-        if (!DocTastic_NavType_Base::isExempt($module)) {
+        if (!DocTastic_Util::isExempt($module)) {
             $args = array('docmodule' => $module);
             $event->data[] = array('url' => ModUtil::url('DocTastic', 'user', 'view', $args), 'text' => $module . ' ' . __('Documentation'));
         }

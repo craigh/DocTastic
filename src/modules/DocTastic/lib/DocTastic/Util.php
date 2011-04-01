@@ -57,4 +57,28 @@ class DocTastic_Util
         }
     }
 
+    /**
+     * Get the modules that are exempted
+     * @return array
+     */
+    public static function getExempt() {
+        ModUtil::dbInfoLoad('DocTastic');
+        $exempt = DBUtil::selectObject('doctastic', 'WHERE exempt=1', array('modname'));
+        return (isset($exempt) && !empty($exempt)) ? $exempt : array();
+    }
+
+    /**
+     * Is a module exempted?
+     * @param string $module
+     * @return boolean
+     */
+    public static function isExempt($module) {
+        $exemptModules = self::getExempt();
+        if (in_array($module, $exemptModules)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 } // end class def
