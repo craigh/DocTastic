@@ -49,7 +49,9 @@ class DocTastic_Handlers
             $topmodule = $view->getToplevelmodule();
             $view->assign('topmodule', $topmodule);
             $template = "file:" . getcwd() . "/modules/DocTastic/templates/admin/help.tpl";
-            return $view->display($template);
+            $content = $event->getData();
+            $content = $view->fetch($template) . $content;
+            $event->setData($content);
         }
     }
 
