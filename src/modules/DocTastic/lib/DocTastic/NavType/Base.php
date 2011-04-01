@@ -123,19 +123,6 @@ abstract class DocTastic_NavType_Base {
         }
     }
 
-    public static function getListed() {
-        ModUtil::dbInfoLoad('DocTastic');
-        $modules = DBUtil::selectObjectArray('doctastic');
-
-        $navTypes = DocTastic_Util::getTypesNames();
-
-        foreach($modules as $key => $module) {
-            $modules[$key]['navtype_disp'] = $navTypes[$module['navtype']];
-            $modules[$key]['editurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
-            $modules[$key]['deleteurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
-        }
-        return $modules;
-    }
     /**
      * Constructor
      * @param array $params
@@ -214,7 +201,7 @@ abstract class DocTastic_NavType_Base {
 
         // remove listed modules (for module overrides list)
         if ($hideListed) {
-            $listed = self::getListed();
+            $listed = DocTastic_Util::getListed();
             foreach ($listed as $listitem) {
                 if (array_key_exists($listitem['modname'], $data)) {
                     unset($data[$listitem['modname']]);

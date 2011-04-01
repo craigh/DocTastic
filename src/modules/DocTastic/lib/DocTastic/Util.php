@@ -81,4 +81,22 @@ class DocTastic_Util
         }
     }
 
+    /**
+     * get the modules listed in the doctastic table
+     * which is a list of overrides
+     * @return array
+     */
+    public static function getListed() {
+        ModUtil::dbInfoLoad('DocTastic');
+        $modules = DBUtil::selectObjectArray('doctastic');
+
+        $navTypes = DocTastic_Util::getTypesNames();
+
+        foreach($modules as $key => $module) {
+            $modules[$key]['navtype_disp'] = $navTypes[$module['navtype']];
+            $modules[$key]['editurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
+            $modules[$key]['deleteurl'] = ModUtil::url('DocTastic', 'admin', 'modifyoverrides');
+        }
+        return $modules;
+    }
 } // end class def

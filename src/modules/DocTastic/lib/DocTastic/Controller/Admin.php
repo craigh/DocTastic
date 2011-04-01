@@ -72,7 +72,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     public function modifyoverrides() {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-        $modules = DocTastic_NavType_Base::getListed();
+        $modules = DocTastic_Util::getListed();
         $this->view->assign('modules', $modules);
 
         $navTypeOptions = DocTastic_Util::getTypesNames();
