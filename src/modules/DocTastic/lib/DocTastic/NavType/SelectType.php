@@ -4,7 +4,7 @@
  * Extends NavType_Base to create a select box-style navigation of Documents
  * using HtmlUtil::getSelector_Generic
  */
-class DocTastic_NavType_Select extends DocTastic_NavType_Base {
+class DocTastic_NavType_SelectType extends DocTastic_NavType_AbstractType {
 
     /**
      * create files array

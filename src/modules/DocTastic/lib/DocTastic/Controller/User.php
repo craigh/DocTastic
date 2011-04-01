@@ -46,8 +46,8 @@ class DocTastic_Controller_User extends Zikula_AbstractController
             'docsDirectory' => $docsDirectory,
             'addCore' => $this->getVar('addCore'),
             'languageEnabled' => $languageEnabled));
-        if (!$control instanceof DocTastic_NavType_Base) {
-           throw new Zikula_Exception_Fatal($this->__f('NavType must be instance of %s.', 'DocTastic_NavType_Base'));
+        if (!$control instanceof DocTastic_NavType_AbstractType) {
+           throw new Zikula_Exception_Fatal($this->__f('NavType must be instance of %s.', 'DocTastic_NavType_AbstractType'));
         }
 
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');

@@ -4,7 +4,7 @@
  * Blank Navigation Control
  *
  */
-class DocTastic_NavType_None extends DocTastic_NavType_Base {
+class DocTastic_NavType_NoneType extends DocTastic_NavType_AbstractType {
 
     /**
      * create files array

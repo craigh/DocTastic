@@ -27,13 +27,13 @@ class DocTastic_Handlers
         $types = $event->getSubject();
         $types->add(array(
             'name' => 'Directory Tree',
-            'class' => 'DocTastic_NavType_Tree'));
+            'class' => 'DocTastic_NavType_TreeType'));
         $types->add(array(
             'name' => 'Directory Select Box',
-            'class' => 'DocTastic_NavType_Select'));
+            'class' => 'DocTastic_NavType_SelectType'));
         $types->add(array(
             'name' => 'None',
-            'class' => 'DocTastic_NavType_None'));
+            'class' => 'DocTastic_NavType_NoneType'));
     }
 
 }

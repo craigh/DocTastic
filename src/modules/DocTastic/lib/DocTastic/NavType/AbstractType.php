@@ -4,7 +4,7 @@
  * NavTypeBase is an abstract base class to extend to create navigational types
  * for the DocTastic module
  */
-abstract class DocTastic_NavType_Base {
+abstract class DocTastic_NavType_AbstractType {
 
     /**
      * whether or not to build the object

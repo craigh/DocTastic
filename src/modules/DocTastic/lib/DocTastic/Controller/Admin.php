@@ -80,7 +80,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
         
         $this->view->assign('yesno', array(0 => __("No"), 1 => __("Yes")));
 
-        $control = new DocTastic_NavType_None(array(
+        $control = new DocTastic_NavType_NoneType(array(
             'build' => false,
             'addCore' => ModUtil::getVar('DocTastic', 'addCore')));
         $this->view->assign('moduleOptions', $control->getModuleSelectorHtml('modname_1', 0, 0, '', 0, '', false, false, 1, 'directory', true, true));

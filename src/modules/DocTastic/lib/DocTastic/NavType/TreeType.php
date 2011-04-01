@@ -4,7 +4,7 @@
  * Extends NavType_Base to create a tree-style navigation of Documents
  * using the Zikula_Tree class
  */
-class DocTastic_NavType_Tree extends DocTastic_NavType_Base {
+class DocTastic_NavType_TreeType extends DocTastic_NavType_AbstractType {
 
     /**
      * stores the ongoing treeid for Zikula_Tree
