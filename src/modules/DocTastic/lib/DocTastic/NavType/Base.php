@@ -28,19 +28,6 @@ abstract class DocTastic_NavType_Base {
      */
     private $_addCore = false;
     /**
-     * navigation types
-     * static because is called from a static function
-     * @var array
-     */
-    private static $_types = array(
-        0 => array('name' => 'Directory Tree',
-            'class' => 'DocTastic_NavType_Tree'),
-        1 => array('name' => 'Directory Select Box',
-            'class' => 'DocTastic_NavType_Select'),
-        2 => array('name' => 'None',
-            'class' => 'DocTastic_NavType_None'),
-    );
-    /**
      * filetype extensions that should not be displayed in navigation
      * @var array
      */
@@ -95,10 +82,8 @@ abstract class DocTastic_NavType_Base {
      * @return array
      */
     private static function getTypes() {
-        $types = self::$_types;
-        // notify EVENT here to modify types
-        $event = new Zikula_Event('module.DocTastic.getTypes', $types);
-        EventUtil::notify($event);
+        $event = new Zikula_Event('module.doctastic.gettypes', new DocTastic_NavType());
+        $types = EventUtil::getManager()->notify($event)->getSubject()->getTypes();
         return $types;
     }
 
@@ -292,9 +277,9 @@ abstract class DocTastic_NavType_Base {
             $data['Core'] = 'Core Documentation';
         }
         // notify EVENT here to modify modules listed
-        $event = new Zikula_Event('module.DocTastic.getModules', $data);
+        $event = new Zikula_Event('module.doctastic.getmodules', $data);
         EventUtil::notify($event);
-        // could change to include other STATE of modules (uninstaled, etc)
+        // could change to include other STATE of modules (uninstalled, etc)
 
         // remove exempted modules
         $exempts = self::getExempt();

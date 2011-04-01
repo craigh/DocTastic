@@ -33,6 +33,7 @@ class DocTastic_Installer extends Zikula_AbstractInstaller
         ModUtil::setVar('DocTastic', 'enableLanguages', 1);
 
         EventUtil::registerPersistentModuleHandler('DocTastic', 'module_dispatch.service_links', array('DocTastic_Handlers', 'servicelinks'));
+        EventUtil::registerPersistentModuleHandler('DocTastic', 'module.doctastic.gettypes', array('DocTastic_Handlers', 'getTypes'));
 
         return true;
     }
