@@ -116,11 +116,12 @@ abstract class DocTastic_NavType_AbstractType {
             // append User dir for users (not admins)
             // TODO should check to see if the User directory exists. If not, default to ''?
             $access = ($this->userType == 'user') ? DIRECTORY_SEPARATOR . ucwords($this->userType) : '';
-            return $this->_docsDirectory . $lang . $access; // no trailing slash please
+            $dir = $this->_docsDirectory . $lang . $access; // no trailing slash please
         } else {
             // TODO even if lang is not enabled shouldn't we check for access level?
-            return $this->_docsDirectory;
+            $dir = $this->_docsDirectory;
         }
+        return DataUtil::formatForOS($dir);
     }
 
     /**
