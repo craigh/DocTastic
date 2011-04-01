@@ -175,7 +175,9 @@ abstract class DocTastic_NavType_AbstractType {
     protected function getModuleSelectorHtml($name='docmodule', $selectedValue=0, $defaultValue=0, $defaultText='', $allValue=0, $allText='', $submit=true, $disabled=false, $multipleSize=1, $field='directory', $optionsOnly=false, $hideListed=false) {
         $selectedValue = (isset($selectedValue) && !empty($selectedValue)) ? $selectedValue : $this->docModule;
         $data = array();
-        $modules = ModUtil::getModulesByState(3, 'displayname');
+
+        // could change to include other STATE of modules (uninstalled, etc)
+        $modules = ModUtil::getModulesByState(ModUtil::STATE_ACTIVE, 'displayname');
         foreach ($modules as $module) {
             $value = $module[$field];
             $displayname = $module['displayname'];
@@ -188,8 +190,8 @@ abstract class DocTastic_NavType_AbstractType {
         }
         // notify EVENT here to modify modules listed
         $event = new Zikula_Event('module.doctastic.getmodules', $data);
-        EventUtil::notify($event);
-        // could change to include other STATE of modules (uninstalled, etc)
+        $data = EventUtil::getManager()->notify($event)->getSubject();
+
         // remove exempted modules
         $exempts = DocTastic_Util::getExempt();
         foreach ($exempts as $exempt) {
