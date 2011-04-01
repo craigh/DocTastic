@@ -28,7 +28,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
             $path = implode(DIRECTORY_SEPARATOR, $fileparts);
             // do not include entries with disallowed extensions
             if (!in_array(FileUtil::getExtension($name), $this->disallowedExtensions)) {
-                self::$files[$this->getDirectory() . DIRECTORY_SEPARATOR . $file] = $name;
+                $this->files[$this->getDirectory() . DIRECTORY_SEPARATOR . $file] = $name;
             }
         }
     }
@@ -39,7 +39,7 @@ class DocTastic_NavType_Select extends DocTastic_NavType_Base {
     protected function setHtml() {
         $selectedValue = FormUtil::getPassedValue('file', $this->getDefaultFile(), 'GETPOST');
         $defaultText = $this->rootName;
-        $select = HtmlUtil::getSelector_Generic('file', self::$files, $selectedValue, 0, $defaultText, null, null, true);
+        $select = HtmlUtil::getSelector_Generic('file', $this->files, $selectedValue, 0, $defaultText, null, null, true);
         $url = ModUtil::url('DocTastic', 'user', 'view');
         $html  = "<form action='$url' method='POST' enctype='application/x-www-form-urlencoded'>";
         $html .= $select;

@@ -68,7 +68,7 @@ abstract class DocTastic_NavType_Base {
      * Array of files from directory
      * @var array
      */
-    protected static $files = array();
+    protected $files = array();
 
     /**
      * Find and return a working filename with complete relative path
@@ -142,7 +142,7 @@ abstract class DocTastic_NavType_Base {
             $this->_addCore = $params['addCore'];
         }
         $this->userType = (SecurityUtil::checkPermission($this->docModule, '::', ACCESS_ADMIN)) ? 'admin' : 'user';
-        if (isset($params['build']) && $params['build'] <> false) {
+        if (isset($params['build'])) {
             $this->_build = $params['build'];
         }
         if ($this->_build) {
