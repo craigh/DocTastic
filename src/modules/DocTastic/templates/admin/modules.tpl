@@ -96,6 +96,8 @@
                     {* Hidden until called *}
                     <span id="editmodulename_{$module.id}" class="z-itemcell z-w25 z-hide">
                         <select id="modname_{$module.id}" name="modname_{$module.id}">
+                            {* manually add selected field because all previously listed modules are omitted *}
+                            <option label="{$module.modname}" value="{$module.modname}" selected="selected">{$module.modname}</option>
                             {html_options options=$moduleOptions selected=$module.modname}
                         </select>
                     </span>
