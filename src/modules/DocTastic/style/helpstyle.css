@@ -1,0 +1,38 @@
+
+#doctastic_linkrow {
+    background:url("../images/tab_bottom.gif") repeat-x scroll center bottom transparent;
+    margin:0 !important;
+    padding:0 !important;
+    width:100%;
+}
+
+#doctastic_linkrow span.sub {
+    background:none repeat scroll 0 0 #F3F3F3 !important;
+    border:1px solid #CCCCCC;
+    float:right;
+    list-style:none;
+    margin:0 5px 0 0;
+    padding:0;
+    z-index:1000;
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+}
+
+#doctastic_linkrow span.sub > a {
+    color:#666666;
+    float:left;
+    padding: 5px;
+    font-weight:bold;
+    position:relative;
+    text-decoration:none !important;
+}
+
+#doctastic_linkrow span.sub > a:hover {
+    background:#FFFFFF !important;
+    color:#000;
+    text-decoration:none !important;
+    -webkit-border-radius: 0 0 5px 5px;
+    -moz-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+}
