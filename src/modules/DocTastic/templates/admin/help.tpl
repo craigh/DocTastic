@@ -4,7 +4,7 @@
     <a id="doctastic_help_closer" class='doctastic_helplink' href="javascript:void(0);" onclick='doctastic_help_click();'>
 	<span class='z-icon-es-close'>{gt text='Close'}</span>
     </a>
-    <h2>{$topmodule}/{$func} {gt text='inline help'}</h2>
+    <h2>{$topmodule}/{$lang}/{$type}/{$func} {gt text='inline help'}</h2>
     <div>{$html}</div>
 </div>
 <div id='doctastic_linkrow'><span class='sub'>

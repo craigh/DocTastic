@@ -103,7 +103,7 @@ class DocTastic_Util
     public static function getInlineHelp($mod, $type, $func = 'main', $lang = 'en') {
 	$file = "modules/$mod/docs/$lang/help/$type/$func.txt";
 	if (!file_exists($file)) {
-	    $file = "modules/DocTastic/docs/en/help/default/help.txt";
+	    $file = "modules/DocTastic/docs/en/Help/default/help.txt";
 	}
 	$fileContents = FileUtil::readFile($file);
 	return StringUtil::getMarkdownExtraParser()->transform($fileContents);

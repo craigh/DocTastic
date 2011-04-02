@@ -52,7 +52,9 @@ class DocTastic_Handlers
 	    $func = FormUtil::getPassedValue('func', 'main', 'GETPOST');
 	    $html = DocTastic_Util::getInlineHelp($topmodule, $type, $func, $lang);
             $view->assign('topmodule', $topmodule);
+            $view->assign('type', $type);
             $view->assign('func', $func);
+            $view->assign('lang', $lang);
             $view->assign('html', $html);
             $template = "file:" . getcwd() . "/modules/DocTastic/templates/admin/help.tpl";
             $content = $event->getData();
