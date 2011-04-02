@@ -23,7 +23,8 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
 
-        return $this->modifyconfig();
+//        return $this->modifyconfig();
+		$this->redirect(ModUtil::url('DocTastic', 'admin', 'modifyconfig'));
     }
 
     /**
