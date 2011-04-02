@@ -99,4 +99,10 @@ class DocTastic_Util
         }
         return $modules;
     }
+
+    public static function getInlineHelp($mod, $type, $func) {
+	$file = 'modules/DocTastic/docs/en/Developer/CreatingDocs.txt';
+	$fileContents = FileUtil::readFile($file);
+	return StringUtil::getMarkdownExtraParser()->transform($fileContents);
+    }
 } // end class def

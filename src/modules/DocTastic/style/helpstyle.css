@@ -1,4 +1,8 @@
-
+#doctastic_help_container {
+     background-color: #F3F3F3;
+     border: 1px solid #CCCCCC;
+     padding: 3em;
+}
 #doctastic_linkrow {
     background:url("../images/tab_bottom.gif") repeat-x scroll center bottom transparent;
     margin:0 !important;
@@ -10,7 +14,6 @@
     background:none repeat scroll 0 0 #F3F3F3 !important;
     border:1px solid #CCCCCC;
     float:right;
-    list-style:none;
     margin:0 5px 0 0;
     padding:0;
     z-index:1000;

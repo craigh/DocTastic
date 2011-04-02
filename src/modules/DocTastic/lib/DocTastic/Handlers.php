@@ -48,7 +48,10 @@ class DocTastic_Handlers
         if (($enableInlineHelp) && ($type == 'admin')) {
             $view = $event->getSubject();
             $topmodule = $view->getToplevelmodule();
+	    $func = FormUtil::getPassedValue('func', '', 'GETPOST');
+	    $html = DocTastic_Util::getInlineHelp($topmodule, $type, $func);
             $view->assign('topmodule', $topmodule);
+            $view->assign('html', $html);
             $template = "file:" . getcwd() . "/modules/DocTastic/templates/admin/help.tpl";
             $content = $event->getData();
             $content = $view->fetch($template) . $content;
