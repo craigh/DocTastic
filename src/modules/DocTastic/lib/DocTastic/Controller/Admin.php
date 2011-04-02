@@ -54,6 +54,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
             'navType' => FormUtil::getPassedValue('navType', 0, 'POST'),
             'addCore' => FormUtil::getPassedValue('addCore', 0, 'POST'),
             'enableLanguages' => FormUtil::getPassedValue('enableLanguages', 0, 'POST'),
+            'enableInlineHelp' => FormUtil::getPassedValue('enableInlineHelp', 0, 'POST'),
         );
 
         // delete all the old vars
