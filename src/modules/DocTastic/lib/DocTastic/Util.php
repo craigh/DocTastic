@@ -100,8 +100,11 @@ class DocTastic_Util
         return $modules;
     }
 
-    public static function getInlineHelp($mod, $type, $func) {
-	$file = 'modules/DocTastic/docs/en/Developer/CreatingDocs.txt';
+    public static function getInlineHelp($mod, $type, $func = 'main', $lang = 'en') {
+	$file = "modules/$mod/docs/$lang/help/$type/$func.txt";
+	if (!file_exists($file)) {
+	    $file = "modules/DocTastic/docs/en/help/default/help.txt";
+	}
 	$fileContents = FileUtil::readFile($file);
 	return StringUtil::getMarkdownExtraParser()->transform($fileContents);
     }
