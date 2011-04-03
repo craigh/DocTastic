@@ -1,3 +1,0 @@
-###This is the DocTastic default help page
-
-The file you requested does not exist.
