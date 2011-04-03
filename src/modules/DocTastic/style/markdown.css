@@ -6,6 +6,10 @@
     margin: 1em;
 }
 
+#doctastic_document p {
+    padding-bottom: 1em;
+}
+
 #doctastic_document span.date {
     background: #484;
     display: block;
