@@ -162,7 +162,7 @@
 							return false;
 						}).click(function() {
 							return false;
-						}).focusin(function(){
+						}).bind("focusin", function(){
                             $$.focus();
 						}).mousedown(function() {
 							if (button.call) {
@@ -233,16 +233,21 @@
 
 			// build block to insert
 			function build(string) {
-				openWith 	= prepare(clicked.openWith);
-				placeHolder = prepare(clicked.placeHolder);
-				replaceWith = prepare(clicked.replaceWith);
-				closeWith 	= prepare(clicked.closeWith);
+				var openWith 	= prepare(clicked.openWith);
+				var placeHolder = prepare(clicked.placeHolder);
+				var replaceWith = prepare(clicked.replaceWith);
+				var closeWith 	= prepare(clicked.closeWith);
 				if (replaceWith !== "") {
 					block = openWith + replaceWith + closeWith;
 				} else if (selection === '' && placeHolder !== '') {
 					block = openWith + placeHolder + closeWith;
 				} else {
-					block = openWith + (string||selection) + closeWith;
+					string = string || selection;						
+					if (string.match(/ $/)) {
+						block = openWith + string.replace(/ $/, '') + closeWith + ' ';
+					} else {
+						block = openWith + string + closeWith;
+					}
 				}
 				return {	block:block, 
 							openWith:openWith, 
@@ -293,6 +298,7 @@
 					string = build(selection);
 					start = caretPosition + string.openWith.length;
 					len = string.block.length - string.openWith.length - string.closeWith.length;
+					len = len - (string.block.match(/ $/) ? 1 : 0);
 					len -= fixIeBug(string.block);
 				} else if (shiftKey === true) {
 					string = build(selection);
@@ -352,7 +358,7 @@
 			// Substract linefeed in IE
 			function fixIeBug(string) {
 				if ($.browser.msie) {
-					return string.length - string.replace(/\r*/g, '').length;
+					return string.length - string.replace(/\r/g, '').length;
 				}
 				return 0;
 			}
@@ -392,15 +398,16 @@
 
 				scrollPosition = textarea.scrollTop;
 				if (document.selection) {
-					selection = document.selection.createRange().text;
-					if ($.browser.msie) { // ie
-						var range = document.selection.createRange(), rangeCopy = range.duplicate();
-						rangeCopy.moveToElementText(textarea);
-						caretPosition = -1;
-						while(rangeCopy.inRange(range)) {
-							rangeCopy.moveStart('character');
-							caretPosition ++;
-						}
+					selection = document.selection;	
+					if ($.browser.msie) { // ie	
+						var range = selection.createRange();
+						var stored_range = range.duplicate();
+						stored_range.moveToElementText(textarea);
+						stored_range.setEndPoint('EndToEnd', range);
+						var s = stored_range.text.length - range.text.length;
+	
+						caretPosition = s - (textarea.value.substr(0, s).length - textarea.value.substr(0, s).replace(/\r/g, '').length);
+						selection = range.text;
 					} else { // opera
 						caretPosition = textarea.selectionStart;
 					}
@@ -452,22 +459,26 @@
 			function renderPreview() {		
 				var phtml;
 				if (options.previewParserPath !== '') {
-					$.ajax( {
+					$.ajax({
 						type: 'POST',
+						dataType: 'text',
+						global: false,
 						url: options.previewParserPath,
 						data: options.previewParserVar+'='+encodeURIComponent($$.val()),
 						success: function(data) {
 							writeInPreview( localize(data, 1) ); 
 						}
-					} );
+					});
 				} else {
 					if (!template) {
-						$.ajax( {
+						$.ajax({
 							url: options.previewTemplatePath,
+							dataType: 'text',
+							global: false,
 							success: function(data) {
 								writeInPreview( localize(data, 1).replace(/<!-- content -->/g, $$.val()) );
 							}
-						} );
+						});
 					}
 				}
 				return false;

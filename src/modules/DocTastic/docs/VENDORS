@@ -9,12 +9,13 @@ PHP LIBRARIES
 JAVASCRIPT LIBRARIES
 --------------------
 
-markItUp! 1.1.8
+markItUp! 1.1.10
     Vendor website: http://markitup.jaysalvat.com/home/
     Downloaded from: http://markitup.jaysalvat.com//downloads/download.php?id=releases/latest
     License: MIT/GPL
     Location in DocTastic: modules/DocTastic/javascript/markitup
     Patch details: added "Basic Markdown Set" (http://markitup.jaysalvat.com/downloads/)
         configured local settings in modules/DocTastic/javascript/markitupsettings.js
-        In the template script and settings, the `$` function shortcut had to be replaced with
-        the longer `jQuery` because of the `jQuery.noConflict();` settings in Zikula.
+        In the template script ('admin/generator.tpl') and settings ('markitupsettings.js'),
+        the `$` function shortcut had to be replaced with the longer `jQuery`
+        because of the `jQuery.noConflict();` settings in Zikula.
