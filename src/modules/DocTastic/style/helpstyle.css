@@ -1,7 +1,7 @@
 #doctastic_help_container {
      background-color: #F3F3F3;
      border: 1px solid #CCCCCC;
-     padding: 3em;
+     padding: 2em;
 }
 #doctastic_linkrow {
     background:url("../images/tab_bottom.gif") repeat-x scroll center bottom transparent;
@@ -39,17 +39,18 @@
     -moz-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
 }
-#doctastic_help_closer {
+.doctastic_helplink {
     float:right;
     color:#CCCCCC;
     border: 1px solid #CCCCCC;
     padding: 5px;
+    margin-left: 5px;
     background-color: #FFFFFF;
     -webkit-border-radius: 5px 5px 5px 5px;
     -moz-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
 }
-#doctastic_help_closer:hover {
+.doctastic_helplink:hover {
     color: #666666;
     background-color: #FFF6BF;
 }
