@@ -1,24 +1,6 @@
-<h3 id="backslash">Backslash Escapes</h3>
+This editor **does not save** your generated content anywhere. You have to cut
+and past the raw text to your own text file and save to your /docs directory.
+This is merely provided as a markdown viewer for ease in doc creation.
 
-Markdown allows you to use backslash escapes to generate literal
-characters which would otherwise have special meaning in Markdown's
-formatting syntax. For example, if you wanted to surround a word
-with literal asterisks (instead of an HTML `<em>` tag), you can use
-backslashes before the asterisks, like this:
-
-    \*literal asterisks\*
-
-Markdown provides backslash escapes for the following characters:
-
-    \   backslash
-    `   backtick
-    *   asterisk
-    _   underscore
-    {}  curly braces
-    []  square brackets
-    ()  parentheses
-    #   hash mark
-	+	plus sign
-	-	minus sign (hyphen)
-    .   dot
-    !   exclamation mark
+It is an implementation of the MarkItUp! javascript library available at the
+[MarkItUp homepage](http://markitup.jaysalvat.com/home/ "MarkItUp!")

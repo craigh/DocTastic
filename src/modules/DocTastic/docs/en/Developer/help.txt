@@ -1,0 +1,42 @@
+## Inline help
+
+The inline help system is a bit less flexible than the main documentation module.
+In order to utilize this, you must follow a more structured path and file naming
+scheme.
+
+### Directory Structure
+
+The `/Help` directory must reside within the `<MyModule>/docs/lang/` directory:
+
+Directory Structure
+~~~
+<MyModule>/docs/
+    license.txt
+    en/
+        User/
+        Admin/
+        Developer/
+        Help/
+            Admin/
+                modifyconfig.txt
+                edititem.txt
+                main.txt
+            Default/
+                help.txt
+    de/
+        User/
+        Admin/
+        Developer/
+        Help/
+~~~
+
+Within the /Help directory, you should create an `/Admin` directory and a `/Default`
+directory (eventually this may be expanded to include a `/User` directory, but it
+currently does not). There is only one file in the `/Default` directory and that
+should be 'help.txt'. This file is used whenever a regular doc file cannot be
+found.
+
+
+Inside the `/Admin` directory, your files must be named in all lowercase and must
+be the **exact same as the name of the Admin class method** they are documenting.
+The file also **must have a `.txt` suffix**.

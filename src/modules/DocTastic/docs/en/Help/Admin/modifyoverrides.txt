@@ -1,26 +1,21 @@
-###This is the modify overrides help page
+Module Overrides
+----------------
 
-<h3 id="backslash">Backslash Escapes</h3>
+This area allows the administrator to override the standard behavior for any
+module. Behaviors that can be changed are the **navigation type**, whether the
+**language filter** is enabled, and whether the module should be **exempted**
+from the list.
 
-Markdown allows you to use backslash escapes to generate literal
-characters which would otherwise have special meaning in Markdown's
-formatting syntax. For example, if you wanted to surround a word
-with literal asterisks (instead of an HTML `<em>` tag), you can use
-backslashes before the asterisks, like this:
+The first two areas are explained on the _Default settings_ page.
 
-    \*literal asterisks\*
+**Exempting a module** means that it will not be listed in the DocTastic
+documentation viewer. You may choose to use this for modules that have no
+internal (DocTastic-compatible) documentation.
 
-Markdown provides backslash escapes for the following characters:
+----
 
-    \   backslash
-    `   backtick
-    *   asterisk
-    _   underscore
-    {}  curly braces
-    []  square brackets
-    ()  parentheses
-    #   hash mark
-	+	plus sign
-	-	minus sign (hyphen)
-    .   dot
-    !   exclamation mark
+To create an override, simply click the _Create new override_ link. When
+finished, click the green check-mark to complete and save the settings.
+
+Once an override has been created, it can be edited or deleted by clicking the
+'red pen' edit icon.

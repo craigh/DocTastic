@@ -8,15 +8,16 @@ It provides access to and interpretation of Markdown files within a Zikula Insta
    * Place your license.txt (or whatever you named it) in the `/docs` directory
  2. Create language-specific sub-directories within the /docs dir e.g. `MyModule/docs/en`
 and `MyModule/docs/de` and `MyModule/docs/nl`
- 3. Create `/User` and `/Admin` sub-directories (optional `/Developer`)
+ 3. Create `/User`, `/Admin` and  `/Help` sub-directories (optional `/Developer`)
  4. Place files in the appropriate directory as required to document your module.
    * You may add unlimited files and add additional directory structure as you please.
    * DocTastic will attempt to render nearly any type of text-based file. For a list
 of prohibited filetypes, please see `modules/DocTastic/lib/DocTastic/NavType/Base.php`
 and locate the `$disallowedExtensions` property.
 
+Directory
 ~~~
-Directory Structure
+ Structure
 <MyModule>/docs/
     license.txt
     en/
@@ -32,11 +33,24 @@ Directory Structure
         Developer/
             readme.txt
             api.txt
+        Help/
+            Admin/
+                modifyconfig.txt
+                edititem.txt
+                main.txt
+            Default/
+                help.txt
     de/
         User/
         Admin/
         Developer/
+        Help/
 ~~~
+
+## Help files
+
+Please see the Developer/help.txt doc file for more information on usage of the
+inline help system.
 
 ## Markdown
 
@@ -57,7 +71,7 @@ to focus that documentation at the appropriate audience (User/Admin/Developer).
 In addition DocTastic takes advantage of Zikula's inherent language handling to
 further focus to your documents for your intended audience.
 
-Because your documentation will now be within you module's directory structure it
+Because your documentation will now be within your module's directory structure it
 is inherently version-controllable (like your code). This is of course very useful
 because as your code evolves so will your documentation. This approach allows you
 to keep you documentation up-to-date and current with your code without making you
