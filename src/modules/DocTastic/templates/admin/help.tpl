@@ -8,7 +8,8 @@
 	<span class='z-icon-es-info'>{gt text='Full Documentation' domain='module_doctastic'}</span>
     </a>
     <h2>{$doctastic_help.topmodule}/{$doctastic_help.lang}/{$doctastic_help.type}/{$doctastic_help.func} {gt text='inline help' domain='module_doctastic'}</h2>
-    <div>{$doctastic_help.html}</div>
+    {pageaddvar name='stylesheet' value='modules/DocTastic/style/markdown.css'}
+    <div id="doctastic_document">{$doctastic_help.html}</div>
 </div>
 <div id='doctastic_linkrow'><span class='sub'>
     <a id="doctastic_help_collapse" href="javascript:void(0);">

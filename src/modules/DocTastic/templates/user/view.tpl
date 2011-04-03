@@ -10,7 +10,8 @@
     <div>
         <div class='doctasticpageicon'>{img modname='core' set='icons/large' src='filenew.png'}</div>
         <h2>{gt text="Document Name:"} {$documentname}</h2>
-        <div id='DocTastic_document'>
+        {pageaddvar name='stylesheet' value='modules/DocTastic/style/markdown.css'}
+        <div id='doctastic_document'>
             {$document|safehtml}
         </div>
     </div>

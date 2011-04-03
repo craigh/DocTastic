@@ -1,0 +1,89 @@
+/* doctastic markdown stylesheet */
+#doctastic_document {
+    background-color: #ffffff;
+    padding: 3em;
+    border: 1px solid #cccccc;
+    margin: 1em;
+}
+
+#doctastic_document span.date {
+    background: #484;
+    display: block;
+    padding: 0.4em 0.6em 0.3em;
+    font-weight: bold;
+    color: white;
+    border-bottom: 3px solid #262;
+    float: left;
+}
+
+#doctastic_document div {
+    margin-bottom: 2em;
+}
+
+#doctastic_document h1 {
+    margin-top: 0.2em;
+}
+
+#doctastic_document { color: #333; }
+
+#doctastic_document h1 a {
+    text-decoration: none;
+    clear: left;
+    display: block;
+    color: black;
+    padding: 0.3em 0;
+    margin: 0 0 0.2em 0;
+    border-bottom: 1px dashed #555;
+    font-weight: bold;
+}
+
+#doctastic_document br { margin-bottom: 10px;}
+
+#doctastic_document pre {
+    background: #f8f8f8;
+    border: 1px solid #E7E5DC;
+    border-width: 1px 0 4px 6px;
+    padding: 1em;
+    overflow: auto;
+    color: black;
+    line-height: 120%;
+    font-family: "Consolas","Courier New",Courier,mono;
+    font-size: 12px;
+    letter-spacing: 0;
+}
+
+#doctastic_document blockquote {
+    margin-left: 2em;
+    background-color: #ffffcc;
+    padding: 1em;
+}
+
+#doctastic_document table {
+    width: 100%;
+    border: 2px solid #cccccc;
+    border-collapse: collapse;
+}
+
+#doctastic_document table a {
+    color: #262;
+    font-weight: bold;
+}
+
+#doctastic_document table th {
+    text-align: left;
+}
+
+#doctastic_document table td,
+#doctastic_document table th {
+    padding: 0.5em 0.3em;
+    border: 1px solid #cccccc;
+}
+
+#doctastic_document table tr:last-child td,
+#doctastic_document table tr:last-child th {
+    /* border-bottom: 0; */
+}
+
+#doctastic_document div.related {
+    margin-bottom: 2em;
+}
