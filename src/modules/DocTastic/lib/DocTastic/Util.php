@@ -102,11 +102,19 @@ class DocTastic_Util
 
     public static function getInlineHelp($mod, $type, $func = 'main', $lang = 'en') {
         $type = ucwords($type);
-        $file = "modules/$mod/docs/$lang/Help/$type/$func.txt";
-        if (!file_exists($file)) {
-            $file = "modules/DocTastic/docs/en/Help/Default/help.txt";
+        $files = array(
+            0 => "modules/$mod/docs/$lang/Help/$type/$func.txt", // normal
+            1 => "modules/$mod/docs/en/Help/$type/$func.txt",  // en normal
+            2 => "modules/$mod/docs/$lang/Help/Default/help.txt", // translated default
+            3 => "modules/$mod/docs/en/Help/Default/help.txt", // en default
+            4 => "modules/DocTastic/docs/en/Help/Default/help.txt"); // DocTastic en default
+        foreach ($files as $file) {
+            if (file_exists($file)) {
+                $helpfile = $file;
+                break;
+            }
         }
-        $fileContents = FileUtil::readFile($file);
+        $fileContents = FileUtil::readFile($helpfile);
         return StringUtil::getMarkdownExtraParser()->transform($fileContents);
     }
 } // end class def
