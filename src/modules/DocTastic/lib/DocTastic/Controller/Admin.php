@@ -22,8 +22,6 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     public function main()
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-
-//        return $this->modifyconfig();
 		$this->redirect(ModUtil::url('DocTastic', 'admin', 'modifyconfig'));
     }
 
@@ -34,9 +32,21 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
     public function modifyconfig()
     {
         $this->throwForbiddenUnless(SecurityUtil::checkPermission('DocTastic::', '::', ACCESS_ADMIN), LogUtil::getErrorMsgPermission());
-    
+        $AllowableHTML = System::getVar('AllowableHTML');
+        $tagsNeeded = array('code', 'thead');
+        $SecCtrLink = ModUtil::url('SecurityCenter', 'admin', 'allowedhtml');
+        $SecCtrInfo = ModUtil::getInfoFromName('SecurityCenter');
+        $SecCtrName = $SecCtrInfo['displayname'];
+        $warnings = '';
+        foreach ($tagsNeeded as $tag) {
+            if ($AllowableHTML[$tag] == 0) {
+                $warnings .= $this->__f('DocTastic uses the %1$s html tag. Please enable it in the %2$s module.', array("'<strong>$tag</strong>'", "<a href='$SecCtrLink'>$SecCtrName</a>"));
+                $warnings .= '<br />';
+            }
+        }
         $sel = HtmlUtil::getSelector_Generic('navType', DocTastic_Util::getTypesNames(), ModUtil::getVar('DocTastic', 'navType'));
         $this->view->assign('navTypeSelector', $sel);
+        $this->view->assign('warnings', $warnings);
     
         return $this->view->fetch('admin/modifyconfig.tpl');
     }

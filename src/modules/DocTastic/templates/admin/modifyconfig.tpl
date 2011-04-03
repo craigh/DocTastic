@@ -5,6 +5,7 @@
 <form class="z-form" action="{modurl modname="DocTastic" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
     <div>
 	<input type="hidden" name="csrftoken" value="{insert name="csrftoken"}" />
+    {if !empty($warnings)}<div class='z-warningmsg'>{$warnings}</div>{/if}
     <fieldset>
         <legend>{gt text='General settings'}</legend>
         <div class="z-formrow">
