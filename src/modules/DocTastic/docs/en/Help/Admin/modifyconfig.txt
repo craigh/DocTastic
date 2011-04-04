@@ -20,3 +20,10 @@ Inline help settings
 (Checked by default) When checked, locates a small 'help' tab in the upper right
 corner of admin pages. When clicked, the table reveals inline documentation of
 the current module.
+
+Warnings
+--------
+
+This page checks for the availability of html tags that are rendered by the
+markdown renderer. If they are not available, a notice is posted here. You can
+enable these by following the provided link. You can allow (without attributes).
