@@ -39,21 +39,6 @@
     -moz-border-radius: 0 0 5px 5px;
     border-radius: 0 0 5px 5px;
 }
-.doctastic_helplink {
-    float:right;
-    color:#CCCCCC;
-    border: 1px solid #CCCCCC;
-    padding: 5px;
-    margin-left: 5px;
-    background-color: #FFFFFF;
-    -webkit-border-radius: 5px 5px 5px 5px;
-    -moz-border-radius: 5px 5px 5px 5px;
-    border-radius: 5px 5px 5px 5px;
-}
-.doctastic_helplink:hover {
-    color: #666666;
-    background-color: #FFF6BF;
-}
 .z-icon-es-close {
     background: url("../../../images/icons/extrasmall/fileclose.png") no-repeat scroll 0 50% transparent;
     padding: 2px 0 2px 20px;
