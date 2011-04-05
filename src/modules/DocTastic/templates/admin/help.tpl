@@ -1,6 +1,6 @@
 {ajaxheader modname='DocTastic' filename='help.js'}
 {pageaddvar name='stylesheet' value='modules/DocTastic/style/helpstyle.css'}
-<div id='doctastic_help_container'>
+<div id='doctastic_help_container' style='display:none;'>
     <span class='z-buttons z-floatright'>
         <a href="{modurl modname='DocTastic' type='user' func='view' docmodule=$doctastic_help.topmodule}">
         <span class='z-icon-es-info'>{gt text='Full Documentation' domain='module_doctastic'}</span>
