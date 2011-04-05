@@ -31,9 +31,6 @@ class DocTastic_Handlers
         $types->add(array(
             'name' => 'Directory Select Box',
             'class' => 'DocTastic_NavType_SelectType'));
-        $types->add(array(
-            'name' => 'None',
-            'class' => 'DocTastic_NavType_NoneType'));
     }
 
     /**
