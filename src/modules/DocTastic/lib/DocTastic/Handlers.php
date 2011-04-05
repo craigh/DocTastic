@@ -43,7 +43,7 @@ class DocTastic_Handlers
      */
     public static function renderHelp(Zikula_Event $event)
     {
-	$enableInlineHelp = ModUtil::getVar('DocTastic', 'enableInlineHelp', false);
+        $enableInlineHelp = ModUtil::getVar('DocTastic', 'enableInlineHelp', false);
         $type = FormUtil::getPassedValue('type', 'user', 'GETPOST');
         if (($enableInlineHelp) && ($type == 'admin')) {
             $view = $event->getSubject();
