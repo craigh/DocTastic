@@ -211,7 +211,7 @@ abstract class DocTastic_NavType_AbstractType {
             }
         }
 
-        asort(&$data);
+        asort($data);
 
         if ($optionsOnly) {
             return $data;
