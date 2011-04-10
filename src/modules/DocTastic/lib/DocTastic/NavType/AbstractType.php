@@ -77,8 +77,8 @@ abstract class DocTastic_NavType_AbstractType {
      */
     public function getDefaultFile() {
         foreach ($this->defaultDoc as $file) {
-            if (file_exists(DataUtil::formatForOS($this->getDirectory() . DIRECTORY_SEPARATOR . $file))) {
-                return $this->getDirectory() . DIRECTORY_SEPARATOR . $file;
+            if (file_exists(DataUtil::formatForOS($this->getDirectory() . '/' . $file))) {
+                return $this->getDirectory() . '/' . $file;
             }
         }
         return '';
@@ -100,6 +100,7 @@ abstract class DocTastic_NavType_AbstractType {
      */
     protected function setDocsDirectory($docsDirectory) {
         if (isset($docsDirectory) && !empty($docsDirectory)) {
+            $docsDirectory = str_replace('\\', '/', $docsDirectory);
             $this->_docsDirectory = $docsDirectory;
         }
     }
@@ -112,10 +113,10 @@ abstract class DocTastic_NavType_AbstractType {
         if ($this->_languageEnabled) {
             // append language code
             // TODO should check to see if a langcode directory exists and if not, default to en or default to lang = ''?
-            $lang = DIRECTORY_SEPARATOR . ZLanguage::getLanguageCode();
+            $lang = '/' . ZLanguage::getLanguageCode();
             // append User dir for users (not admins)
             // TODO should check to see if the User directory exists. If not, default to ''?
-            $access = ($this->userType == 'user') ? DIRECTORY_SEPARATOR . ucwords($this->userType) : '';
+            $access = ($this->userType == 'user') ? '/' . ucwords($this->userType) : '';
             $dir = $this->_docsDirectory . $lang . $access; // no trailing slash please
         } else {
             // TODO even if lang is not enabled shouldn't we check for access level?

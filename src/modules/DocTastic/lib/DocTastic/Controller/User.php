@@ -27,8 +27,9 @@ class DocTastic_Controller_User extends Zikula_AbstractController
             $docsDirectory = 'docs';
         } else {
             $docmoduleInfo = ModUtil::getInfoFromName($docmodule);
-            $relativePath = str_replace(System::getBaseUri() . DIRECTORY_SEPARATOR, '', ModUtil::getBaseDir($docmoduleInfo['name']));
-            $docsDirectory = $relativePath . DIRECTORY_SEPARATOR . 'docs';
+            $baseUri = System::getBaseUri() . '/';
+            $relativePath = str_replace($baseUri, '', ModUtil::getBaseDir($docmoduleInfo['name']));
+            $docsDirectory = $relativePath . '/' . 'docs';
         }
 
         $moduleConfig = DBUtil::selectObjectByID('doctastic', $docmodule, 'modname');
@@ -58,7 +59,8 @@ class DocTastic_Controller_User extends Zikula_AbstractController
             $control->interpretFile($fileContents);
             $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
             $this->view->assign('document', $renderedFile);
-            $nameparts = explode(DIRECTORY_SEPARATOR, $file);
+            $file = str_replace('\\', '/', $file);
+            $nameparts = explode('/', $file);
             $name = array_pop($nameparts);
             $this->view->assign('documentname', $name);
         } else {

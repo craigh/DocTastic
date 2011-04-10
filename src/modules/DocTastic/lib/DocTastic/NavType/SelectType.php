@@ -21,13 +21,14 @@ class DocTastic_NavType_SelectType extends DocTastic_NavType_AbstractType {
     protected function format(array $files) {
         $string = "-----------------------------------------------------------";
         foreach ($files as $key => $file) {
-            $fileparts = explode(DIRECTORY_SEPARATOR, $file);
+            $file = str_replace('\\', '/', $file);
+            $fileparts = explode('/', $file);
             $name = array_pop($fileparts);
             $depth = count($fileparts);
             $name = substr($string, 0, $depth) . $name;
             // do not include entries with disallowed extensions
             if (!in_array(FileUtil::getExtension($name), $this->disallowedExtensions)) {
-                $path = DataUtil::formatForOS($this->getDirectory() . DIRECTORY_SEPARATOR . $file);
+                $path = DataUtil::formatForOS($this->getDirectory() . '/' . $file);
                 $this->files[$path] = $name;
             }
         }

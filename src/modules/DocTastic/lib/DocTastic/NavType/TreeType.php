@@ -37,6 +37,7 @@ class DocTastic_NavType_TreeType extends DocTastic_NavType_AbstractType {
      * @param string $root pathname files are structured under
      */
     protected function format(array $files, $parent_id = 0, $root = '') {
+        $root = str_replace('\\', '/' $root);
         foreach ($files as $key => $file) {
             self::$_treeid++;
             if (is_array($file)) {
@@ -44,7 +45,7 @@ class DocTastic_NavType_TreeType extends DocTastic_NavType_AbstractType {
                 if (!in_array(self::$_treeid, self::$_treenodes)) {
                     self::$_treenodes[] = self::$_treeid;
                 }
-                $this->format($file, self::$_treeid, $root . DIRECTORY_SEPARATOR . $key);
+                $this->format($file, self::$_treeid, $root . '/' . $key);
             } else {
                 $this->files[] = $this->_makeArray(self::$_treeid, $parent_id, $file, $root);
             }
@@ -72,7 +73,7 @@ class DocTastic_NavType_TreeType extends DocTastic_NavType_AbstractType {
      */
     private function _makeArray($id, $pid, $name, $path, $overwrite = array()) {
         $args = array(
-            'file' => DataUtil::formatForOS($path . DIRECTORY_SEPARATOR . $name),
+            'file' => DataUtil::formatForOS($path . '/' . $name),
             'docmodule' => $this->docModule,
         );
         $href = ModUtil::url('DocTastic', 'user', 'view', $args); // $this->userType instead of 'user' ?
