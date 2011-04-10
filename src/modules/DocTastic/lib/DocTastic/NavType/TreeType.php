@@ -37,7 +37,7 @@ class DocTastic_NavType_TreeType extends DocTastic_NavType_AbstractType {
      * @param string $root pathname files are structured under
      */
     protected function format(array $files, $parent_id = 0, $root = '') {
-        $root = str_replace('\\', '/' $root);
+        $root = str_replace('\\', '/', $root);
         foreach ($files as $key => $file) {
             self::$_treeid++;
             if (is_array($file)) {
