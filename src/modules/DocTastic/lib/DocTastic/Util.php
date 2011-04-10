@@ -100,6 +100,16 @@ class DocTastic_Util
         return $modules;
     }
 
+    /**
+     * get rendered file for inline help
+     * func defaults to 'main' because some modules still do this.
+     * 
+     * @param string $mod
+     * @param string $type
+     * @param string $func
+     * @param string $lang
+     * @return string
+     */
     public static function getInlineHelp($mod, $type, $func = 'main', $lang = 'en') {
         $type = ucwords($type);
         $files = array(

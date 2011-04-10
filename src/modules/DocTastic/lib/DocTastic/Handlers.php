@@ -46,6 +46,7 @@ class DocTastic_Handlers
             $view = $event->getSubject();
             $topmodule = $view->getToplevelmodule();
             $lang = $view->getLanguage();
+            // 'main' used here because many modules still default to it
             $func = FormUtil::getPassedValue('func', 'main', 'GETPOST');
             $html = DocTastic_Util::getInlineHelp($topmodule, $type, $func, $lang);
             $view->assign('doctastic_help', array(

@@ -3,7 +3,7 @@
     <div class='doctasticpageicon'>{img modname='core' set='icons/large' src='info.png'}</div>
     <h2>{gt text="Location:"} {$directory}</h2>
     {checkpermissionblock component='DocTastic::' instance='::' level=ACCESS_ADMIN}
-        <a class='z-floatright z-icon-es-config' style='padding-right:5em;' href='{modurl modname='DocTastic' type='admin'}'>{gt text='DocTastic Administration'}</a>
+        <a class='z-floatright z-icon-es-config' style='padding-right:5em;' href='{modurl modname='DocTastic' type='admin' func='modifyconfig'}'>{gt text='DocTastic Administration'}</a>
     {/checkpermissionblock}
     {$navigation}
     {if $document}

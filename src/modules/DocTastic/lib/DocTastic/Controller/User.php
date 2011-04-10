@@ -15,7 +15,7 @@ class DocTastic_Controller_User extends Zikula_AbstractController
 {
     public function main()
     {
-        return $this->view();
+		$this->redirect(ModUtil::url('DocTastic', 'user', 'view'));
     }
 
     public function view()
