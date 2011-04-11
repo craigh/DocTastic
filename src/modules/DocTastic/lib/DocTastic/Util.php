@@ -111,12 +111,21 @@ class DocTastic_Util
      * @return string
      */
     public static function getInlineHelp($mod, $type, $func = 'main', $lang = 'en') {
+        $modInfo = ModUtil::getInfoFromName($mod);
+        
+        if (isset($modInfo) && is_array($modInfo)) {
+            $modPath = ($modInfo['type'] == ModUtil::TYPE_SYSTEM) ? 'system' : 'modules';
+        } else {
+            // TODO - Maybe this should be an error, because if module information was not retreieved then the Extensions module does not know about the module.
+            $modPath = 'modules';
+        }
+        
         $type = ucwords($type);
         $files = array(
-            0 => "modules/$mod/docs/$lang/Help/$type/$func.txt", // normal
-            1 => "modules/$mod/docs/en/Help/$type/$func.txt",  // en normal
-            2 => "modules/$mod/docs/$lang/Help/Default/help.txt", // translated default
-            3 => "modules/$mod/docs/en/Help/Default/help.txt", // en default
+            0 => "$modPath/$mod/docs/$lang/Help/$type/$func.txt", // normal
+            1 => "$modPath/$mod/docs/en/Help/$type/$func.txt",  // en normal
+            2 => "$modPath/$mod/docs/$lang/Help/Default/help.txt", // translated default
+            3 => "$modPath/$mod/docs/en/Help/Default/help.txt", // en default
             4 => "modules/DocTastic/docs/en/Help/Default/help.txt"); // DocTastic en default
         foreach ($files as $file) {
             if (file_exists($file)) {
