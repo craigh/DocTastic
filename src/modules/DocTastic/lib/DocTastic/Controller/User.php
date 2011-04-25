@@ -54,23 +54,26 @@ class DocTastic_Controller_User extends Zikula_AbstractController
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
         $file = DataUtil::formatForOS($file);
 
-        if (isset($file) && !empty($file) && file_exists($file)) {
-            $fileContents = FileUtil::readFile($file);
-            $control->interpretFile($fileContents);
-            $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
-            $this->view->assign('document', $renderedFile);
-            $file = str_replace('\\', '/', $file);
-            $nameparts = explode('/', $file);
-            $name = array_pop($nameparts);
-            $this->view->assign('documentname', $name);
-        } else {
-            $this->view->assign('document', '');
-            $this->view->assign('documentname', '');
+        $this->view->setCache_Id($file);
+        if (!$this->view->is_cached('user/view.tpl')) {
+            if (isset($file) && !empty($file) && file_exists($file)) {
+                $fileContents = FileUtil::readFile($file);
+                $control->interpretFile($fileContents);
+                $renderedFile = StringUtil::getMarkdownExtraParser()->transform($fileContents);
+                $this->view->assign('document', $renderedFile);
+                $file = str_replace('\\', '/', $file);
+                $nameparts = explode('/', $file);
+                $name = array_pop($nameparts);
+                $this->view->assign('documentname', $name);
+            } else {
+                $this->view->assign('document', '');
+                $this->view->assign('documentname', '');
+            }
+
+            $this->view->assign('navigation', $control->getHtml());
+            $this->view->assign('directory', $control->getDirectory());
         }
-
-        $this->view->assign('navigation', $control->getHtml());
-        $this->view->assign('directory', $control->getDirectory());
-
+        
         return $this->view->fetch('user/view.tpl');
     }
 } // end class def
