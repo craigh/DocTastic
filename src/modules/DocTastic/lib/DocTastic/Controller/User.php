@@ -54,7 +54,7 @@ class DocTastic_Controller_User extends Zikula_AbstractController
         $file = FormUtil::getPassedValue('file', $control->getDefaultFile(), 'GETPOST');
         $file = DataUtil::formatForOS($file);
 
-        $this->view->setCache_Id($file);
+        $this->view->setCacheId($file);
         if (!$this->view->is_cached('user/view.tpl')) {
             if (isset($file) && !empty($file) && file_exists($file)) {
                 $fileContents = FileUtil::readFile($file);

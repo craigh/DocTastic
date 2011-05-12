@@ -125,7 +125,7 @@ class DocTastic_Controller_Admin extends Zikula_AbstractController
      */
     public function postInitialize()
     {
-        $this->view->setCaching(false);
+        $this->view->setCaching(Zikula_View::CACHE_DISABLED);
     }
     
 } // end class def

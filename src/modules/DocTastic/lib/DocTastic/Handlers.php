@@ -44,7 +44,7 @@ class DocTastic_Handlers
         $type = FormUtil::getPassedValue('type', 'user', 'GETPOST');
         if (($enableInlineHelp) && ($type == 'admin')) {
             $view = $event->getSubject();
-            $topmodule = $view->getToplevelmodule();
+            $topmodule = $view->getToplevelModule();
             $lang = $view->getLanguage();
             // 'main' used here because many modules still default to it
             $func = FormUtil::getPassedValue('func', 'main', 'GETPOST');
