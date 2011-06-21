@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Zikula 1.x\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-21 20:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: lib/DocTastic/Util.php:54
+msgid "Selected navigation type not found. Using default instead."
+msgstr ""
+
+#: lib/DocTastic/Api/Admin.php:31
+msgid "View Documentation"
+msgstr ""
+
+#: lib/DocTastic/Api/Admin.php:37
+msgid "Default Settings"
+msgstr ""
+
+#: lib/DocTastic/Api/Admin.php:43
+msgid "Module Overrides"
+msgstr ""
+
+#: lib/DocTastic/Api/Admin.php:49
+msgid "Document Generator"
+msgstr ""
+
+#: lib/DocTastic/Handlers.php:16
+msgid "Documentation"
+msgstr ""
+
+#: lib/DocTastic/Installer.php:29
+msgid "Error! Could not create the table."
+msgstr ""
+
+#: lib/DocTastic/Controller/User.php:51
+#, php-format
+msgid "NavType must be instance of %s."
+msgstr ""
+
+#: lib/DocTastic/Controller/Admin.php:43
+#, php-format
+msgid "DocTastic uses the %1$s html tag. Please enable it in the %2$s module."
+msgstr ""
+
+#: lib/DocTastic/Controller/Admin.php:80
+msgid "Done! Updated the DocTastic configuration."
+msgstr ""
+
+#: lib/DocTastic/Controller/Admin.php:93 lib/DocTastic/Controller/Ajax.php:76
+msgid "No"
+msgstr ""
+
+#: lib/DocTastic/Controller/Admin.php:93 lib/DocTastic/Controller/Ajax.php:76
+msgid "Yes"
+msgstr ""
+
+#: lib/DocTastic/Controller/Ajax.php:26
+msgid "Error! Could not create the override."
+msgstr ""
+
+#: lib/DocTastic/Controller/Ajax.php:105
+msgid "Error! Could not delete the requested override."
+msgstr ""
+
+#: lib/DocTastic/Version.php:19 templates/user/view.tpl:1
+msgid "DocTastic"
+msgstr ""
+
+#. !used in URL - nospaces, no special chars, lcase
+#: lib/DocTastic/Version.php:20
+msgid "doctastic"
+msgstr ""
+
+#: lib/DocTastic/Version.php:21
+msgid "Documentation Reader for Zikula Application Framework"
+msgstr ""
+
+#: templates/admin/modules.tpl:5
+msgid "DocTastic Module Overrides"
+msgstr ""
+
+#: templates/admin/modules.tpl:5 templates/admin/menu.tpl:3
+#: templates/admin/generator.tpl:10 templates/admin/modifyconfig.tpl:4
+msgid "version"
+msgstr ""
+
+#: templates/admin/modules.tpl:7
+msgid "Create new override"
+msgstr ""
+
+#: templates/admin/modules.tpl:9
+msgid ""
+"Override the default settings for Navigation Type and Language Filter for a "
+"specific module. You can also exempt a module from being listed in DocTastic "
+"completely."
+msgstr ""
+
+#: templates/admin/modules.tpl:15
+msgid "Module Name"
+msgstr ""
+
+#: templates/admin/modules.tpl:16
+msgid "Navigation Type"
+msgstr ""
+
+#: templates/admin/modules.tpl:17
+msgid "Language Filter Enabled"
+msgstr ""
+
+#: templates/admin/modules.tpl:18
+msgid "Exempt From List"
+msgstr ""
+
+#: templates/admin/modules.tpl:19
+msgid "Actions"
+msgstr ""
+
+#: templates/admin/modules.tpl:67 templates/admin/modules.tpl:68
+#: templates/admin/modules.tpl:136 templates/admin/modules.tpl:137
+msgid "Edit"
+msgstr ""
+
+#: templates/admin/modules.tpl:69 templates/admin/modules.tpl:80
+#: templates/admin/modules.tpl:138 templates/admin/modules.tpl:149
+msgid "Delete"
+msgstr ""
+
+#: templates/admin/modules.tpl:79 templates/admin/modules.tpl:148
+#: templates/admin/modifyconfig.tpl:32
+msgid "Save"
+msgstr ""
+
+#: templates/admin/modules.tpl:81 templates/admin/modules.tpl:150
+#: templates/admin/modifyconfig.tpl:33
+msgid "Cancel"
+msgstr ""
+
+#: templates/admin/menu.tpl:3
+msgid "DocTastic Zikula Documentation Reader"
+msgstr ""
+
+#: templates/admin/help.tpl:6
+msgid "Full Documentation"
+msgstr ""
+
+#: templates/admin/help.tpl:9
+msgid "Close"
+msgstr ""
+
+#: templates/admin/help.tpl:12
+msgid "inline help"
+msgstr ""
+
+#: templates/admin/help.tpl:18
+msgid "Help"
+msgstr ""
+
+#: templates/admin/generator.tpl:10
+msgid "DocTastic Document Generator"
+msgstr ""
+
+#: templates/admin/generator.tpl:12
+msgid ""
+"This editor <strong>does not save</strong> your generated content anywhere. "
+"You have to cut and past the raw text to your own text file and save to "
+"your /docs directory. This is merely provided as a markdown viewer for ease "
+"in doc creation."
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:4
+msgid "DocTastic settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:10
+msgid "General settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:12
+msgid "Navigation type"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:16
+msgid "Add the Core's /docs directory to the Navigation Tree"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:20
+msgid "Enable language filter"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:25
+msgid "Inline help settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:27
+msgid "Enable inline help"
+msgstr ""
+
+#: templates/user/view.tpl:4
+msgid "Location:"
+msgstr ""
+
+#: templates/user/view.tpl:6
+msgid "DocTastic Administration"
+msgstr ""
+
+#: templates/user/view.tpl:12
+msgid "Document Name:"
+msgstr ""

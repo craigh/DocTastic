@@ -1,0 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Zikula 1.x\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-06-21 20:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: javascript/doctastic.js:261
+msgid "Updating module override..."
+msgstr ""
+
+#: javascript/doctastic.js:348
+msgid "Do you really want to delete this module override?"
+msgstr ""
+
+#: javascript/doctastic.js:350
+msgid "Deleting module override..."
+msgstr ""
+
+#: javascript/help.js:15 javascript/help.js:23
+msgid "Help"
+msgstr ""
+
+#: javascript/help.js:25
+msgid "Hide Help"
+msgstr ""
