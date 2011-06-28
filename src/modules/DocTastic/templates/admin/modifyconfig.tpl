@@ -1,7 +1,9 @@
-{include file="admin/menu.tpl"}
-<div class="z-admincontainer">
-<div class="z-adminpageicon">{icon type="info" size="large"}</div>
-<h2>{gt text="DocTastic settings"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
+{adminheader}
+<div class="z-admin-content-pagetitle">
+    {icon type="config" size="small"}
+    <h3>{gt text="Settings"}</h3>
+</div>
+
 <form class="z-form" action="{modurl modname="DocTastic" type="admin" func="updateconfig"}" method="post" enctype="application/x-www-form-urlencoded">
     <div>
 	<input type="hidden" name="csrftoken" value="{insert name="csrftoken"}" />
@@ -34,4 +36,4 @@
     </div>
     </div>
 </form>
-</div><!-- /z-admincontainer -->
+{adminfooter}

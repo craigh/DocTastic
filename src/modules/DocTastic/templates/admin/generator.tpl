@@ -4,10 +4,12 @@
 {pageaddvar name='stylesheet' value='modules/DocTastic/javascript/markitup/skins/markitup/style.css'}
 {pageaddvar name='stylesheet' value='modules/DocTastic/javascript/markitup/sets/markdown/style.css'}
 
-{include file="admin/menu.tpl"}
-<div class="z-admincontainer">
-<div class="z-adminpageicon">{icon type="new" size="large"}</div>
-<h2>{gt text="DocTastic Document Generator"}&nbsp;({gt text="version"}&nbsp;{$modinfo.version})</h2>
+{adminheader}
+<div class="z-admin-content-pagetitle">
+    {icon type="new" size="small"}
+    <h3>{gt text="DocTastic document generator"}</h3>
+</div>
+
 <div class="z-informationmsg">
         {gt text="This editor <strong>does not save</strong> your generated content anywhere. You have to cut and past the raw text to your own text file and save to your /docs directory. This is merely provided as a markdown viewer for ease in doc creation."}
     </div>
@@ -17,4 +19,4 @@
       jQuery("#markItUp").markItUp(mySettings);
    });
 </script>
-</div>
+{adminfooter}
