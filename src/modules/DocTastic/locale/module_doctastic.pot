@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-21 20:14+0000\n"
+"POT-Creation-Date: 2011-07-21 21:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,67 +88,66 @@ msgid "Documentation Reader for Zikula Application Framework"
 msgstr ""
 
 #: templates/admin/modules.tpl:5
-msgid "DocTastic Module Overrides"
+msgid "Module overrides"
 msgstr ""
 
-#: templates/admin/modules.tpl:5 templates/admin/menu.tpl:3
-#: templates/admin/generator.tpl:10 templates/admin/modifyconfig.tpl:4
-msgid "version"
-msgstr ""
-
-#: templates/admin/modules.tpl:7
+#: templates/admin/modules.tpl:8
 msgid "Create new override"
 msgstr ""
 
-#: templates/admin/modules.tpl:9
+#: templates/admin/modules.tpl:10
 msgid ""
 "Override the default settings for Navigation Type and Language Filter for a "
 "specific module. You can also exempt a module from being listed in DocTastic "
 "completely."
 msgstr ""
 
-#: templates/admin/modules.tpl:15
+#: templates/admin/modules.tpl:16
 msgid "Module Name"
 msgstr ""
 
-#: templates/admin/modules.tpl:16
+#: templates/admin/modules.tpl:17
 msgid "Navigation Type"
 msgstr ""
 
-#: templates/admin/modules.tpl:17
+#: templates/admin/modules.tpl:18
 msgid "Language Filter Enabled"
 msgstr ""
 
-#: templates/admin/modules.tpl:18
+#: templates/admin/modules.tpl:19
 msgid "Exempt From List"
 msgstr ""
 
-#: templates/admin/modules.tpl:19
+#: templates/admin/modules.tpl:20
 msgid "Actions"
 msgstr ""
 
-#: templates/admin/modules.tpl:67 templates/admin/modules.tpl:68
-#: templates/admin/modules.tpl:136 templates/admin/modules.tpl:137
+#: templates/admin/modules.tpl:68 templates/admin/modules.tpl:69
+#: templates/admin/modules.tpl:137 templates/admin/modules.tpl:138
 msgid "Edit"
 msgstr ""
 
-#: templates/admin/modules.tpl:69 templates/admin/modules.tpl:80
-#: templates/admin/modules.tpl:138 templates/admin/modules.tpl:149
+#: templates/admin/modules.tpl:70 templates/admin/modules.tpl:81
+#: templates/admin/modules.tpl:139 templates/admin/modules.tpl:150
 msgid "Delete"
 msgstr ""
 
-#: templates/admin/modules.tpl:79 templates/admin/modules.tpl:148
-#: templates/admin/modifyconfig.tpl:32
+#: templates/admin/modules.tpl:80 templates/admin/modules.tpl:149
+#: templates/admin/modifyconfig.tpl:34
 msgid "Save"
 msgstr ""
 
-#: templates/admin/modules.tpl:81 templates/admin/modules.tpl:150
-#: templates/admin/modifyconfig.tpl:33
+#: templates/admin/modules.tpl:82 templates/admin/modules.tpl:151
+#: templates/admin/modifyconfig.tpl:35
 msgid "Cancel"
 msgstr ""
 
 #: templates/admin/menu.tpl:3
 msgid "DocTastic Zikula Documentation Reader"
+msgstr ""
+
+#: templates/admin/menu.tpl:3
+msgid "version"
 msgstr ""
 
 #: templates/admin/help.tpl:6
@@ -168,10 +167,10 @@ msgid "Help"
 msgstr ""
 
 #: templates/admin/generator.tpl:10
-msgid "DocTastic Document Generator"
+msgid "DocTastic document generator"
 msgstr ""
 
-#: templates/admin/generator.tpl:12
+#: templates/admin/generator.tpl:14
 msgid ""
 "This editor <strong>does not save</strong> your generated content anywhere. "
 "You have to cut and past the raw text to your own text file and save to "
@@ -180,30 +179,30 @@ msgid ""
 msgstr ""
 
 #: templates/admin/modifyconfig.tpl:4
-msgid "DocTastic settings"
-msgstr ""
-
-#: templates/admin/modifyconfig.tpl:10
-msgid "General settings"
+msgid "Settings"
 msgstr ""
 
 #: templates/admin/modifyconfig.tpl:12
+msgid "General settings"
+msgstr ""
+
+#: templates/admin/modifyconfig.tpl:14
 msgid "Navigation type"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:16
+#: templates/admin/modifyconfig.tpl:18
 msgid "Add the Core's /docs directory to the Navigation Tree"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:20
+#: templates/admin/modifyconfig.tpl:22
 msgid "Enable language filter"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:25
+#: templates/admin/modifyconfig.tpl:27
 msgid "Inline help settings"
 msgstr ""
 
-#: templates/admin/modifyconfig.tpl:27
+#: templates/admin/modifyconfig.tpl:29
 msgid "Enable inline help"
 msgstr ""
 
