@@ -17,7 +17,7 @@ function doctastic_tables()
     // Initialise table array
     $table = array();
 
-    $table['doctastic'] = DBUtil::getLimitedTablename('doctastic');
+    $table['doctastic'] = 'doctastic';
 
     $table['doctastic_column'] = array(
         'id' => 'id',
@@ -36,7 +36,7 @@ function doctastic_tables()
     $table['doctastic_primary_key_column'] = 'id';
 
     // add standard data fields
-    ObjectUtil::addStandardFieldsToTableDefinition($table['doctastic_column'], '');
+    ObjectUtil::addStandardFieldsToTableDefinition($table['doctastic_column']);
     ObjectUtil::addStandardFieldsToTableDataDefinition($table['doctastic_column_def']);
 
     return $table;
